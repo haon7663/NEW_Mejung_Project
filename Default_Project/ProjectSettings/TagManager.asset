@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Platform
+  - Boost
+  - Interrupt
+  - DashDown
+  - Dialogue
+  - Npc
+  - HitBox
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Platform
+  - Water
+  - UI
+  - Player
+  - Interrupt
+  - Npc
+  - DamageTile
+  - Clock
+  - Light
+  - Confiner
+  - SavePoint
+  - Item
+  - SizeConfiner
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: BackGround
+    uniqueID: 2043696395
+    locked: 0
+  - name: Decorate
+    uniqueID: 3043788559
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: AfterImage
+    uniqueID: 2779619385
+    locked: 0
+  - name: Player
+    uniqueID: 3276289817
+    locked: 0
+  - name: Platform
+    uniqueID: 2641959001
+    locked: 0
+  - name: Pipe
+    uniqueID: 583981569
+    locked: 0
+  - name: Effect
+    uniqueID: 2797335133
+    locked: 0
+  - name: Chain
+    uniqueID: 3609349737
+    locked: 0

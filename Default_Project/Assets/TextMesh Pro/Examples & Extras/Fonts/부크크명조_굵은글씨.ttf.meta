@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 2e62db9b15bc1d44e9a96ee233476cf0
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Bookk Myungjo
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: fb6a51e783937b545965b635b8991cd0, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

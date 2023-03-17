@@ -1,0 +1,49 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Cinemachine;
+
+public class SetConfiner : MonoBehaviour
+{
+    [Header("Layers")]
+    public LayerMask confiner_Layer;
+    public LayerMask sizeConfiner_Layer;
+
+    public CinemachineConfiner2D mCinemachineConfiner;
+
+    private Move mPlayerMove;
+    private float mLastSize;
+    private bool isOneTime;
+
+    private void Start()
+    {
+        mPlayerMove = GetComponent<Move>();
+        isOneTime = !Physics2D.OverlapBox(transform.position, new Vector2(1f, 1f), 0, sizeConfiner_Layer);
+    }
+    private void Update()
+    {
+        var collison_Confiner = Physics2D.OverlapBox(transform.position, new Vector2(0.1f, 2f), 0, confiner_Layer);
+        if (collison_Confiner) mCinemachineConfiner.m_BoundingShape2D = collison_Confiner;
+
+        var size_Confiner = Physics2D.OverlapBox(transform.position, new Vector2(1f, 1f), 0, sizeConfiner_Layer);
+        if (mPlayerMove.isDeath) return;
+        if (size_Confiner && !isOneTime)
+        {
+            isOneTime = true;
+            mPlayerMove.CinemacineSize = size_Confiner.transform.position.z;
+            mPlayerMove.mCameraSize = size_Confiner.transform.position.z;
+        }
+        else if (!size_Confiner && isOneTime)
+        {
+            isOneTime = false;
+            mPlayerMove.CinemacineSize = 10;
+            mPlayerMove.mCameraSize = 10;
+        }
+
+        if(mPlayerMove.real_CineSize != mLastSize)
+        {
+            mCinemachineConfiner.InvalidateCache(); 
+            mLastSize = mPlayerMove.real_CineSize;
+        }
+    }
+}
