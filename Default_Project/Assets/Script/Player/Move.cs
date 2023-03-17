@@ -59,6 +59,7 @@ public class Move : MonoBehaviour
     public float xRaw;
     public float yRaw;
     public float Resistance_MovetileSpeed;
+    public float AddMaxSpeed;
 
     [Space]
     [Header("CheckPoint")]
@@ -94,6 +95,7 @@ public class Move : MonoBehaviour
     private float mANDahsTime;
     private float PushTime;
     private float AfterDelay;
+    private float springTime;
     private Vector3 LastVelocity;
 
     private Transform MainCamera;
@@ -244,7 +246,14 @@ public class Move : MonoBehaviour
         else
         {
             //Debug.Log("VelocityX : " + RB.velocity.x + " / maxSpeed : " + maxSpeed);
-            if ((xRaw == 0 && PushTime < 0) || COL.onWall)
+            if (springTime > 0)
+            {
+                isSteamDash = true;
+                springTime -= Time.deltaTime;
+                if (springTime <= 0) isSteamDash = false;
+                RB.velocity = Vector2.Lerp(RB.velocity, new Vector2(xRaw * mMoveSpeed * 0.2f * Time.fixedDeltaTime, RB.velocity.y), Time.deltaTime * 3);
+            }
+            else if ((xRaw == 0 && PushTime < 0) || COL.onWall)
             {
                 RB.velocity = new Vector2(x * maxSpeed, RB.velocity.y);
             }
@@ -533,10 +542,12 @@ public class Move : MonoBehaviour
         RB.AddForce(Rot * Time.deltaTime * 15000, ForceMode2D.Force);
         PushTime = 0.1f;
     }
-    public void Spring(Vector2 angle)
+    public IEnumerator Spring(Vector2 angle)
     {
+        if(angle.x != 0) AN.SetTrigger("steamdash");
+        springTime = 1;
         haveDash = true;
-        isSteamDash = false;
+        yield return YieldInstructionCache.WaitForFixedUpdate;
         RB.velocity = Vector2.zero;
         RB.AddForce(angle, ForceMode2D.Impulse);
     }
