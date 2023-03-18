@@ -3,7 +3,7 @@ guid: df8a91737699c7449980009d4a959ee6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -63,6 +63,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -288,12 +289,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      BeagwanSISI_0: 1656963254
       BeagwanSISI_1: -1309129497
-      BeagwanSISI_3: 773020203
       BeagwanSISI_2: -1870502358
+      BeagwanSISI_3: 773020203
       BeagwanSISI_4: -1221389557
       BeagwanSISI_5: -1057987352
-      BeagwanSISI_0: 1656963254
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
