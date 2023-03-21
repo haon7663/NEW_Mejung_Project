@@ -81,6 +81,7 @@ public class Move : MonoBehaviour
     public bool isPipe = false;
     public bool isInteraction = false;
     public bool isSteamDash = false;
+    public bool isSpring = false;
     public bool haveSteamDash = false;
     public bool isSetCameraSize;
     public bool isDeath = false;
@@ -248,9 +249,9 @@ public class Move : MonoBehaviour
             //Debug.Log("VelocityX : " + RB.velocity.x + " / maxSpeed : " + maxSpeed);
             if (springTime > 0)
             {
-                isSteamDash = true;
+                isSpring = true;
                 springTime -= Time.deltaTime;
-                if (springTime <= 0) isSteamDash = false;
+                if (springTime <= 0) isSpring = false;
                 RB.velocity = Vector2.Lerp(RB.velocity, new Vector2(xRaw * mMoveSpeed * 0.2f * Time.fixedDeltaTime, RB.velocity.y), Time.deltaTime * 3);
             }
             else if ((xRaw == 0 && PushTime < 0) || COL.onWall)
@@ -316,6 +317,7 @@ public class Move : MonoBehaviour
         DashTime = 0.1f;
         AN.SetTrigger("steamdash");
         GetComponent<BetterJump>().enabled = false;
+        DOVirtual.Float(6, 0, 0.5f, RigidbodyDrag);
         isSteamDash = true;
         haveSteamDash = false;
         isANDash = false; isDash = false;
@@ -412,6 +414,7 @@ public class Move : MonoBehaviour
     }
     IEnumerator DashWait(float x, float y)
     {
+        springTime = 0;
         RB.gravityScale = 0;
         Invoke("InvDash", .1f);
         AN.SetTrigger("dash");
@@ -431,7 +434,7 @@ public class Move : MonoBehaviour
         {
             while ((RB.velocity.x < 0 ? RB.velocity.x * -1 : RB.velocity.x) > maxSpeed)
             {
-                if (isPipe || isSteamDash) break;
+                if (isPipe || isSteamDash || springTime > 0) break;
                 yield return YieldInstructionCache.WaitForFixedUpdate;
             }
         }
@@ -439,7 +442,7 @@ public class Move : MonoBehaviour
         {
             while ((RB.velocity.y < 0 ? RB.velocity.y * -0.4f : RB.velocity.y) > maxSpeed)
             {
-                if (isPipe || isSteamDash) break;
+                if (isPipe || isSteamDash || springTime > 0) break;
                 yield return YieldInstructionCache.WaitForFixedUpdate;
             }
         }
@@ -462,6 +465,7 @@ public class Move : MonoBehaviour
 
     IEnumerator AfterDashWait(bool isShake)
     {
+        springTime = 0;
         RB.gravityScale = 0;
         Invoke("InvDash", .1f);
         AN.SetTrigger("dash");
@@ -493,7 +497,7 @@ public class Move : MonoBehaviour
             //Debug.Log("Xup" + RB.velocity);
             while ((RB.velocity.x < 0 ? RB.velocity.x * -1 : RB.velocity.x) > maxSpeed)
             {
-                if (isPipe || isSteamDash) break;
+                if (isPipe || isSteamDash || springTime > 0) break;
                 isDash = true;
                 yield return YieldInstructionCache.WaitForFixedUpdate;
             }
@@ -503,7 +507,7 @@ public class Move : MonoBehaviour
             //Debug.Log("Yup" + RB.velocity);
             while ((RB.velocity.y < 0 ? RB.velocity.y * -1 : RB.velocity.y) > maxSpeed)
             {
-                if (isPipe || isSteamDash) break;
+                if (isPipe || isSteamDash || springTime > 0) break;
                 isDash = true;
                 yield return YieldInstructionCache.WaitForFixedUpdate;
             }
@@ -546,10 +550,10 @@ public class Move : MonoBehaviour
     {
         if(angle.x != 0) AN.SetTrigger("steamdash");
         springTime = 1;
-        haveDash = true;
         yield return YieldInstructionCache.WaitForFixedUpdate;
-        RB.velocity = Vector2.zero;
-        RB.AddForce(angle, ForceMode2D.Impulse);
+        GetComponent<BetterJump>().enabled = true;
+        RB.velocity = new Vector2(angle.x == 0 ? RB.velocity.x : angle.x, angle.y == 0 ? RB.velocity.y : angle.y);
+        haveDash = true;
     }
     public void Death()
     {
@@ -635,16 +639,6 @@ public class Move : MonoBehaviour
         }
         return flipSprite;
     }
-    void GroundFriction()
-    {
-        if(COL.onGround)
-        {
-            if((x < 0 ? -x : x) <= 0.01f)
-            {
-                //RB.velocity = new Vector2(Mathf.SmoothDamp(RB.velocity.x, 0f, ref ))
-            }
-        }
-    }
 
     IEnumerator DisableMovement(float time)
     {
@@ -701,8 +695,13 @@ public class Move : MonoBehaviour
         yield return null;
     }
 
-    void RigidbodyDrag(float x) => RB.drag = x;
-
+    void RigidbodyDrag(float x)
+    {
+        if(isDash || isSteamDash)
+            RB.drag = x;
+        else if(!isDash)
+            RB.drag = 0;
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.CompareTag("Platform") && isDash)

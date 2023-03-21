@@ -25,6 +25,7 @@ public class AnimationScript : MonoBehaviour
         AN.SetBool("isDashing", MV.isANDash);
         AN.SetBool("isClim", MV.isSlide);
         AN.SetBool("isSteamDash", MV.isSteamDash);
+        AN.SetBool("isSpring", MV.isSpring);
         AN.SetBool("isSlope", COL.onSlope);
         //AN.SetBool("onRightWall", COL.onRightWall);
         //AN.SetBool("wallGrab", move.wallGrab);
