@@ -231,7 +231,6 @@ public class Move : MonoBehaviour
         if (isPipe || isInteraction || COL.onSlope) return;
 
         Player_Animation.SetHorizontalMovement(x, y, RB.velocity.y); Walk();
-
     }
 
     private void Walk()
@@ -697,9 +696,9 @@ public class Move : MonoBehaviour
 
     void RigidbodyDrag(float x)
     {
-        if(isDash || isSteamDash)
+        if(isANDash || isSteamDash)
             RB.drag = x;
-        else if(!isDash)
+        else
             RB.drag = 0;
     }
     private void OnCollisionEnter2D(Collision2D collision)
