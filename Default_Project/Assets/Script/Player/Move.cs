@@ -111,6 +111,20 @@ public class Move : MonoBehaviour
     public UnityEngine.Rendering.Universal.Light2D mBackGroundLight;
     public UnityEngine.Rendering.Universal.Light2D mPlatformLight;
 
+    private static Move instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Start()
     {
         Time.timeScale = GameTime;
@@ -696,7 +710,7 @@ public class Move : MonoBehaviour
 
     void RigidbodyDrag(float x)
     {
-        if(isANDash || isSteamDash)
+        if(springTime <= 0)
             RB.drag = x;
         else
             RB.drag = 0;
