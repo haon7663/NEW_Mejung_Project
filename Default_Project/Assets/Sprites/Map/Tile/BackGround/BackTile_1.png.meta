@@ -506,6 +506,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: BackTile_1_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 498a859c88028524d9645eb72b935fc3
+      internalID: 2013438783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -518,6 +539,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       BackTile_1_0: 1103987188
+      BackTile_1_1: 2013438783
       Deco2LD: 1469532288
       Deco2LU: -772600556
       Deco2RD: -1797606381
