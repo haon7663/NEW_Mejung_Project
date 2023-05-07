@@ -18,7 +18,6 @@ public class Text_Bar : MonoBehaviour
     private Text mText;
     private Text mNameText;
     private Image mImage;
-    private Image mNameImage;
     private RectTransform mRectTransform;
     private Dialogue mTextManager;
 
@@ -26,8 +25,7 @@ public class Text_Bar : MonoBehaviour
     {
         mDialog = transform.GetChild(0).gameObject;
         mText = mDialog.GetComponent<Text>();
-        mNameText = transform.GetChild(1).GetChild(0).GetComponent<Text>();
-        mNameImage = transform.GetChild(1).gameObject.GetComponent<Image>();
+        mNameText = transform.GetChild(1).GetComponent<Text>();
         mImage = GetComponent<Image>();
         mRectTransform = GetComponent<RectTransform>();
         mTextManager = transform.parent.GetComponent<Dialogue>();
@@ -44,6 +42,6 @@ public class Text_Bar : MonoBehaviour
 
         mRectTransform.position = Vector2.Lerp(mRectTransform.position, new Vector2(mRectTransform.position.x, setPos), Time.deltaTime * 4);
         mImage.color = Color.Lerp(mImage.color, new Color(setColor, setColor, setColor, 1), Time.deltaTime * 4);
-        mNameImage.color = Color.Lerp(mImage.color, new Color(setColor, setColor, setColor, 1), Time.deltaTime * 4);
+        mText.color = Color.Lerp(mText.color, new Color(setColor, setColor, setColor, 1), Time.deltaTime * 4);
     }
 }
