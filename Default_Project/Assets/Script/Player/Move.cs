@@ -388,7 +388,7 @@ public class Move : MonoBehaviour
         isDash = true;
         isSteamDash = false;
 
-        InvokeADW(true);
+        StartCoroutine(AfterDashWait(true));
     }
     private Vector2 setRaw()
     {
@@ -726,7 +726,7 @@ public class Move : MonoBehaviour
             haveDash = true;
             isSteamDash = false;
         }
-        if (collision.transform.CompareTag("Boost") && isDash && CollisonTime <= 0)
+        if (collision.transform.CompareTag("Boost") && isDash)
         {
             DOVirtual.Float(0.1f, 1f, 0.12f, timedrag).SetEase(Ease.InCirc);
             CollisonTime = 0.2f;
@@ -756,7 +756,7 @@ public class Move : MonoBehaviour
             isDash = true;
             isSteamDash = false;
 
-            InvokeADW(true);
+            StartCoroutine(AfterDashWait(true));
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -768,7 +768,6 @@ public class Move : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
-    private void InvokeADW(bool isShake) => StartCoroutine(AfterDashWait(isShake));
     void timedrag(float x) => Time.timeScale = x;
 
     private void OnDrawGizmos()
