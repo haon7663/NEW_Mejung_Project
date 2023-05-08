@@ -244,7 +244,7 @@ public class Move : MonoBehaviour
         if (isInteraction) RB.velocity = new Vector2(0, RB.velocity.y);
         if (isPipe || isInteraction || COL.onSlope) return;
 
-        Player_Animation.SetHorizontalMovement(x, y, RB.velocity.y); Walk();
+        Player_Animation.SetHorizontalMovement(x, y, RB.velocity.y, xRaw); Walk();
     }
 
     private void Walk()
@@ -252,7 +252,7 @@ public class Move : MonoBehaviour
         if (!isCanMove || isDash || CollisonTime > 0)
             return;
 
-        AN.SetBool("run", xRaw != 0 && Mathf.Abs(RB.velocity.x) > 0.1f);
+        AN.SetBool("run", Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D));
         if (isWallJump)
         {
             RB.velocity = Vector2.Lerp(RB.velocity, (new Vector2(xRaw * mMoveSpeed * 0.2f * Time.fixedDeltaTime, RB.velocity.y)), mWallJumpLerp * Time.deltaTime);

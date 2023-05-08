@@ -32,10 +32,11 @@ public class AnimationScript : MonoBehaviour
         //AN.SetBool("canMove", move.canMove);
     }
 
-    public void SetHorizontalMovement(float x, float y, float yVel)
+    public void SetHorizontalMovement(float x, float y, float yVel, float xRaw)
     {
         AN.SetFloat("HorizontalAxis", x);
         AN.SetFloat("VerticalAxis", y);
         AN.SetFloat("VerticalVelocity", yVel);
+        AN.SetBool("isHorizontal", xRaw != 0);
     }
 }
