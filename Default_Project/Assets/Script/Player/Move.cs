@@ -71,6 +71,7 @@ public class Move : MonoBehaviour
 
     [Space]
     [Header("Bool")]
+    public bool isCutScene;
     public bool isSlide;
     public bool isWallJump;
     public bool isCanMove = true;
@@ -85,6 +86,8 @@ public class Move : MonoBehaviour
     public bool haveSteamDash = false;
     public bool isSetCameraSize;
     public bool isDeath = false;
+
+    private bool isMove = false;
 
     private bool canWallSlide;
 
@@ -252,7 +255,10 @@ public class Move : MonoBehaviour
         if (!isCanMove || isDash || CollisonTime > 0)
             return;
 
-        AN.SetBool("run", Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D));
+        if (!isCutScene && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))) isMove = true;
+        else if(!isCutScene) isMove = false;
+        AN.SetBool("run", isMove);
+
         if (isWallJump)
         {
             RB.velocity = Vector2.Lerp(RB.velocity, (new Vector2(xRaw * mMoveSpeed * 0.2f * Time.fixedDeltaTime, RB.velocity.y)), mWallJumpLerp * Time.deltaTime);
