@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class DialogueParse : MonoBehaviour
 {
     public static Dictionary<string, TalkData[]> DialogueDictionary =
                 new Dictionary<string, TalkData[]>();
     [SerializeField] private TextAsset csvFile = null;
+
 
     private void Awake()
     {

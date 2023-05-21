@@ -773,6 +773,10 @@ public class Move : MonoBehaviour
             isSteamDash = false;
             Destroy(collision.gameObject);
         }
+        if(collision.transform.CompareTag("RadioBox"))
+        {
+            collision.GetComponent<RadioBox>().StartRadio();
+        }
     }
     void timedrag(float x) => Time.timeScale = x;
 

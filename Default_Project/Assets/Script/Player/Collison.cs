@@ -61,15 +61,18 @@ public class Collison : MonoBehaviour
         onSlopeLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + new Vector2(leftOffset.x, 0), 0.65f, groundLayer);
 
         wallSide = onRightWall ? -1 : 1;
+
+        if (onSlope && mPlayerMove.LastCollision.contacts.Length <= 0) onSlope = false;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.transform.CompareTag("Boost"))
+        if (collision.transform.CompareTag("Boost"))
         {
             slopeAngle = Vector2.Angle(collision.contacts[0].normal, Vector2.up);
             mPlayerMove.LastCollision = collision;
-            if (slopeAngle > 40 && slopeAngle < 50)
+            if (slopeAngle > 40 && slopeAngle < 50 && mPlayerMove.LastCollision.contacts.Length > 0)
             {
                 onSlope = true;
             }

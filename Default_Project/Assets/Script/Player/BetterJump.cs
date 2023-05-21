@@ -22,13 +22,16 @@ public class BetterJump : MonoBehaviour
 
     private void Update()
     {
-        if(RB.velocity.y < 0)
+        if(!mPlayerMove.isANDash)
         {
-            RB.velocity += Vector2.up * Physics2D.gravity.y * (mFallMultiplier - 1) * Time.deltaTime;
-        }
-        else if(RB.velocity.y > 0 && !Input.GetKey(KeySetting.keys[KeyAction.JUMP]))
-        {
-            RB.velocity += Vector2.up * Physics2D.gravity.y * (mLowJumpMultiplier - 1) * Time.deltaTime;
+            if (RB.velocity.y < 0)
+            {
+                RB.velocity += Vector2.up * Physics2D.gravity.y * (mFallMultiplier - 1) * Time.deltaTime;
+            }
+            else if (RB.velocity.y > 0)
+            {
+                RB.velocity += Vector2.up * Physics2D.gravity.y * (mLowJumpMultiplier - 1) * Time.deltaTime;
+            }
         }
     }
 }
