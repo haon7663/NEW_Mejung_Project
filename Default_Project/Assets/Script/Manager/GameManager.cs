@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [Space]
     [Header("Bool")]
     public bool onPause = false;
+    public bool onRadio = false;
 
     private void Awake()
     {

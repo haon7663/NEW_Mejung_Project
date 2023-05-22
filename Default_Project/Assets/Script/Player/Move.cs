@@ -192,7 +192,7 @@ public class Move : MonoBehaviour
 
         //_____________________________//
 
-        if (Input.GetKeyDown(KeySetting.keys[KeyAction.JUMP])) Jump();
+        if (Input.GetKeyDown(KeySetting.keys[KeyAction.JUMP]) && !isCutScene) Jump();
         if (Input.GetKeyDown(KeySetting.keys[KeyAction.STEAM]) && isANDash && haveSteamDash) StartCoroutine(SteamDash(xRaw, yRaw));
         mAimObject.SetActive(COL.onSlope);
         if (COL.onSlope && !isANDash)
@@ -205,7 +205,7 @@ public class Move : MonoBehaviour
             Quaternion rotation = Quaternion.Slerp(mAimObject.transform.rotation, angleAxis, 25 * Time.deltaTime);
             mAimObject.transform.rotation = rotation;
         }
-        if (Input.GetKeyDown(KeySetting.keys[KeyAction.DASH]) && haveDash)
+        if (Input.GetKeyDown(KeySetting.keys[KeyAction.DASH]) && haveDash && !isCutScene)
         {
             if (COL.onSlope) ChargeDash();
             else if (!COL.onGround && (xRaw != 0 || yRaw != 0) && DashTime <= 0 && (((COL.onRightWall && xRaw == -1) || (COL.onLeftWall && xRaw == 1)) || !COL.onWall)) Dash(xRaw, yRaw);
@@ -250,15 +250,24 @@ public class Move : MonoBehaviour
         Player_Animation.SetHorizontalMovement(x, y, RB.velocity.y, xRaw); Walk();
     }
 
+    public void CutWalk(bool enable)
+    {
+        AN.SetBool("isWalk", enable);
+        if(enable) RB.velocity = new Vector2(x * maxSpeed * 0.3f, RB.velocity.y);
+        else RB.velocity = new Vector2(0, RB.velocity.y);
+    }
+
     private void Walk()
     {
+        if(isCutScene)
+        {
+            AN.SetBool("run", false);
+        }
         if (!isCanMove || isDash || CollisonTime > 0)
             return;
 
-        if (!isCutScene && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))) isMove = true;
-        else if(!isCutScene) isMove = false;
-        AN.SetBool("run", isMove);
-
+        AN.SetBool("run", Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D));
+         
         if (isWallJump)
         {
             RB.velocity = Vector2.Lerp(RB.velocity, (new Vector2(xRaw * mMoveSpeed * 0.2f * Time.fixedDeltaTime, RB.velocity.y)), mWallJumpLerp * Time.deltaTime);
@@ -775,7 +784,7 @@ public class Move : MonoBehaviour
         }
         if(collision.transform.CompareTag("RadioBox"))
         {
-            collision.GetComponent<RadioBox>().StartRadio();
+            collision.GetComponent<SceneEvent>().Event();
         }
     }
     void timedrag(float x) => Time.timeScale = x;

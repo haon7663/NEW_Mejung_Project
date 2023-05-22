@@ -21,7 +21,7 @@ public class RadioDialogue : MonoBehaviour
         mTextBarAnimator = mTextBar.GetComponent<Animator>();
         mText = mTextBar.GetComponentInChildren<Text>();
 
-        talkDatas = DialogueParse.DialogueDictionary["¾ö"];
+        //talkDatas = DialogueParse.DialogueDictionary["¾ö"];
     }
 
     public void StartDialogue(string eventName)
@@ -52,11 +52,12 @@ public class RadioDialogue : MonoBehaviour
     {
         mTextBar.SetActive(true);
         mTextBarAnimator.SetBool("isRadio", true);
+        GameManager.GM.onRadio = true;
         for (int i = 0; i < talkdatas.Length; i++)
         {
             foreach (string context in talkdatas[i].contexts)
             {
-                for (float j = 0; j < 1; j += Time.deltaTime)
+                while(!Input.GetKeyDown(KeySetting.keys[KeyAction.INTERACTION]))
                 {
                     yield return YieldInstructionCache.WaitForFixedUpdate;
                 }
@@ -64,7 +65,7 @@ public class RadioDialogue : MonoBehaviour
                 mText.text = "";
                 mText.DOText(context, context.Length * 0.05f).SetEase(Ease.Linear);
 
-                yield return YieldInstructionCache.WaitForSeconds(context.Length * 0.05f);
+                yield return YieldInstructionCache.WaitForSeconds(context.Length * 0.035f);
             }
         }
         mTextBarAnimator.SetBool("isRadio", false);
@@ -72,6 +73,7 @@ public class RadioDialogue : MonoBehaviour
         {
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
+        GameManager.GM.onRadio = false;
         mTextBar.SetActive(false);
         yield return null;
     }

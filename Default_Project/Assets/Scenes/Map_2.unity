@@ -140,11 +140,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4871430336572265127, guid: c852f31a2a648044f9e4df5b1ab2701c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 115.6
+      value: 37.4
       objectReference: {fileID: 0}
     - target: {fileID: 4871430336572265127, guid: c852f31a2a648044f9e4df5b1ab2701c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 63
+      value: 5.98
       objectReference: {fileID: 0}
     - target: {fileID: 4871430336572265127, guid: c852f31a2a648044f9e4df5b1ab2701c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -31823,6 +31823,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &298602558
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 298602559}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &298602559
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298602558}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 57.91, y: 16.18, z: 1.2748218}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &299387073
 GameObject:
   m_ObjectHideFlags: 0
@@ -32019,7 +32050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8042d7eeb61797d459f353d2b2a2b102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventName: "\uC5C4"
+  eventName: "\uCD94\uB77D"
 --- !u!1 &373021675
 GameObject:
   m_ObjectHideFlags: 0
@@ -32958,6 +32989,7 @@ MonoBehaviour:
   mDefaultPause: {fileID: 2010285154}
   mKeySetting: {fileID: 1754168892}
   onPause: 0
+  onRadio: 0
 --- !u!114 &656069971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33877,8 +33909,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC548\uB155\uD558\uC138\uC694 \uC81C \uC774\uB984\uC740 \uC704\uC2B9\uD64D\uC2DD\uC785\uB2C8\uB2E4.
-    \u314B\u314B"
+  m_Text: 
 --- !u!222 &1038616839
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -39738,7 +39769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a119f01182f05142b8632e750debd9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  csvFile: {fileID: 4900000, guid: 6d46dfcc1d23b5c48b6ef40b4693b41d, type: 3}
+  csvFile: {fileID: 4900000, guid: 87ff14d6cebc2f642a3bfaaaacf763a8, type: 3}
 --- !u!4 &1404533124
 Transform:
   m_ObjectHideFlags: 0
@@ -47729,11 +47760,15 @@ PrefabInstance:
       objectReference: {fileID: 1127116771}
     - target: {fileID: 1738467613090157220, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 103.37778
+      value: 25.17778
       objectReference: {fileID: 0}
     - target: {fileID: 1738467613090157220, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 41
+      value: -0.01999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 1738467613090157220, guid: 3520813b77138954581dfdf70454ba02, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1738467613090157223, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_Follow
@@ -47749,7 +47784,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1738467613449969241, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 22
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1738467613449969241, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_LocalPosition.z
@@ -51990,6 +52025,81 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2021461528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2021461531}
+  - component: {fileID: 2021461530}
+  - component: {fileID: 2021461532}
+  m_Layer: 0
+  m_Name: SteamDashEvent_Box
+  m_TagString: RadioBox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &2021461530
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021461528}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -6.0087814}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 37.982437}
+  m_EdgeRadius: 0
+--- !u!4 &2021461531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021461528}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 49.85, y: 29.5, z: -6.9576845}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2021461532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021461528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d42aa6b77f2c8342beb8115d0591083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cinevirtual: {fileID: 1545325171}
+  mCinemachineConfiner: {fileID: 1634862688}
+  m_EventFollow: {fileID: 298602559}
+  eventName: "\uC2A4\uD300\uB300\uC26C"
 --- !u!1 &2134290377
 GameObject:
   m_ObjectHideFlags: 0
