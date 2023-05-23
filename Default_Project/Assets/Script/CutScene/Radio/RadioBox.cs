@@ -19,5 +19,6 @@ public class RadioBox : SceneEvent
     public void StartRadio()
     {
         m_RadioDialogue.StartDialogue(eventName);
+        Destroy(gameObject);
     }
 }

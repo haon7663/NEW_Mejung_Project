@@ -50,22 +50,27 @@ public class RadioDialogue : MonoBehaviour
     }
     IEnumerator DebugRadioDialogue(TalkData[] talkdatas)
     {
+        mText.text = "";
         mTextBar.SetActive(true);
         mTextBarAnimator.SetBool("isRadio", true);
         GameManager.GM.onRadio = true;
+        for (float j = 0; j < 1f; j += Time.deltaTime)
+        {
+            yield return YieldInstructionCache.WaitForFixedUpdate;
+        }
         for (int i = 0; i < talkdatas.Length; i++)
         {
             foreach (string context in talkdatas[i].contexts)
             {
-                while(!Input.GetKeyDown(KeySetting.keys[KeyAction.INTERACTION]))
-                {
-                    yield return YieldInstructionCache.WaitForFixedUpdate;
-                }
-
+                DOTween.Kill(transform);
                 mText.text = "";
                 mText.DOText(context, context.Length * 0.05f).SetEase(Ease.Linear);
 
-                yield return YieldInstructionCache.WaitForSeconds(context.Length * 0.035f);
+                yield return YieldInstructionCache.WaitForSeconds(context.Length * 0.05f);
+                while (!Input.GetKeyDown(KeySetting.keys[KeyAction.INTERACTION]))
+                {
+                    yield return YieldInstructionCache.WaitForFixedUpdate;
+                }
             }
         }
         mTextBarAnimator.SetBool("isRadio", false);

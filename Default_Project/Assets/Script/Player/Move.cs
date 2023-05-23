@@ -60,6 +60,7 @@ public class Move : MonoBehaviour
     public float yRaw;
     public float Resistance_MovetileSpeed;
     public float AddMaxSpeed;
+    public float m_CutX = 0;
 
     [Space]
     [Header("CheckPoint")]
@@ -75,6 +76,7 @@ public class Move : MonoBehaviour
     public bool isSlide;
     public bool isWallJump;
     public bool isCanMove = true;
+    public bool isWalk = false;
     public bool isDash = false;
     public bool isANDash = false;
     public bool haveDash = true;
@@ -250,18 +252,15 @@ public class Move : MonoBehaviour
         Player_Animation.SetHorizontalMovement(x, y, RB.velocity.y, xRaw); Walk();
     }
 
-    public void CutWalk(bool enable)
-    {
-        AN.SetBool("isWalk", enable);
-        if(enable) RB.velocity = new Vector2(x * maxSpeed * 0.3f, RB.velocity.y);
-        else RB.velocity = new Vector2(0, RB.velocity.y);
-    }
-
     private void Walk()
     {
         if(isCutScene)
         {
             AN.SetBool("run", false);
+            AN.SetBool("isWalk", isWalk);
+            if (isWalk) RB.velocity = new Vector2(m_CutX * maxSpeed * 0.3f, RB.velocity.y);
+            else RB.velocity = new Vector2(0, RB.velocity.y);
+            return;
         }
         if (!isCanMove || isDash || CollisonTime > 0)
             return;
@@ -658,6 +657,11 @@ public class Move : MonoBehaviour
         else if (COL.onSlopeLeftWall) SR.flipX = false;
     }
 
+    public void OnShake()
+    {
+        CinemachineShake.Instance.ShakeCamera(6, 0.3f);
+    }
+
     bool PlayerFlip()
     {
         bool flipSprite = (SR.flipX ? x > 0f : x < 0f);
@@ -744,7 +748,7 @@ public class Move : MonoBehaviour
         if (collision.transform.CompareTag("Boost") && isDash)
         {
             DOVirtual.Float(0.1f, 1f, 0.12f, timedrag).SetEase(Ease.InCirc);
-            CollisonTime = 0.2f;
+            CollisonTime = 0.1f;
 
             float x = LastVelocity.x > 0 ? 200 : -200;
             float y = LastVelocity.y > 0 ? 200 : -200;
@@ -782,7 +786,7 @@ public class Move : MonoBehaviour
             isSteamDash = false;
             Destroy(collision.gameObject);
         }
-        if(collision.transform.CompareTag("RadioBox"))
+        if(collision.transform.CompareTag("RadioBox") && !isCutScene && !GameManager.GM.onRadio)
         {
             collision.GetComponent<SceneEvent>().Event();
         }
