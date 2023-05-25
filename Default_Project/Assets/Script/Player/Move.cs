@@ -88,6 +88,7 @@ public class Move : MonoBehaviour
     public bool haveSteamDash = false;
     public bool isSetCameraSize;
     public bool isDeath = false;
+    public bool isInputMove = false;
 
     private bool isMove = false;
 
@@ -265,7 +266,7 @@ public class Move : MonoBehaviour
         if (!isCanMove || isDash || CollisonTime > 0)
             return;
 
-        AN.SetBool("run", Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D));
+        AN.SetBool("run", Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || isInputMove);
          
         if (isWallJump)
         {
@@ -281,7 +282,7 @@ public class Move : MonoBehaviour
                 if (springTime <= 0) isSpring = false;
                 RB.velocity = Vector2.Lerp(RB.velocity, new Vector2(xRaw * mMoveSpeed * 0.2f * Time.fixedDeltaTime, RB.velocity.y), Time.deltaTime * 3);
             }
-            else if ((xRaw == 0 && PushTime < 0) || COL.onWall)
+            else if ((xRaw == 0 && PushTime < 0) || COL.onWall || isInputMove)
             {
                 RB.velocity = new Vector2(x * maxSpeed, RB.velocity.y);
             }
