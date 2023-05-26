@@ -110,6 +110,9 @@ public class Move : MonoBehaviour
 
     public Vector3 setPos;
 
+    public GameObject FallDustEffect;
+    public GameObject JumpDustEffect;
+
     [Space]
     [Header("Death")]
     public GameObject MapConfiner;
@@ -323,6 +326,7 @@ public class Move : MonoBehaviour
         }
         else if (COL.onGround)
         {
+            Instantiate(JumpDustEffect, transform.position, Quaternion.identity);
             RB.velocity = new Vector2(RB.velocity.x, 0);
             RB.velocity += Vector2.up * mJumpPower;
             COL.onSlope = false;
@@ -747,6 +751,10 @@ public class Move : MonoBehaviour
             RB.velocity = dir * Mathf.Max(speed, 0f);
             haveDash = true;
             isSteamDash = false;
+        }
+        else if(collision.transform.CompareTag("Platform") && COL.onGround)
+        {
+            Instantiate(FallDustEffect, transform.position, Quaternion.identity);
         }
         if (collision.transform.CompareTag("Boost") && isDash)
         {

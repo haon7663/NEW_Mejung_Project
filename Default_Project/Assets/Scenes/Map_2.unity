@@ -216,11 +216,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4871430336572265127, guid: c852f31a2a648044f9e4df5b1ab2701c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 70.15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4871430336572265127, guid: c852f31a2a648044f9e4df5b1ab2701c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 84.55
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4871430336572265127, guid: c852f31a2a648044f9e4df5b1ab2701c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -274,6 +274,14 @@ PrefabInstance:
       propertyPath: DeathConfiner
       value: 
       objectReference: {fileID: 1860128647}
+    - target: {fileID: 4871430336572265146, guid: c852f31a2a648044f9e4df5b1ab2701c, type: 3}
+      propertyPath: FallDustEffect
+      value: 
+      objectReference: {fileID: 3229479989434809948, guid: 23622800a86e61943a21422aa2d53945, type: 3}
+    - target: {fileID: 4871430336572265146, guid: c852f31a2a648044f9e4df5b1ab2701c, type: 3}
+      propertyPath: JumpDustEffect
+      value: 
+      objectReference: {fileID: 1728600524273050926, guid: b6de003ed93fa5f41bc066232a15123a, type: 3}
     - target: {fileID: 4871430336572265146, guid: c852f31a2a648044f9e4df5b1ab2701c, type: 3}
       propertyPath: mCinemachineConfiner
       value: 
@@ -52013,11 +52021,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1738467613449969241, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 70.15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1738467613449969241, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 84.55
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1738467613449969241, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_LocalPosition.z
