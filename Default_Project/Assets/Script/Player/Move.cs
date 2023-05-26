@@ -77,6 +77,7 @@ public class Move : MonoBehaviour
     public bool isWallJump;
     public bool isCanMove = true;
     public bool isWalk = false;
+    public bool isRun = false;
     public bool isDash = false;
     public bool isANDash = false;
     public bool haveDash = true;
@@ -88,7 +89,6 @@ public class Move : MonoBehaviour
     public bool haveSteamDash = false;
     public bool isSetCameraSize;
     public bool isDeath = false;
-    public bool isInputMove = false;
 
     private bool isMove = false;
 
@@ -257,16 +257,17 @@ public class Move : MonoBehaviour
     {
         if(isCutScene)
         {
-            AN.SetBool("run", false);
+            AN.SetBool("run", isRun);
             AN.SetBool("isWalk", isWalk);
             if (isWalk) RB.velocity = new Vector2(m_CutX * maxSpeed * 0.3f, RB.velocity.y);
+            else if(isRun) RB.velocity = new Vector2(m_CutX * maxSpeed, RB.velocity.y);
             else RB.velocity = new Vector2(0, RB.velocity.y);
             return;
         }
         if (!isCanMove || isDash || CollisonTime > 0)
             return;
 
-        AN.SetBool("run", Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || isInputMove);
+        AN.SetBool("run", Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D));
          
         if (isWallJump)
         {
@@ -282,7 +283,7 @@ public class Move : MonoBehaviour
                 if (springTime <= 0) isSpring = false;
                 RB.velocity = Vector2.Lerp(RB.velocity, new Vector2(xRaw * mMoveSpeed * 0.2f * Time.fixedDeltaTime, RB.velocity.y), Time.deltaTime * 3);
             }
-            else if ((xRaw == 0 && PushTime < 0) || COL.onWall || isInputMove)
+            else if ((xRaw == 0 && PushTime < 0) || COL.onWall)
             {
                 RB.velocity = new Vector2(x * maxSpeed, RB.velocity.y);
             }
@@ -389,6 +390,7 @@ public class Move : MonoBehaviour
         {
             lastVelocity = new Vector3(x, Revert_Y);
         }
+
         else if (Mathf.Abs(lastVelocity.x) <= Mathf.Abs(lastVelocity.y))
         {
             lastVelocity = new Vector3(Revert_X, y);

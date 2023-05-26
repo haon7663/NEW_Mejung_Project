@@ -5,40 +5,43 @@ using UnityEngine.SceneManagement;
 
 public class MoveScene : MonoBehaviour
 {
-    private Transform mPlayer;
-    private Move mPlayerMove;
+    private Transform m_Player;
+    private Move m_PlayerMove;
 
     public int SceneCount;
     public Vector2 SetPostion;
 
     public bool isRight;
-    public bool isWalk;
 
     private void Start()
     {
-        mPlayer = GameObject.FindGameObjectWithTag("Player").transform;
-        mPlayerMove = mPlayer.GetComponent<Move>();
+        m_Player = GameObject.FindGameObjectWithTag("Player").transform;
+        m_PlayerMove = m_Player.GetComponent<Move>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Fade.instance.FadeIn(0.95f);
-            Invoke(nameof(InvokeLoad), 1);
-
-            if(isWalk)
-            {
-                mPlayerMove.isInputMove = true;
-                mPlayerMove.x = (isRight ? 1 : -1);
-            }
+            StartCoroutine(InvokeLoad(1f));
         }
     }
 
-    private void InvokeLoad()
+    private IEnumerator InvokeLoad(float time)
     {
-        mPlayerMove.isInputMove = false;
-        mPlayer.position = SetPostion;
+        m_PlayerMove.isCutScene = true;
+        m_PlayerMove.isWalk = true;
+        m_PlayerMove.m_CutX = isRight ? 1 : -1;
+        for (float i = 0; i < time; i += Time.deltaTime)
+        {
+            yield return YieldInstructionCache.WaitForFixedUpdate;
+        }
+        Fade.instance.FadeIn(time);
+        for (float i = 0; i < time; i += Time.deltaTime)
+        {
+            yield return YieldInstructionCache.WaitForFixedUpdate;
+        }
+        m_Player.position = SetPostion;
         SceneManager.LoadScene(SceneCount);
     }
 }

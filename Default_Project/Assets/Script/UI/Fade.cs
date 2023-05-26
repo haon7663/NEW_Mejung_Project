@@ -22,6 +22,7 @@ public class Fade : MonoBehaviour
     }
     public void FadeOut(float time)
     {
+        m_Image.enabled = true;
         m_Image.color = new Color(0, 0, 0, 1);
         m_Image.DOFade(0, time);
         Invoke(nameof(DelayEnable), time);
