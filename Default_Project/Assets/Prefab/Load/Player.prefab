@@ -587,11 +587,15 @@ MonoBehaviour:
   yRaw: 0
   Resistance_MovetileSpeed: 0
   AddMaxSpeed: 12
+  m_CutX: 0
   mCheckPoint: {fileID: 0}
   mHitSize: {x: 0.6, y: 0.9}
+  isCutScene: 0
   isSlide: 0
   isWallJump: 0
   isCanMove: 1
+  isWalk: 0
+  isRun: 0
   isDash: 0
   isANDash: 0
   haveDash: 0
@@ -604,6 +608,8 @@ MonoBehaviour:
   isSetCameraSize: 0
   isDeath: 0
   setPos: {x: 0, y: 0, z: 0}
+  FallDustEffect: {fileID: 3229479989434809948, guid: 23622800a86e61943a21422aa2d53945, type: 3}
+  JumpDustEffect: {fileID: 1728600524273050926, guid: b6de003ed93fa5f41bc066232a15123a, type: 3}
   MapConfiner: {fileID: 0}
   DeathConfiner: {fileID: 0}
   mBackGroundLight: {fileID: 4871430335754406475}

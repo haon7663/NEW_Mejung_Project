@@ -110,6 +110,8 @@ public class Move : MonoBehaviour
 
     public Vector3 setPos;
 
+    public SpriteRenderer m_SteamMachine;
+    public Sprite m_ChangeSteamMachine;
     public GameObject FallDustEffect;
     public GameObject JumpDustEffect;
 
@@ -664,6 +666,12 @@ public class Move : MonoBehaviour
         else if (COL.onSlopeLeftWall) SR.flipX = false;
     }
 
+
+    public void SteamPluck()
+    {
+        m_SteamMachine.sprite = m_ChangeSteamMachine;
+        OnShake();
+    }
     public void OnShake()
     {
         CinemachineShake.Instance.ShakeCamera(6, 0.3f);

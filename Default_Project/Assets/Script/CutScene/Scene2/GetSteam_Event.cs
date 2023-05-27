@@ -16,7 +16,6 @@ public class GetSteam_Event : SceneEvent
     public Transform m_EventFollow;
     public GameObject m_FollowChange;
     private LetterBoxManager m_LetterBox;
-
     private void Start()
     {
         m_RadioDialogue = GameObject.FindGameObjectWithTag("Dialogue").GetComponent<RadioDialogue>();
@@ -64,7 +63,7 @@ public class GetSteam_Event : SceneEvent
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
 
-        while (m_PlayerMove.transform.position.x >= 37.1f)
+        while (m_PlayerMove.transform.position.x >= 36.5f)
         {
             m_PlayerMove.isWalk = true;
             m_PlayerMove.m_CutX = -1;
