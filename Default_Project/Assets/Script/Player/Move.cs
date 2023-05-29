@@ -91,8 +91,11 @@ public class Move : MonoBehaviour
     public bool isDeath = false;
 
     private bool isMove = false;
-
     private bool canWallSlide;
+
+    private float KeyBreakTime;
+    private bool isKeyBreak = false;
+    private Vector2 KeyBreakXY;
 
     //__________________________//
 
@@ -101,7 +104,6 @@ public class Move : MonoBehaviour
     private float DashTime;
     private float mANDahsTime;
     private float PushTime;
-    private float AfterDelay;
     private float springTime;
     private Vector3 LastVelocity;
 
@@ -214,16 +216,31 @@ public class Move : MonoBehaviour
             Quaternion rotation = Quaternion.Slerp(mAimObject.transform.rotation, angleAxis, 25 * Time.deltaTime);
             mAimObject.transform.rotation = rotation;
         }
+
+        if(isKeyBreak && !isCutScene)
+        {
+            if (!COL.onGround && (xRaw != 0 || yRaw != 0) && DashTime <= 0 && (((COL.onRightWall && xRaw == -1) || (COL.onLeftWall && xRaw == 1)) || !COL.onWall))
+            {
+                isKeyBreak = false;
+                Dash(KeyBreakXY.x, KeyBreakXY.y);
+            }
+        }
         if (Input.GetKeyDown(KeySetting.keys[KeyAction.DASH]) && haveDash && !isCutScene)
         {
             if (COL.onSlope) ChargeDash();
             else if (!COL.onGround && (xRaw != 0 || yRaw != 0) && DashTime <= 0 && (((COL.onRightWall && xRaw == -1) || (COL.onLeftWall && xRaw == 1)) || !COL.onWall)) Dash(xRaw, yRaw);
+        }
+        if (KeyBreakTime > 0 && Input.GetKeyDown(KeySetting.keys[KeyAction.DASH]))
+        {
+            isKeyBreak = true;
+            KeyBreakXY = new Vector2(xRaw, yRaw);
         }
 
 
         //_____________________________//
 
         CollisonTime -= Time.deltaTime;
+        KeyBreakTime -= Time.deltaTime;
         DashTime -= Time.deltaTime;
         Timer += Time.deltaTime;
         mANDahsTime -= Time.deltaTime;
@@ -378,9 +395,10 @@ public class Move : MonoBehaviour
         float xraw = setRaw().x;
         float yraw = setRaw().y;
 
-        DashTime = 0.25f;
+        DashTime = 0.1f;
+        KeyBreakTime = 0.1f;
         DOVirtual.Float(0.1f, 1, 0.12f, timedrag).SetEase(Ease.InCirc);
-        CollisonTime = 0.2f;
+        CollisonTime = 0.1f;
 
         xraw = setRaw().x;
         yraw = setRaw().y;
@@ -440,7 +458,7 @@ public class Move : MonoBehaviour
     }
     private void Dash(float x, float y)
     {
-        DashTime = 0.25f;
+        DashTime = 0.1f;
         haveDash = false;
         isSteamDash = false;
         StartCoroutine(DashWait(x, y));
@@ -758,6 +776,8 @@ public class Move : MonoBehaviour
     {
         if (collision.transform.CompareTag("Platform") && isDash)
         {
+            DashTime = 0.1f;
+            KeyBreakTime = 0.1f;
             var speed = LastVelocity.magnitude;
             var dir = Vector2.Reflect(LastVelocity.normalized, collision.contacts[0].normal);
 
@@ -772,6 +792,8 @@ public class Move : MonoBehaviour
         if (collision.transform.CompareTag("Boost") && isDash)
         {
             DOVirtual.Float(0.1f, 1f, 0.12f, timedrag).SetEase(Ease.InCirc);
+            DashTime = 0.1f;
+            KeyBreakTime = 0.1f;
             CollisonTime = 0.1f;
 
             float x = LastVelocity.x > 0 ? 200 : -200;
