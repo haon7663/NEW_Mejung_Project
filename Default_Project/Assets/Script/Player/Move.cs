@@ -58,7 +58,6 @@ public class Move : MonoBehaviour
     public float y;
     public float xRaw;
     public float yRaw;
-    public float Resistance_MovetileSpeed;
     public float AddMaxSpeed;
     public float m_CutX = 0;
 
@@ -314,7 +313,6 @@ public class Move : MonoBehaviour
             else if ((MathF.Abs(RB.velocity.x) < maxSpeed || PlayerFlip()) || (PushTime >= 0 && MathF.Abs(RB.velocity.x) < maxSpeed))
             {
                 RB.AddForce(new Vector2(xRaw * mMoveSpeed * Time.fixedDeltaTime, 0));
-                RB.velocity -= new Vector2(Resistance_MovetileSpeed, 0);
             }
             else if (PushTime >= 0)
             {

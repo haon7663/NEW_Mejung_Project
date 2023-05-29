@@ -162,7 +162,7 @@ public class MoveBlock : MonoBehaviour
             lastPush = Push;
         }
 
-        if (Push) mPlayerMove.Resistance_MovetileSpeed = mPlusPosition.x * Time.deltaTime * mSpeed * xRaw;
+        //if (Push) mPlayerMove.Resistance_MovetileSpeed = mPlusPosition.x * Time.deltaTime * mSpeed * xRaw;
         transform.position = Vector3.Lerp(transform.position, mStartPosition + mPlusPosition * PosPersent, Time.deltaTime * 10);
     }
     /*IEnumerator InvokeMove(float time, bool TF)
