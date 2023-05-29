@@ -225,6 +225,7 @@ public class Move : MonoBehaviour
                 Dash(KeyBreakXY.x, KeyBreakXY.y);
             }
         }
+
         if (Input.GetKeyDown(KeySetting.keys[KeyAction.DASH]) && haveDash && !isCutScene)
         {
             if (COL.onSlope) ChargeDash();
@@ -368,6 +369,8 @@ public class Move : MonoBehaviour
     private IEnumerator SteamDash(float x, float y)
     {
         DashTime = 0.1f;
+        KeyBreakTime = 0f;
+        isKeyBreak = false;
         AN.SetTrigger("steamdash");
 
         GameObject dust = Instantiate(SteamDustEffect, transform.position, Quaternion.identity);
@@ -396,7 +399,6 @@ public class Move : MonoBehaviour
         float yraw = setRaw().y;
 
         DashTime = 0.1f;
-        KeyBreakTime = 0.1f;
         DOVirtual.Float(0.1f, 1, 0.12f, timedrag).SetEase(Ease.InCirc);
         CollisonTime = 0.1f;
 
@@ -793,7 +795,6 @@ public class Move : MonoBehaviour
         {
             DOVirtual.Float(0.1f, 1f, 0.12f, timedrag).SetEase(Ease.InCirc);
             DashTime = 0.1f;
-            KeyBreakTime = 0.1f;
             CollisonTime = 0.1f;
 
             float x = LastVelocity.x > 0 ? 200 : -200;
