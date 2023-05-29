@@ -114,6 +114,7 @@ public class Move : MonoBehaviour
     public Sprite m_ChangeSteamMachine;
     public GameObject FallDustEffect;
     public GameObject JumpDustEffect;
+    public GameObject SteamDustEffect;
 
     [Space]
     [Header("Death")]
@@ -351,6 +352,10 @@ public class Move : MonoBehaviour
     {
         DashTime = 0.1f;
         AN.SetTrigger("steamdash");
+
+        GameObject dust = Instantiate(SteamDustEffect, transform.position, Quaternion.identity);
+        dust.transform.localScale = new Vector3(x == 0 ? (SR.flipX ? -1 : 1) : (x < 0 ? -1 : 1), 1);
+
         GetComponent<BetterJump>().enabled = false;
         DOVirtual.Float(6, 0, 0.5f, RigidbodyDrag);
         isSteamDash = true;
