@@ -17,6 +17,7 @@ public class Move : MonoBehaviour
     public float mCameraSize = 10;
     public float CinemacineSize = 10;
     public float real_CineSize = 10;
+    private float plus_CineSize = 1;
 
     private Rigidbody2D RB;
     private SpriteRenderer SR;
@@ -91,6 +92,7 @@ public class Move : MonoBehaviour
 
     private bool isMove = false;
     private bool canWallSlide;
+    private bool isObserve = false;
 
     private float KeyBreakTime;
     private bool isKeyBreak = false;
@@ -109,6 +111,8 @@ public class Move : MonoBehaviour
 
     private Transform MainCamera;
     private Transform mLastMainTransform;
+
+    public Transform m_TargetCamera;
 
     public Vector3 setPos;
 
@@ -178,7 +182,7 @@ public class Move : MonoBehaviour
         if (GameManager.GM.onPause) return;
 
         mLastMainTransform = MainCamera;
-        real_CineSize = Mathf.Lerp(real_CineSize, CinemacineSize, Time.deltaTime * 3);
+        real_CineSize = Mathf.Lerp(real_CineSize, CinemacineSize * plus_CineSize, Time.deltaTime * 3);
         cinevirtual.m_Lens.OrthographicSize = real_CineSize;
 
         if (isDeath)
@@ -207,15 +211,44 @@ public class Move : MonoBehaviour
         if (Input.GetKeyDown(KeySetting.keys[KeyAction.JUMP]) && !isCutScene) Jump();
         if (Input.GetKeyDown(KeySetting.keys[KeyAction.STEAM]) && steamTime > 0 && haveSteamDash) StartCoroutine(SteamDash(xRaw, yRaw));
         mAimObject.SetActive(COL.onSlope);
+
         if (COL.onSlope && !isANDash)
         {
+            plus_CineSize = 1.2f;
             float xraw = setRaw().x;
             float yraw = setRaw().y;
             float angle = Mathf.Atan2(yraw, xraw) * Mathf.Rad2Deg;
-            if (xraw == 0 && yraw == 0) angle = Mathf.Atan2(LastCollision.contacts[0].normal.y, LastCollision.contacts[0].normal.x) * Mathf.Rad2Deg;
+            if (xraw == 0 && yraw == 0)
+            {
+                angle = Mathf.Atan2(LastCollision.contacts[0].normal.y, LastCollision.contacts[0].normal.x) * Mathf.Rad2Deg;
+                m_TargetCamera.position = Vector3.Lerp(m_TargetCamera.position, transform.position + (new Vector3(LastCollision.contacts[0].normal.x, LastCollision.contacts[0].normal.y).normalized + new Vector3(LastCollision.contacts[0].normal.x * 1.25f, 0)) * 10, 0.75f);
+            }
+            else m_TargetCamera.position = Vector3.Lerp(m_TargetCamera.position, transform.position + (new Vector3(xraw, yraw).normalized + new Vector3(LastCollision.contacts[0].normal.x * 1.25f, 0)) * 10, 0.75f);
+
             Quaternion angleAxis = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
             Quaternion rotation = Quaternion.Slerp(mAimObject.transform.rotation, angleAxis, 25 * Time.deltaTime);
             mAimObject.transform.rotation = rotation;
+
+            mCinemachineTransposer.m_XDamping = 3;
+            mCinemachineTransposer.m_YDamping = 3;
+        }
+        else if(!isCutScene)
+        {
+            plus_CineSize = 1;
+
+            isObserve = Input.GetKey(KeyCode.LeftShift) && COL.onGround;
+            if (isObserve)
+            {
+                m_TargetCamera.position = Vector3.Lerp(m_TargetCamera.position, transform.position + new Vector3(xRaw * 1.35f, yRaw).normalized * 11, 0.75f);
+                mCinemachineTransposer.m_XDamping = 2f;
+                mCinemachineTransposer.m_YDamping = 2f;
+            }
+            else
+            {
+                m_TargetCamera.position = Vector3.Lerp(m_TargetCamera.position, transform.position, 0.75f);
+                mCinemachineTransposer.m_XDamping = 1;
+                mCinemachineTransposer.m_YDamping = 0.6f;
+            }
         }
 
         if(isKeyBreak && !isCutScene)
@@ -291,8 +324,12 @@ public class Move : MonoBehaviour
             else RB.velocity = new Vector2(0, RB.velocity.y);
             return;
         }
-        if (!isCanMove || isDash || CollisonTime > 0)
+        if (!isCanMove || isDash || CollisonTime > 0 || isObserve)
+        {
+            if (isObserve) RB.velocity = Vector2.zero;
+            AN.SetBool("run", false);
             return;
+        }
 
         AN.SetBool("run", Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D));
          
