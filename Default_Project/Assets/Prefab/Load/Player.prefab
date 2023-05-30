@@ -585,7 +585,6 @@ MonoBehaviour:
   y: 0
   xRaw: 0
   yRaw: 0
-  Resistance_MovetileSpeed: 0
   AddMaxSpeed: 12
   m_CutX: 0
   mCheckPoint: {fileID: 0}
@@ -608,8 +607,12 @@ MonoBehaviour:
   isSetCameraSize: 0
   isDeath: 0
   setPos: {x: 0, y: 0, z: 0}
+  m_SteamMachine: {fileID: 0}
+  m_ChangeSteamMachine: {fileID: 0}
   FallDustEffect: {fileID: 3229479989434809948, guid: 23622800a86e61943a21422aa2d53945, type: 3}
   JumpDustEffect: {fileID: 1728600524273050926, guid: b6de003ed93fa5f41bc066232a15123a, type: 3}
+  SteamDustEffect: {fileID: 3189348437936354607, guid: 251e97e3c9fe7ca4db02955833ce0f5f, type: 3}
+  SteamDustVerticalEffect: {fileID: 935814171341680304, guid: f2f6e2c50aa29ef49ad7cd7eb253aef8, type: 3}
   MapConfiner: {fileID: 0}
   DeathConfiner: {fileID: 0}
   mBackGroundLight: {fileID: 4871430335754406475}

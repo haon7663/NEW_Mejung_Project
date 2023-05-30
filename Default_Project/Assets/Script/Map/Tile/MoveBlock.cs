@@ -15,6 +15,7 @@ public class MoveBlock : MonoBehaviour
     public float timer;
     public float maxtime;
 
+    public bool isInfinity;
     public bool isAuto;
     public bool lastPush;
 
@@ -62,7 +63,7 @@ public class MoveBlock : MonoBehaviour
 
         if(isAuto)
         {
-            if (Push && PosPersent <= 0)
+            if ((isInfinity || (!isInfinity && Push)) && PosPersent <= 0)
                 isStartPush = true;
             else if (PosPersent <= 0)
                 isStartPush = false;

@@ -104,6 +104,7 @@ public class Move : MonoBehaviour
     private float mANDahsTime;
     private float PushTime;
     private float springTime;
+    private float steamTime;
     private Vector3 LastVelocity;
 
     private Transform MainCamera;
@@ -116,6 +117,7 @@ public class Move : MonoBehaviour
     public GameObject FallDustEffect;
     public GameObject JumpDustEffect;
     public GameObject SteamDustEffect;
+    public GameObject SteamDustVerticalEffect;
 
     [Space]
     [Header("Death")]
@@ -203,7 +205,7 @@ public class Move : MonoBehaviour
         //_____________________________//
 
         if (Input.GetKeyDown(KeySetting.keys[KeyAction.JUMP]) && !isCutScene) Jump();
-        if (Input.GetKeyDown(KeySetting.keys[KeyAction.STEAM]) && isANDash && haveSteamDash) StartCoroutine(SteamDash(xRaw, yRaw));
+        if (Input.GetKeyDown(KeySetting.keys[KeyAction.STEAM]) && steamTime > 0 && haveSteamDash) StartCoroutine(SteamDash(xRaw, yRaw));
         mAimObject.SetActive(COL.onSlope);
         if (COL.onSlope && !isANDash)
         {
@@ -244,6 +246,7 @@ public class Move : MonoBehaviour
         DashTime -= Time.deltaTime;
         Timer += Time.deltaTime;
         mANDahsTime -= Time.deltaTime;
+        steamTime -= Time.deltaTime;
         PushTime -= Time.deltaTime;
 
         //_____________________________//
@@ -254,6 +257,7 @@ public class Move : MonoBehaviour
         if (isDash) mANDahsTime = 0.2f;
         if (mANDahsTime > 0) isANDash = true;
         else if (mANDahsTime <= 0) isANDash = false;
+        if (isANDash) steamTime = 0.2f;
 
         //_____________________________//
 
@@ -371,8 +375,16 @@ public class Move : MonoBehaviour
         isKeyBreak = false;
         AN.SetTrigger("steamdash");
 
-        GameObject dust = Instantiate(SteamDustEffect, transform.position, Quaternion.identity);
-        dust.transform.localScale = new Vector3(x == 0 ? (SR.flipX ? -1 : 1) : (x < 0 ? -1 : 1), 1);
+        if (x == 0)
+        {
+            GameObject dust = Instantiate(SteamDustVerticalEffect, transform.position, Quaternion.identity);
+            dust.transform.localScale = new Vector3(x == 0 ? (SR.flipX ? -1 : 1) : (x < 0 ? -1 : 1), y == 0 ? 1 : y);
+        }
+        else
+        {
+            GameObject dust = Instantiate(SteamDustEffect, transform.position, Quaternion.identity);
+            dust.transform.localScale = new Vector3(x == 0 ? (SR.flipX ? -1 : 1) : (x < 0 ? -1 : 1), 1);
+        }
 
         GetComponent<BetterJump>().enabled = false;
         DOVirtual.Float(6, 0, 0.5f, RigidbodyDrag);
@@ -829,7 +841,7 @@ public class Move : MonoBehaviour
         {
             haveDash = true;
             isSteamDash = false;
-            Destroy(collision.gameObject);
+            collision.GetComponent<Dash_Item>().TakeDash();
         }
         if(collision.transform.CompareTag("RadioBox") && !isCutScene && !GameManager.GM.onRadio)
         {
