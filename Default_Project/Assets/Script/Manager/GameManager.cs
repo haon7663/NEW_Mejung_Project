@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Application.targetFrameRate = 60;
-        Fade.instance.FadeOut(1);
+        Fade.instance.FadeOut(0.5f);
     }
     private void Update()
     {

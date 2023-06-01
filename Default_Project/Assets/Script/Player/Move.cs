@@ -93,6 +93,7 @@ public class Move : MonoBehaviour
     private bool isMove = false;
     private bool canWallSlide;
     private bool isObserve = false;
+    private bool isInvDeath = false;
 
     private float KeyBreakTime;
     private bool isKeyBreak = false;
@@ -130,6 +131,7 @@ public class Move : MonoBehaviour
     public GameObject LightParents;
     public UnityEngine.Rendering.Universal.Light2D mBackGroundLight;
     public UnityEngine.Rendering.Universal.Light2D mPlatformLight;
+    public UnityEngine.Rendering.Universal.Light2D mPlatformLight2;
 
     private static Move instance;
 
@@ -668,9 +670,10 @@ public class Move : MonoBehaviour
         isDeath = true;
         mCinemachineTransposer.m_XDamping = 5;
         mCinemachineTransposer.m_YDamping = 5;
+        isInvDeath = isInv;
         if (isInv)
         {
-            DOVirtual.Float(5, 15, 1.25f, LightRadius).SetEase(Ease.OutCirc);
+            DOVirtual.Float(7, 15, 1.25f, LightRadius).SetEase(Ease.OutCirc);
 
             CinemacineSize = 6;
             CinemachineShake.Instance.ShakeCamera(5, 0.6f);
@@ -679,7 +682,7 @@ public class Move : MonoBehaviour
         }
         else
         {
-            LightParents.SetActive(false);
+            DOVirtual.Float(7, 0, 0.25f, LightRadius).SetEase(Ease.InCirc);
 
             CinemacineSize = 10;
             CinemachineShake.Instance.ShakeCamera(5, 0.6f);
@@ -692,16 +695,19 @@ public class Move : MonoBehaviour
     public IEnumerator EffectDeath()
     {
         GameObject particle = Instantiate(mDeathParticle, transform.position + new Vector3(0.2f, -0.4f, -0.5f), Quaternion.Euler(-90, 0, 0));
-        yield return YieldInstructionCache.WaitForSeconds(.3f);
+        yield return YieldInstructionCache.WaitForSeconds(.25f);
         SR.DOFade(0, 0.6f).SetEase(Ease.InCirc);
-        yield return YieldInstructionCache.WaitForSeconds(2f);
+        yield return YieldInstructionCache.WaitForSeconds(isInvDeath ? 0.9f : 0f);
+        Fade.instance.FadeIn(0.5f);
+        yield return YieldInstructionCache.WaitForSeconds(0.5f);
         DIE.SceneLoad();
     }
 
     private void LightRadius(float x)
     {
         mBackGroundLight.pointLightOuterRadius = x;
-        mPlatformLight.pointLightOuterRadius = x * 1.6f;
+        mPlatformLight.pointLightOuterRadius = x * 1.14f;
+        mPlatformLight2.pointLightOuterRadius = x * 3.75f;
     }
     //_____________________________//
 
