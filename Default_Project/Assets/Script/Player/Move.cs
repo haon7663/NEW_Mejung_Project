@@ -127,6 +127,7 @@ public class Move : MonoBehaviour
     [Header("Death")]
     public GameObject MapConfiner;
     public GameObject DeathConfiner;
+    public GameObject LightParents;
     public UnityEngine.Rendering.Universal.Light2D mBackGroundLight;
     public UnityEngine.Rendering.Universal.Light2D mPlatformLight;
 
@@ -188,7 +189,6 @@ public class Move : MonoBehaviour
         if (isDeath)
         {
             transform.SetParent(null);
-            CinemacineSize = 6;
             return;
         }
         if (isPipe || isInteraction)
@@ -294,7 +294,7 @@ public class Move : MonoBehaviour
 
         //_____________________________//
 
-        if (transform.position.y < -20) Death();
+        if (transform.position.y < -20) Death(false);
 
         LastVelocity = RB.velocity;
 
@@ -663,20 +663,31 @@ public class Move : MonoBehaviour
         RB.velocity = new Vector2(angle.x == 0 ? RB.velocity.x : angle.x, angle.y == 0 ? RB.velocity.y : angle.y);
         haveDash = true;
     }
-    public void Death()
+    public void Death(bool isInv)
     {
         isDeath = true;
         mCinemachineTransposer.m_XDamping = 5;
         mCinemachineTransposer.m_YDamping = 5;
-        DOVirtual.Float(5, 15, 1.25f, LightRadius).SetEase(Ease.OutCirc);
-        MapConfiner.SetActive(false);
-        DeathConfiner.SetActive(true);
+        if (isInv)
+        {
+            DOVirtual.Float(5, 15, 1.25f, LightRadius).SetEase(Ease.OutCirc);
+
+            CinemacineSize = 6;
+            CinemachineShake.Instance.ShakeCamera(5, 0.6f);
+            MapConfiner.SetActive(false);
+            DeathConfiner.SetActive(true);
+        }
+        else
+        {
+            LightParents.SetActive(false);
+
+            CinemacineSize = 10;
+            CinemachineShake.Instance.ShakeCamera(5, 0.6f);
+        }
         RB.bodyType = RigidbodyType2D.Static;
         AN.SetTrigger("death");
         AN.SetBool("isDeath", true);
         transform.SetParent(null);
-        CinemacineSize = 6;
-        CinemachineShake.Instance.ShakeCamera(5, 0.6f);
     }
     public IEnumerator EffectDeath()
     {

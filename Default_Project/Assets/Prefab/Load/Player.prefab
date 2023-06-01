@@ -617,6 +617,7 @@ MonoBehaviour:
   SteamDustVerticalEffect: {fileID: 935814171341680304, guid: f2f6e2c50aa29ef49ad7cd7eb253aef8, type: 3}
   MapConfiner: {fileID: 0}
   DeathConfiner: {fileID: 0}
+  LightParents: {fileID: 4871430336050193381}
   mBackGroundLight: {fileID: 4871430335754406475}
   mPlatformLight: {fileID: 4871430336707629233}
 --- !u!114 &4871430336572265148
