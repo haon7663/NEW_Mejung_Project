@@ -849,6 +849,7 @@ public class Move : MonoBehaviour
             var dir = Vector2.Reflect(LastVelocity.normalized, collision.contacts[0].normal);
 
             RB.velocity = dir * Mathf.Max(speed, 0f);
+
             haveDash = true;
             isSteamDash = false;
         }
