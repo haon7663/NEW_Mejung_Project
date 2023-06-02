@@ -16,7 +16,7 @@ public class Absorb_Pipe : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Collider2D Absorb = Physics2D.OverlapBox(transform.position + plusPos, new Vector2(0.7f, 0.7f), 0, 1 << LayerMask.NameToLayer("Player"));
+        Collider2D Absorb = Physics2D.OverlapBox(transform.position + plusPos, new Vector2(1f, 1f), 0, 1 << LayerMask.NameToLayer("Player"));
 
         if (Absorb && !mPlayerMove.isPipe)
         {
@@ -27,6 +27,6 @@ public class Absorb_Pipe : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position + plusPos, new Vector2(0.7f, 0.7f));
+        Gizmos.DrawWireCube(transform.position + plusPos, new Vector2(1f, 1f));
     }
 }

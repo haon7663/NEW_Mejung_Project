@@ -33,6 +33,11 @@ public class KeyDoor : Interaction_Object
             mInteraction.ExplainRange = 3f;
             mInteraction.InteractionExplain = "문을 연다.";
         }
+        else
+        {
+                mInteraction.ExplainRange = 3f;
+                mInteraction.InteractionExplain = "열쇠가 부족하다.";
+        }
     }
 
     public void Open()

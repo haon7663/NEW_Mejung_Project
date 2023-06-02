@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37ab5eb6e6ca9244a82310b80679671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mNeedKey: 3
+  mNeedKey: 4
   mUp: {fileID: 5907632131397753936}
   mDown: {fileID: 5907632132038072637}
 --- !u!1 &5907632131397753939
@@ -85,9 +85,9 @@ GameObject:
   - component: {fileID: 5907632131397753936}
   - component: {fileID: 5907632131397753937}
   - component: {fileID: 6931311692997897993}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: KeyDoor_Up
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,13 +147,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1653008295
   m_SortingLayer: 3
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 139007634, guid: e00aa18e11fc9804cbcdfb9cbcab6ac4, type: 3}
+  m_SortingOrder: -1
+  m_Sprite: {fileID: -338047918, guid: e00aa18e11fc9804cbcdfb9cbcab6ac4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 3}
+  m_Size: {x: 4, y: 5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -177,7 +177,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 4, y: 5}
-    newSize: {x: 1, y: 3}
+    newSize: {x: 4, y: 5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -257,13 +257,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1653008295
   m_SortingLayer: 3
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 1379273295, guid: e00aa18e11fc9804cbcdfb9cbcab6ac4, type: 3}
+  m_SortingOrder: -1
+  m_Sprite: {fileID: 1989881871, guid: e00aa18e11fc9804cbcdfb9cbcab6ac4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 3}
+  m_Size: {x: 4, y: 5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -280,9 +280,9 @@ GameObject:
   - component: {fileID: 5907632132038072637}
   - component: {fileID: 5907632132038072634}
   - component: {fileID: 5907632132038072635}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: KeyDoor_Down
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -342,13 +342,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1653008295
   m_SortingLayer: 3
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 1175489716, guid: e00aa18e11fc9804cbcdfb9cbcab6ac4, type: 3}
+  m_SortingOrder: -1
+  m_Sprite: {fileID: 1004726824, guid: e00aa18e11fc9804cbcdfb9cbcab6ac4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 3}
+  m_Size: {x: 4, y: 5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -372,7 +372,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 4, y: 5}
-    newSize: {x: 1, y: 3}
+    newSize: {x: 4, y: 5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

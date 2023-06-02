@@ -65,7 +65,19 @@ public class Collison : MonoBehaviour
         if (onSlope && mPlayerMove.LastCollision.contacts.Length <= 0) onSlope = false;
     }
 
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Boost"))
+        {
+            slopeAngle = Vector2.Angle(collision.contacts[0].normal, Vector2.up);
+            mPlayerMove.LastCollision = collision;
+            if (slopeAngle > 40 && slopeAngle < 50 && mPlayerMove.LastCollision.contacts.Length > 0)
+            {
+                onSlope = true;
+                mPlayerMove.SetSlopeCamera();
+            }
+        }
+    }
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.transform.CompareTag("Boost"))

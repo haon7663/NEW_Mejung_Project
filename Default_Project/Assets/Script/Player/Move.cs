@@ -223,16 +223,16 @@ public class Move : MonoBehaviour
             if (xraw == 0 && yraw == 0)
             {
                 angle = Mathf.Atan2(LastCollision.contacts[0].normal.y, LastCollision.contacts[0].normal.x) * Mathf.Rad2Deg;
-                m_TargetCamera.position = Vector3.Lerp(m_TargetCamera.position, transform.position + (new Vector3(LastCollision.contacts[0].normal.x, LastCollision.contacts[0].normal.y).normalized + new Vector3(LastCollision.contacts[0].normal.x * 1.25f, 0)) * 10, 0.75f);
+                m_TargetCamera.position = Vector3.Lerp(m_TargetCamera.position, transform.position + (new Vector3(LastCollision.contacts[0].normal.x, LastCollision.contacts[0].normal.y).normalized + new Vector3(LastCollision.contacts[0].normal.x * 1.25f, 0)) * 10, 1);
             }
-            else m_TargetCamera.position = Vector3.Lerp(m_TargetCamera.position, transform.position + (new Vector3(xraw, yraw).normalized + new Vector3(LastCollision.contacts[0].normal.x * 1.25f, 0)) * 10, 0.75f);
+            else m_TargetCamera.position = Vector3.Lerp(m_TargetCamera.position, transform.position + (new Vector3(xraw, yraw).normalized + new Vector3(LastCollision.contacts[0].normal.x * 1.25f, 0)) * 10, 1);
 
             Quaternion angleAxis = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
             Quaternion rotation = Quaternion.Slerp(mAimObject.transform.rotation, angleAxis, 25 * Time.deltaTime);
             mAimObject.transform.rotation = rotation;
 
-            mCinemachineTransposer.m_XDamping = 3;
-            mCinemachineTransposer.m_YDamping = 3;
+            mCinemachineTransposer.m_XDamping = 2f;
+            mCinemachineTransposer.m_YDamping = 2f;
         }
         else if(!isCutScene)
         {
@@ -507,6 +507,7 @@ public class Move : MonoBehaviour
 
         return new Vector2(xraw, yraw);
     }
+    public void SetSlopeCamera() => m_TargetCamera.position = transform.position + (new Vector3(LastCollision.contacts[0].normal.x, LastCollision.contacts[0].normal.y).normalized + new Vector3(LastCollision.contacts[0].normal.x * 1.25f, 0)) * 10;
     private void Dash(float x, float y)
     {
         DashTime = 0.1f;
