@@ -29,7 +29,7 @@ TagManager:
   - SavePoint
   - Item
   - SizeConfiner
-  - 
+  - PosYConfiner
   - 
   - 
   - 

@@ -114,6 +114,7 @@ public class Move : MonoBehaviour
     private Transform mLastMainTransform;
 
     public Transform m_TargetCamera;
+    public Vector3 m_TargetPlus;
 
     public Vector3 setPos;
 
@@ -132,8 +133,6 @@ public class Move : MonoBehaviour
     public UnityEngine.Rendering.Universal.Light2D mBackGroundLight;
     public UnityEngine.Rendering.Universal.Light2D mPlatformLight;
     public UnityEngine.Rendering.Universal.Light2D mPlatformLight2;
-
-    private static Move instance;
 
     private void Awake()
     {
@@ -247,7 +246,7 @@ public class Move : MonoBehaviour
             }
             else
             {
-                m_TargetCamera.position = Vector3.Lerp(m_TargetCamera.position, transform.position, 0.75f);
+                m_TargetCamera.position = Vector3.Lerp(m_TargetCamera.position, transform.position + m_TargetPlus, 0.75f);
                 mCinemachineTransposer.m_XDamping = 1;
                 mCinemachineTransposer.m_YDamping = 0.6f;
             }

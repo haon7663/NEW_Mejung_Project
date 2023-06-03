@@ -8,6 +8,7 @@ public class SetConfiner : MonoBehaviour
     [Header("Layers")]
     public LayerMask confiner_Layer;
     public LayerMask sizeConfiner_Layer;
+    public LayerMask posConfiner_Layer;
 
     public CinemachineConfiner2D mCinemachineConfiner;
 
@@ -40,7 +41,17 @@ public class SetConfiner : MonoBehaviour
             mPlayerMove.mCameraSize = 10;
         }
 
-        if(mPlayerMove.real_CineSize != mLastSize)
+        var pos_Confiner = Physics2D.OverlapBox(transform.position, new Vector2(1f, 1f), 0, posConfiner_Layer);
+        if (pos_Confiner)
+        {
+            mPlayerMove.m_TargetPlus = new Vector3(0, pos_Confiner.transform.position.z);
+        }
+        else
+        {
+            mPlayerMove.m_TargetPlus = new Vector3(0, 0);
+        }
+
+        if (mPlayerMove.real_CineSize != mLastSize)
         {
             mCinemachineConfiner.InvalidateCache(); 
             mLastSize = mPlayerMove.real_CineSize;
