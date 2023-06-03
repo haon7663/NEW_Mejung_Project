@@ -660,6 +660,7 @@ public class Move : MonoBehaviour
     {
         if(angle.x != 0) AN.SetTrigger("steamdash");
         springTime = 1;
+        steamTime = 0;
         yield return YieldInstructionCache.WaitForFixedUpdate;
         GetComponent<BetterJump>().enabled = true;
         RB.velocity = new Vector2(angle.x == 0 ? RB.velocity.x : angle.x, angle.y == 0 ? RB.velocity.y : angle.y);
