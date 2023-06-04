@@ -607,7 +607,10 @@ MonoBehaviour:
   haveSteamDash: 0
   isSetCameraSize: 0
   isDeath: 0
+  GetDash: 1
+  GetSteamDash: 1
   m_TargetCamera: {fileID: 2730417043956047931}
+  m_TargetPlus: {x: 0, y: 0, z: 0}
   setPos: {x: 0, y: 0, z: 0}
   m_SteamMachine: {fileID: 0}
   m_ChangeSteamMachine: {fileID: 0}
@@ -620,6 +623,7 @@ MonoBehaviour:
   LightParents: {fileID: 4871430336050193381}
   mBackGroundLight: {fileID: 4871430335754406475}
   mPlatformLight: {fileID: 4871430336707629233}
+  mPlatformLight2: {fileID: 0}
 --- !u!114 &4871430336572265148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -729,6 +733,9 @@ MonoBehaviour:
   sizeConfiner_Layer:
     serializedVersion: 2
     m_Bits: 32768
+  posConfiner_Layer:
+    serializedVersion: 2
+    m_Bits: 0
   mCinemachineConfiner: {fileID: 0}
 --- !u!114 &4871430336572265139
 MonoBehaviour:

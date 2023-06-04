@@ -12,6 +12,7 @@ public class Key_Item : Item
     private void UseItem()
     {
         InventoryManager.IM.key++;
+        InventoryManager.IM.GetKey();
         Destroy(gameObject);
     }
 }

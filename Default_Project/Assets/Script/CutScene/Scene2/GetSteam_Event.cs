@@ -15,6 +15,7 @@ public class GetSteam_Event : SceneEvent
     private SpriteRenderer m_PlayerSpriteRenderer;
     public Transform m_EventFollow;
     public GameObject m_FollowChange;
+    public GameObject m_FollowPlayer;
     private LetterBoxManager m_LetterBox;
     private void Start()
     {
@@ -51,7 +52,7 @@ public class GetSteam_Event : SceneEvent
         cinevirtual.Follow = m_EventFollow;
         yield return YieldInstructionCache.WaitForSeconds(3f);
         m_PlayerMove.CinemacineSize = 6;
-        cinevirtual.Follow = m_PlayerMove.transform;
+        cinevirtual.Follow = m_FollowPlayer.transform;
         yield return YieldInstructionCache.WaitForSeconds(1.5f);
 
         StartRadio("½ºÆÀ´ë½¬");

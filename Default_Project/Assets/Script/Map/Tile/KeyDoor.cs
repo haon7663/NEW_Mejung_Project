@@ -35,13 +35,14 @@ public class KeyDoor : Interaction_Object
         }
         else
         {
-                mInteraction.ExplainRange = 3f;
-                mInteraction.InteractionExplain = "열쇠가 부족하다.";
+            mInteraction.ExplainRange = 3f;
+            mInteraction.InteractionExplain = "열쇠가 부족하다.";
         }
     }
 
     public void Open()
     {
+        InventoryManager.IM.OpenDoor();
         mUp.DOLocalMove(new Vector2(0, 3f), 2f).SetEase(Ease.Linear);
         mDown.DOLocalMove(new Vector2(0, -3f), 2f).SetEase(Ease.Linear);
         CinemachineShake.Instance.ShakeCamera(1.75f, 2f);

@@ -90,6 +90,11 @@ public class Move : MonoBehaviour
     public bool isSetCameraSize;
     public bool isDeath = false;
 
+    [Space]
+    [Header("GetBool")]
+    public bool GetDash;
+    public bool GetSteamDash;
+
     private bool isMove = false;
     private bool canWallSlide;
     private bool isObserve = false;
@@ -210,7 +215,7 @@ public class Move : MonoBehaviour
         //_____________________________//
 
         if (Input.GetKeyDown(KeySetting.keys[KeyAction.JUMP]) && !isCutScene) Jump();
-        if (Input.GetKeyDown(KeySetting.keys[KeyAction.STEAM]) && steamTime > 0 && haveSteamDash) StartCoroutine(SteamDash(xRaw, yRaw));
+        if (Input.GetKeyDown(KeySetting.keys[KeyAction.STEAM]) && steamTime > 0 && haveSteamDash && GetSteamDash) StartCoroutine(SteamDash(xRaw, yRaw));
         mAimObject.SetActive(COL.onSlope);
 
         if (COL.onSlope && !isANDash)
@@ -252,7 +257,7 @@ public class Move : MonoBehaviour
             }
         }
 
-        if(isKeyBreak && !isCutScene)
+        if(isKeyBreak && !isCutScene && GetDash)
         {
             if (!COL.onGround && (xRaw != 0 || yRaw != 0) && DashTime <= 0 && (((COL.onRightWall && xRaw == -1) || (COL.onLeftWall && xRaw == 1)) || !COL.onWall))
             {
@@ -261,7 +266,7 @@ public class Move : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeySetting.keys[KeyAction.DASH]) && haveDash && !isCutScene)
+        if (Input.GetKeyDown(KeySetting.keys[KeyAction.DASH]) && haveDash && !isCutScene && GetDash)
         {
             if (COL.onSlope) ChargeDash();
             else if (!COL.onGround && (xRaw != 0 || yRaw != 0) && DashTime <= 0 && (((COL.onRightWall && xRaw == -1) || (COL.onLeftWall && xRaw == 1)) || !COL.onWall)) Dash(xRaw, yRaw);
