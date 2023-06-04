@@ -660,6 +660,9 @@ public class Move : MonoBehaviour
     {
         if(angle.x != 0) AN.SetTrigger("steamdash");
         springTime = 1;
+        isDash = false;
+        isANDash = false;
+        mANDahsTime = 0;
         steamTime = 0;
         yield return YieldInstructionCache.WaitForFixedUpdate;
         GetComponent<BetterJump>().enabled = true;
