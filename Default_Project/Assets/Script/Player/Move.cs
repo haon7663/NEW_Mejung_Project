@@ -680,6 +680,7 @@ public class Move : MonoBehaviour
         mCinemachineTransposer.m_XDamping = 5;
         mCinemachineTransposer.m_YDamping = 5;
         isInvDeath = isInv;
+        cinevirtual.Follow = transform;
         if (isInv)
         {
             DOVirtual.Float(7, 15, 1.25f, LightRadius).SetEase(Ease.OutCirc);

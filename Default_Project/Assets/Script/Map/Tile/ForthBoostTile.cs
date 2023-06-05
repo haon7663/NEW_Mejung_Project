@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class ForthBoostTile : MonoBehaviour
 {
-    public GameObject Right;
-    public GameObject Left;
-    public SpriteRenderer[] RightTile;
-    public SpriteRenderer[] LeftTile;
+    public GameObject[] m_DamageTile = new GameObject[4];
+    private Animator[] m_DamageAnimator = new Animator[4];
+    private PolygonCollider2D[] m_DamageCollider = new PolygonCollider2D[4];
 
+    public bool isFour;
+    public bool isHorizontal;
     public float LoopTime;
-
-    private bool isRight;
+    private int LoopCount;
 
     private void Start()
     {
-        StartCoroutine(LeftRight());
+        for(int i = 0; i < 4; i++)
+        {
+            m_DamageAnimator[i] = m_DamageTile[i].GetComponent<Animator>();
+            m_DamageCollider[i] = m_DamageTile[i].GetComponent<PolygonCollider2D>();
+        }
+        StartCoroutine(LoopDamage());
     }
     internal static class YieldInstructionCache
     {
@@ -32,23 +37,37 @@ public class ForthBoostTile : MonoBehaviour
         }
     }
 
-    private IEnumerator LeftRight()
+    private IEnumerator LoopDamage()
     {
-        while(true)
+        if(isFour)
         {
-            isRight = !isRight;
-
-            for(int i = 0; i < 4; i++)
+            while (true)
             {
-                Right.layer = !isRight ? 3 : 9;
-                Left.layer = !isRight ? 9 : 3;
-                Right.GetComponent<Damage_Tile>().enabled = !isRight;
-                Left.GetComponent<Damage_Tile>().enabled = isRight;
-
-                RightTile[i].color = isRight ? Color.white : Color.red;
-                LeftTile[i].color = isRight ? Color.red : Color.white;
+                for (int i = 0; i < 4; i++)
+                {
+                    bool able = isHorizontal ? (LoopCount * 2 == i) || (LoopCount * 2 + 1 == i) : (LoopCount == i) || (3 - LoopCount == i);
+                    m_DamageCollider[i].enabled = able;
+                    m_DamageAnimator[i].SetBool("onDamage", able);
+                }
+                yield return YieldInstructionCache.WaitForSeconds(LoopTime);
+                LoopCount++;
+                if (LoopCount > 1) LoopCount = 0;
             }
-            yield return YieldInstructionCache.WaitForSeconds(LoopTime);
+        }
+        else if(!isFour)
+        {
+            while (true)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    bool able = i == LoopCount;
+                    m_DamageCollider[i].enabled = able;
+                    m_DamageAnimator[i].SetBool("onDamage", able);
+                }
+                yield return YieldInstructionCache.WaitForSeconds(LoopTime);
+                LoopCount++;
+                if (LoopCount > 3) LoopCount = 0;
+            }
         }
     }
 }
