@@ -1022,7 +1022,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1261536065}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
   m_Name: 
@@ -27267,7 +27267,7 @@ PrefabInstance:
       objectReference: {fileID: 978791298}
     - target: {fileID: 1738467613090157145, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1738467613090157145, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_BoundingShape2D
@@ -27275,11 +27275,11 @@ PrefabInstance:
       objectReference: {fileID: 408970202}
     - target: {fileID: 1738467613090157220, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.787777
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1738467613090157220, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.41
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1738467613090157220, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_LocalPosition.z
@@ -27299,11 +27299,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1738467613449969241, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 37.22222
+      value: 45.01
       objectReference: {fileID: 0}
     - target: {fileID: 1738467613449969241, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: -1.41
       objectReference: {fileID: 0}
     - target: {fileID: 1738467613449969241, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_LocalPosition.z
@@ -29014,6 +29014,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 0
+  m_KeyBarImage: {fileID: 0}
+  m_KeyImage: {fileID: 0}
+  m_KeyText: {fileID: 0}
 --- !u!4 &1846340430
 Transform:
   m_ObjectHideFlags: 0

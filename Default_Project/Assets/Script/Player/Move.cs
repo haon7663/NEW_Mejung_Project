@@ -300,7 +300,7 @@ public class Move : MonoBehaviour
 
         //_____________________________//
 
-        if (transform.position.y < -20) Death(false);
+        if (transform.position.y < -40) Death(false);
 
         LastVelocity = RB.velocity;
 
