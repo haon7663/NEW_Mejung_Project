@@ -8,6 +8,7 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager IM;
 
+    public int maxKey = 3;
     public int key;
 
     public Image m_KeyBarImage;
@@ -23,7 +24,7 @@ public class InventoryManager : MonoBehaviour
     {
         AllDOFade(1);
 
-        m_KeyText.text = key + "/" + "3";
+        m_KeyText.text = key + "/" + maxKey;
     }
 
     public void OpenDoor()

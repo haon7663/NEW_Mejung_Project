@@ -9,6 +9,7 @@ public class SetConfiner : MonoBehaviour
     public LayerMask confiner_Layer;
     public LayerMask sizeConfiner_Layer;
     public LayerMask posConfiner_Layer;
+    public LayerMask keySetting_Layer;
 
     public CinemachineConfiner2D mCinemachineConfiner;
 
@@ -50,6 +51,9 @@ public class SetConfiner : MonoBehaviour
         {
             mPlayerMove.m_TargetPlus = new Vector3(0, 0);
         }
+
+        var key_Setter = Physics2D.OverlapBox(transform.position, new Vector2(1f, 1f), 0, keySetting_Layer);
+        if (key_Setter) InventoryManager.IM.maxKey = (int)key_Setter.transform.position.z;
 
         if (mPlayerMove.real_CineSize != mLastSize)
         {
