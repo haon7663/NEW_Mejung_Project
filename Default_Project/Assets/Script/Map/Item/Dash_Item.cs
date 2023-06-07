@@ -20,7 +20,7 @@ public class Dash_Item : MonoBehaviour
 
     public void TakeDash()
     {
-        StartCoroutine(Respawn());
+        if(m_SpriteRenderer.color.a != 0) StartCoroutine(Respawn());
     }
 
     private IEnumerator Respawn()

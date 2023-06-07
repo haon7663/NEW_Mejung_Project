@@ -735,7 +735,10 @@ MonoBehaviour:
     m_Bits: 32768
   posConfiner_Layer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 65536
+  keySetting_Layer:
+    serializedVersion: 2
+    m_Bits: 131072
   mCinemachineConfiner: {fileID: 0}
 --- !u!114 &4871430336572265139
 MonoBehaviour:
