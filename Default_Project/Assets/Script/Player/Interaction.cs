@@ -38,7 +38,7 @@ public class Interaction : MonoBehaviour
         if (!GetComponent<Move>().isInteraction && !hit) isDialogue = true;
         if (hit && !mPlayer.isANDash)
         {
-            if (Input.GetKey(KeySetting.keys[KeyAction.INTERACTION]) && isDialogue)
+            if (Input.GetKeyDown(KeySetting.keys[KeyAction.INTERACTION]) && isDialogue)
             {
                 isDialogue = false;
                 isExplain = false;

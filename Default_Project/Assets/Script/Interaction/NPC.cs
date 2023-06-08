@@ -25,6 +25,6 @@ public class NPC : Interaction_Object
     public override void Explain()
     {
         mInteraction.ExplainRange = 1.7f;
-        mInteraction.InteractionExplain = "대화한다.";
+        mInteraction.InteractionExplain = "Check";
     }
 }

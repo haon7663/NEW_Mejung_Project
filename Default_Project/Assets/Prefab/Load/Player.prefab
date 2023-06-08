@@ -429,6 +429,7 @@ GameObject:
   - component: {fileID: 4871430336572265145}
   - component: {fileID: 4871430336572265144}
   - component: {fileID: 4871430336572265146}
+  - component: {fileID: 1846791484577846247}
   - component: {fileID: 4871430336572265148}
   - component: {fileID: 4871430336572265149}
   - component: {fileID: 4871430336572265136}
@@ -624,6 +625,20 @@ MonoBehaviour:
   mBackGroundLight: {fileID: 4871430335754406475}
   mPlatformLight: {fileID: 4871430336707629233}
   mPlatformLight2: {fileID: 0}
+--- !u!114 &1846791484577846247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4871430336572265125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb0d0616138a1446a89b636875e4927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TargetCamera: {fileID: 2730417043956047931}
+  speed: 6
 --- !u!114 &4871430336572265148
 MonoBehaviour:
   m_ObjectHideFlags: 0
