@@ -5,8 +5,10 @@ using Cinemachine;
 
 public class PlayerTelescope : MonoBehaviour
 {
+    private Camera m_MainCamera;
     private CinemachineVirtualCamera cinevirtual;
     private CinemachineTransposer mCinemachineTransposer;
+    private GameObject m_TelescopeLight;
 
     private Rigidbody2D m_Rigidbody2D;
 
@@ -18,35 +20,63 @@ public class PlayerTelescope : MonoBehaviour
     public Vector3 m_SetLastPosition;
     public Vector3 m_SetSpeed;
 
-    private float lastPosition;
+    public float lastPosition;
     private bool isX;
 
     private void Start()
     {
-        cinevirtual = Camera.main.GetComponentInChildren<CinemachineVirtualCamera>();
+        m_MainCamera = Camera.main;
+        m_TelescopeLight = m_MainCamera.transform.GetChild(3).gameObject;
+        cinevirtual = m_MainCamera.GetComponentInChildren<CinemachineVirtualCamera>();
         mCinemachineTransposer = cinevirtual.GetCinemachineComponent<CinemachineTransposer>();
 
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
 
         enabled = false;
     }
-    private void OnEnable()
+    public IEnumerator StartTelescope()
     {
+        m_Rigidbody2D.velocity = Vector2.zero;
+        yield return YieldInstructionCache.WaitForSeconds(0.31f);
         m_TargetCamera.position = m_SetStartPosition;
-        isX = m_SetLastPosition.x > m_SetLastPosition.y;
+        Vector3 distancePos = m_SetLastPosition - m_SetStartPosition;
+        isX = distancePos.x > distancePos.y;
         lastPosition = isX ? m_SetLastPosition.x : m_SetLastPosition.y;
-
-        StartCoroutine(StartTelescope());
-    }
-    IEnumerator StartTelescope()
-    {
-        while(true)
+        cinevirtual.m_Lens.OrthographicSize = m_SetCameraSize;
+        m_TelescopeLight.SetActive(true);
+        yield return YieldInstructionCache.WaitForSeconds(0.4f);
+        Fade.instance.FadeOut(0.3f);
+        yield return YieldInstructionCache.WaitForSeconds(0.5f);
+        while (true)
         {
             m_TargetCamera.position += m_SetSpeed * Time.deltaTime;
             cinevirtual.m_Lens.OrthographicSize = m_SetCameraSize;
             m_Rigidbody2D.velocity = Vector2.zero;
+
+            if(Input.GetKeyDown(KeySetting.keys[KeyAction.INTERACTION]))
+            {
+                break;
+            }
+            if((isX ? m_MainCamera.transform.position.x : m_MainCamera.transform.position.y) > lastPosition)
+            {
+                for(float i = 0; i < 0.5f; i+=Time.deltaTime)
+                {
+                    if (Input.GetKeyDown(KeySetting.keys[KeyAction.INTERACTION]))
+                    {
+                        break;
+                    }
+                    yield return YieldInstructionCache.WaitForFixedUpdate;
+                }
+                break;
+            }
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
+
+        Fade.instance.FadeIn(0.3f);
+        yield return YieldInstructionCache.WaitForSeconds(0.3f);
         m_Telescope.ChangeActive(false);
+        m_TelescopeLight.SetActive(false);
+        yield return YieldInstructionCache.WaitForSeconds(0.4f);
+        Fade.instance.FadeOut(0.3f);
     }
 }

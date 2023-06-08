@@ -624,7 +624,7 @@ MonoBehaviour:
   LightParents: {fileID: 4871430336050193381}
   mBackGroundLight: {fileID: 4871430335754406475}
   mPlatformLight: {fileID: 4871430336707629233}
-  mPlatformLight2: {fileID: 0}
+  mPlatformLight2: {fileID: 4871430336024202458}
 --- !u!114 &1846791484577846247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -638,7 +638,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TargetCamera: {fileID: 2730417043956047931}
-  speed: 6
+  m_Telescope: {fileID: 0}
+  m_SetCameraSize: 0
+  m_SetStartPosition: {x: 0, y: 0, z: 0}
+  m_SetLastPosition: {x: 0, y: 0, z: 0}
+  m_SetSpeed: {x: 0, y: 0, z: 0}
+  lastPosition: 0
 --- !u!114 &4871430336572265148
 MonoBehaviour:
   m_ObjectHideFlags: 0

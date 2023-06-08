@@ -29,6 +29,8 @@ public class MoveScene : MonoBehaviour
 
     private IEnumerator InvokeLoad(float time)
     {
+        GameManager.GM.savePoint++;
+        GameManager.GM.gameObject.GetComponent<DataManager>().JsonSave();
         m_PlayerMove.isCutScene = true;
         m_PlayerMove.isWalk = true;
         m_PlayerMove.m_CutX = isRight ? 1 : -1;

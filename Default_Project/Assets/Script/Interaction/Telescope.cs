@@ -37,12 +37,14 @@ public class Telescope : Interaction_Object
             m_Telescope.m_SetStartPosition = m_SetStartPosition;
             m_Telescope.m_SetLastPosition = m_SetLastPosition;
             m_Telescope.m_SetSpeed = m_SetSpeed;
+            StartCoroutine(m_Telescope.StartTelescope());
         }
         m_Telescope.enabled = isTelescope;
     }
     public override void Interactions()
     {
         ChangeActive(true);
+        Fade.instance.FadeIn(0.3f);
     }
     public override void Explain()
     {

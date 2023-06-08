@@ -30,7 +30,7 @@ public class DataManager : MonoBehaviour
 
         if (!File.Exists(path))
         {
-            GameManager.GM.savePoint = 1;
+            GameManager.GM.savePoint = 0;
             JsonSave();
         }
         else
