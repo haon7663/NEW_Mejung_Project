@@ -619,6 +619,7 @@ MonoBehaviour:
   JumpDustEffect: {fileID: 1728600524273050926, guid: b6de003ed93fa5f41bc066232a15123a, type: 3}
   SteamDustEffect: {fileID: 3189348437936354607, guid: 251e97e3c9fe7ca4db02955833ce0f5f, type: 3}
   SteamDustVerticalEffect: {fileID: 935814171341680304, guid: f2f6e2c50aa29ef49ad7cd7eb253aef8, type: 3}
+  DashDustVerticalEffect: {fileID: 2854805862600884180, guid: 9446803868a78574cb1edcf7123cdbbf, type: 3}
   MapConfiner: {fileID: 0}
   DeathConfiner: {fileID: 0}
   LightParents: {fileID: 4871430336050193381}
@@ -662,6 +663,9 @@ MonoBehaviour:
   interruptLayer:
     serializedVersion: 2
     m_Bits: 128
+  pipeLayer:
+    serializedVersion: 2
+    m_Bits: 0
   onGround: 0
   onWall: 0
   onRightWall: 0

@@ -7,6 +7,7 @@ public class Collison : MonoBehaviour
     [Header("Layers")]
     public LayerMask groundLayer;
     public LayerMask interruptLayer;
+    public LayerMask pipeLayer;
 
     [Space]
 

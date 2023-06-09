@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 33716194}
   - component: {fileID: 33716193}
   - component: {fileID: 33716192}
-  m_Layer: 3
+  m_Layer: 18
   m_Name: Pipe_Tilemap
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -17618,7 +17618,7 @@ GameObject:
   - component: {fileID: 964337186}
   - component: {fileID: 964337185}
   - component: {fileID: 964337184}
-  m_Layer: 3
+  m_Layer: 18
   m_Name: PipeTurn_Tilemap
   m_TagString: Platform
   m_Icon: {fileID: 0}

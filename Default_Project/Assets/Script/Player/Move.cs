@@ -129,6 +129,7 @@ public class Move : MonoBehaviour
     public GameObject JumpDustEffect;
     public GameObject SteamDustEffect;
     public GameObject SteamDustVerticalEffect;
+    public GameObject DashDustVerticalEffect;
 
     [Space]
     [Header("Death")]
@@ -808,16 +809,16 @@ public class Move : MonoBehaviour
         isPipe = true;
         isDash = false;
 
-        var collision = Physics2D.OverlapCircle(transform.position + setPos, 0.2f, COL.groundLayer);
+        var collision = Physics2D.OverlapCircle(transform.position + setPos, 0.2f, COL.pipeLayer);
         while (true)
         {
             CinemacineSize = 7.5f;
             transform.position += setPos * mPipelineSpeed * Time.deltaTime;
-            collision = Physics2D.OverlapCircle(transform.position + setPos, 0.2f, COL.groundLayer);
+            collision = Physics2D.OverlapCircle(transform.position + setPos, 0.2f, COL.pipeLayer);
             if(!collision)
             {
-                var rightcollision = Physics2D.OverlapCircle(transform.position + new Vector3(setPos.y, setPos.x)*2, 0.2f, COL.groundLayer);
-                var leftcollision = Physics2D.OverlapCircle(transform.position + new Vector3(-setPos.y, -setPos.x)*2, 0.2f, COL.groundLayer);
+                var rightcollision = Physics2D.OverlapCircle(transform.position + new Vector3(setPos.y, setPos.x)*2, 0.2f, COL.pipeLayer);
+                var leftcollision = Physics2D.OverlapCircle(transform.position + new Vector3(-setPos.y, -setPos.x)*2, 0.2f, COL.pipeLayer);
                 if (rightcollision) setPos = new Vector3(setPos.y, setPos.x);
                 else if (leftcollision) setPos = new Vector3(-setPos.y, -setPos.x);
                 else if (!rightcollision && !leftcollision) break;
@@ -857,7 +858,9 @@ public class Move : MonoBehaviour
             var speed = LastVelocity.magnitude;
             var dir = Vector2.Reflect(LastVelocity.normalized, collision.contacts[0].normal);
 
-            RB.velocity = dir * Mathf.Max(speed, 0f);
+            var resultSpeed = dir * Mathf.Max(speed, 0f);
+            Instantiate(DashDustVerticalEffect, transform.position, Quaternion.Euler(0, 0, resultSpeed.x > resultSpeed.y ? (resultSpeed.x > 0 ? 270 : 90) : (resultSpeed.y > 0 ? 0 : 180)));
+            RB.velocity = resultSpeed;
 
             haveDash = true;
             isSteamDash = false;
