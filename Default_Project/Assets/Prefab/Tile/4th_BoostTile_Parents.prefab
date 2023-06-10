@@ -297,7 +297,7 @@ MonoBehaviour:
   - {fileID: 24804478816192615}
   isFour: 0
   isHorizontal: 0
-  LoopTime: 2.5
+  LoopTime: 1
 --- !u!1001 &2048374934541461032
 PrefabInstance:
   m_ObjectHideFlags: 0
