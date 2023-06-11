@@ -36,6 +36,10 @@ public class Collison : MonoBehaviour
     private Rigidbody2D mRigidbody2D;
 
     public float slopeAngle;
+    public float collisionAngle;
+    public float velocityDistance;
+    public GameObject DashDustVerticalEffect;
+    public GameObject DashDustSideEffect;
 
     private void Start()
     {
@@ -68,6 +72,31 @@ public class Collison : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.transform.CompareTag("Platform") && mPlayerMove.isDash)
+        {
+            collisionAngle = Vector2.Angle(collision.contacts[0].normal, Vector2.up);
+            float AbsX = Mathf.Abs(mPlayerMove.LastVelocity.x);
+            float AbsY = Mathf.Abs(mPlayerMove.LastVelocity.y);
+            velocityDistance = AbsX > AbsY ? AbsX - AbsY : AbsY - AbsX;
+            if(velocityDistance > 10)
+            {
+                Instantiate(DashDustVerticalEffect, transform.position, Quaternion.Euler(0, 0, collisionAngle > 45 && collisionAngle < 135 ? (mPlayerMove.LastVelocity.x < 0 ? 270 : 90) : (mPlayerMove.LastVelocity.y < 0 ? 0 : 180)));
+            }
+            else
+            {
+                SpriteRenderer dashSpriteRenderer = Instantiate(DashDustSideEffect, transform.position, Quaternion.Euler(0, 0, collisionAngle > 45 && collisionAngle < 135 ? (mPlayerMove.LastVelocity.x < 0 ? 270 : 90) : (mPlayerMove.LastVelocity.y < 0 ? 0 : 180))).GetComponent< SpriteRenderer>();
+                if (collisionAngle <= 45 || collisionAngle >= 135)
+                {
+                    if (mPlayerMove.LastVelocity.y < 0) dashSpriteRenderer.flipX = mPlayerMove.LastVelocity.x > 0;
+                    else if (mPlayerMove.LastVelocity.y >= 0) dashSpriteRenderer.flipX = mPlayerMove.LastVelocity.x < 0;
+                }
+                else
+                {
+                    if (mPlayerMove.LastVelocity.x < 0) dashSpriteRenderer.flipY = mPlayerMove.LastVelocity.y < 0;
+                    else if (mPlayerMove.LastVelocity.x >= 0) dashSpriteRenderer.flipX = mPlayerMove.LastVelocity.y > 0;
+                }
+            }
+        }
         if (collision.transform.CompareTag("Boost"))
         {
             slopeAngle = Vector2.Angle(collision.contacts[0].normal, Vector2.up);

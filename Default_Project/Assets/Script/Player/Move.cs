@@ -113,7 +113,7 @@ public class Move : MonoBehaviour
     private float PushTime;
     private float springTime;
     private float steamTime;
-    private Vector3 LastVelocity;
+    public Vector3 LastVelocity;
 
     private Transform MainCamera;
     private Transform mLastMainTransform;
@@ -129,7 +129,6 @@ public class Move : MonoBehaviour
     public GameObject JumpDustEffect;
     public GameObject SteamDustEffect;
     public GameObject SteamDustVerticalEffect;
-    public GameObject DashDustVerticalEffect;
 
     [Space]
     [Header("Death")]
@@ -139,18 +138,6 @@ public class Move : MonoBehaviour
     public UnityEngine.Rendering.Universal.Light2D mBackGroundLight;
     public UnityEngine.Rendering.Universal.Light2D mPlatformLight;
     public UnityEngine.Rendering.Universal.Light2D mPlatformLight2;
-
-    private void Awake()
-    {
-        /*if (instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        instance = this;
-        DontDestroyOnLoad(gameObject);*/
-    }
 
     private void Start()
     {
@@ -484,7 +471,6 @@ public class Move : MonoBehaviour
         var speed = 250;
 
         RB.velocity = new Vector3(xraw, yraw).normalized * Mathf.Max(speed, 0f);
-        Debug.Log("speed" + speed + " Velocity" + RB.velocity);
 
         haveDash = true;
         isDash = true;
@@ -857,10 +843,7 @@ public class Move : MonoBehaviour
             KeyBreakTime = 0.1f;
             var speed = LastVelocity.magnitude;
             var dir = Vector2.Reflect(LastVelocity.normalized, collision.contacts[0].normal);
-
-            var resultSpeed = dir * Mathf.Max(speed, 0f);
-            Instantiate(DashDustVerticalEffect, transform.position, Quaternion.Euler(0, 0, resultSpeed.x > resultSpeed.y ? (resultSpeed.x > 0 ? 270 : 90) : (resultSpeed.y > 0 ? 0 : 180)));
-            RB.velocity = resultSpeed;
+            RB.velocity = dir * Mathf.Max(speed, 0f);
 
             haveDash = true;
             isSteamDash = false;

@@ -8,6 +8,10 @@ using System.IO;
 public class GameManager : MonoBehaviour
 {
     public static GameManager GM;
+    public static bool isCalled;
+
+    private KeyManager m_KeyManager;
+    private DialogueParse m_DialogueParse;
 
     [Space]
     [Header("Save")]
@@ -27,6 +31,13 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         GM = this;
+        m_KeyManager = GetComponent<KeyManager>();
+
+        if (!isCalled)
+        {
+            m_KeyManager.SetKey();
+            isCalled = true;
+        }
     }
     private void Start()
     {

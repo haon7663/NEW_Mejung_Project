@@ -25,7 +25,7 @@ public class Fade : MonoBehaviour
         m_Image.enabled = true;
         m_Image.color = new Color(0, 0, 0, 1);
         m_Image.DOFade(0, time);
-        //Invoke(nameof(DelayEnable), time);
+        Invoke(nameof(DelayEnable), time);
     }
     private void DelayEnable() => m_Image.enabled = false;
 }

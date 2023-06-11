@@ -14,7 +14,7 @@ public class KeyManager : MonoBehaviour
 
     public Text[] mSetText = new Text[8];
 
-    private void Awake()
+    public void SetKey()
     {
         for (int i = 0; i < (int)KeyAction.KEYCOUNT; i++)
         {
@@ -22,7 +22,6 @@ public class KeyManager : MonoBehaviour
             mSetText[i].text = defaultKeys[i].ToString();
         }
     }
-
     private void OnGUI()
     {
         Event keyEvent = Event.current;

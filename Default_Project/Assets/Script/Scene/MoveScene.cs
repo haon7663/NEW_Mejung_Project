@@ -13,6 +13,8 @@ public class MoveScene : MonoBehaviour
 
     public bool isRight;
 
+    private bool isCalled = false;
+
     private void Start()
     {
         m_Player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -21,7 +23,7 @@ public class MoveScene : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && !isCalled)
         {
             StartCoroutine(InvokeLoad(1f));
         }
@@ -29,6 +31,7 @@ public class MoveScene : MonoBehaviour
 
     private IEnumerator InvokeLoad(float time)
     {
+        isCalled = true;
         GameManager.GM.savePoint++;
         GameManager.GM.gameObject.GetComponent<DataManager>().JsonSave();
         m_PlayerMove.isCutScene = true;
