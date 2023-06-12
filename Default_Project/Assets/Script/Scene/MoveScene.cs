@@ -12,8 +12,7 @@ public class MoveScene : MonoBehaviour
     public Vector2 SetPostion;
 
     public bool isRight;
-
-    private bool isCalled = false;
+    private bool isCalled;
 
     private void Start()
     {
@@ -26,12 +25,12 @@ public class MoveScene : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && !isCalled)
         {
             StartCoroutine(InvokeLoad(1f));
+            isCalled = true;
         }
     }
 
     private IEnumerator InvokeLoad(float time)
     {
-        isCalled = true;
         GameManager.GM.savePoint++;
         GameManager.GM.gameObject.GetComponent<DataManager>().JsonSave();
         m_PlayerMove.isCutScene = true;
@@ -46,7 +45,6 @@ public class MoveScene : MonoBehaviour
         {
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
-        m_Player.position = SetPostion;
         SceneManager.LoadScene(SceneCount);
     }
 }

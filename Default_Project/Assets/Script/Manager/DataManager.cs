@@ -18,12 +18,6 @@ public class DataManager : MonoBehaviour
         path = Path.Combine(Application.dataPath + "/Data/", "database.json");
         JsonLoad();
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-            JsonSave();
-    }
     public void JsonLoad()
     {
         SaveData saveData = new SaveData();
@@ -37,7 +31,7 @@ public class DataManager : MonoBehaviour
         {
             var loadJson = File.ReadAllText(path);
             saveData = JsonUtility.FromJson<SaveData>(CryptoDebug.Decrypt(loadJson, "we"));
-            //Debug.Log("decrypt: " + CryptoDebug.Decrypt(loadJson, "we"));
+            Debug.Log("decrypt: " + CryptoDebug.Decrypt(loadJson, "we"));
 
             if (saveData != null)
             {

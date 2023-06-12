@@ -9,10 +9,6 @@ public class DialogueParse : MonoBehaviour
                 new Dictionary<string, TalkData[]>();
     [SerializeField] private TextAsset csvFile = null;
 
-    private void Awake()
-    {
-        SetTalkDictionary();
-    }
     public void SetTalkDictionary()
     {
         string csvText = csvFile.text.Substring(0, csvFile.text.Length - 1);

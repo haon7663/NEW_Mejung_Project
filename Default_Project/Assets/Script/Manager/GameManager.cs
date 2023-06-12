@@ -32,9 +32,11 @@ public class GameManager : MonoBehaviour
     {
         GM = this;
         m_KeyManager = GetComponent<KeyManager>();
+        m_DialogueParse = GetComponent<DialogueParse>();
 
         if (!isCalled)
         {
+            m_DialogueParse.SetTalkDictionary();
             m_KeyManager.SetKey();
             isCalled = true;
         }

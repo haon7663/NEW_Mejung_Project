@@ -24,10 +24,7 @@ public class SavePoint : MonoBehaviour
     {
         mPlayerMove.mCheckPoint = transform;
         GameManager.GM.savePoint = PointCount;
+        Debug.Log(PointCount);
         GameManager.GM.gameObject.GetComponent<DataManager>().JsonSave();
-    }
-    public void Interactions()
-    {
-        Save();
     }
 }
