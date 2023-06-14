@@ -63,6 +63,10 @@ public class Move : MonoBehaviour
     public float m_CutX = 0;
 
     [Space]
+    [Header("Dash")]
+    public int DashCount;
+
+    [Space]
     [Header("CheckPoint")]
     public Transform mCheckPoint;
 
@@ -245,7 +249,12 @@ public class Move : MonoBehaviour
             }
         }
 
-        if(isKeyBreak && !isCutScene && GetDash)
+        if (KeyBreakTime > 0 && Input.GetKeyDown(KeySetting.keys[KeyAction.DASH]))
+        {
+            isKeyBreak = true;
+            KeyBreakXY = new Vector2(xRaw, yRaw);
+        }
+        if (isKeyBreak && !isCutScene && GetDash)
         {
             if (!COL.onGround && (xRaw != 0 || yRaw != 0) && DashTime <= 0 && (((COL.onRightWall && xRaw == -1) || (COL.onLeftWall && xRaw == 1)) || !COL.onWall))
             {
@@ -258,11 +267,6 @@ public class Move : MonoBehaviour
         {
             if (COL.onSlope) ChargeDash();
             else if (!COL.onGround && (xRaw != 0 || yRaw != 0) && DashTime <= 0 && (((COL.onRightWall && xRaw == -1) || (COL.onLeftWall && xRaw == 1)) || !COL.onWall)) Dash(xRaw, yRaw);
-        }
-        if (KeyBreakTime > 0 && Input.GetKeyDown(KeySetting.keys[KeyAction.DASH]))
-        {
-            isKeyBreak = true;
-            KeyBreakXY = new Vector2(xRaw, yRaw);
         }
 
 
@@ -501,7 +505,8 @@ public class Move : MonoBehaviour
     public void SetSlopeCamera() => m_TargetCamera.position = transform.position + (new Vector3(LastCollision.contacts[0].normal.x, LastCollision.contacts[0].normal.y).normalized + new Vector3(LastCollision.contacts[0].normal.x * 1.25f, 0)) * 10;
     private void Dash(float x, float y)
     {
-        DashTime = 0.1f;
+        DashCount++;
+        DashTime = 0.15f;
         haveDash = false;
         isSteamDash = false;
         StartCoroutine(DashWait(x, y));
@@ -516,6 +521,8 @@ public class Move : MonoBehaviour
     }
     IEnumerator DashWait(float x, float y)
     {
+        int thisCount = DashCount;
+
         springTime = 0;
         RB.gravityScale = 0;
         Invoke("InvDash", .1f);
@@ -526,7 +533,7 @@ public class Move : MonoBehaviour
         CPCOL.size = new Vector2(1.875f, 1.875f);
         mHitBox.size = new Vector2(1.875f * mHitSize.x, 1.875f * mHitSize.y);
 
-        RB.velocity = new Vector2(x, y != 0 ? y : 0.1f).normalized * 65;
+        RB.velocity = new Vector2(xRaw != 0 ? x : 0f, y != 0 ? y : 0.1f).normalized * 65;
         StartCoroutine(GroundDash());
         DOVirtual.Float(6, 0, 2f, RigidbodyDrag);
 
@@ -534,7 +541,7 @@ public class Move : MonoBehaviour
         isWallJump = true;
         if (xRaw != 0)
         {
-            while ((RB.velocity.x < 0 ? RB.velocity.x * -1 : RB.velocity.x) > maxSpeed)
+            while ((RB.velocity.x < 0 ? RB.velocity.x * -1 : RB.velocity.x) > maxSpeed || (thisCount < DashCount && isANDash))
             {
                 if (isPipe || isSteamDash || springTime > 0) break;
                 yield return YieldInstructionCache.WaitForFixedUpdate;
@@ -542,14 +549,14 @@ public class Move : MonoBehaviour
         }
         else if (xRaw == 0)
         {
-            while ((RB.velocity.y < 0 ? RB.velocity.y * -0.4f : RB.velocity.y) > maxSpeed)
+            while ((RB.velocity.y < 0 ? RB.velocity.y * -0.4f : RB.velocity.y) > maxSpeed || (thisCount < DashCount && isANDash))
             {
                 if (isPipe || isSteamDash || springTime > 0) break;
                 yield return YieldInstructionCache.WaitForFixedUpdate;
             }
         }
-
-        if (!isPipe)
+        yield return YieldInstructionCache.WaitForFixedUpdate;
+        if (!isPipe && thisCount >= DashCount)
         {
             GetComponent<BetterJump>().enabled = true;
             isWallJump = false;
@@ -557,6 +564,7 @@ public class Move : MonoBehaviour
             CPCOL.size = new Vector2(1, 1.875f);
             mHitBox.size = new Vector2(1 * mHitSize.x, 1.875f * mHitSize.y);
         }
+        DashCount--;
 
         yield return null;
     }
@@ -839,7 +847,7 @@ public class Move : MonoBehaviour
     {
         if (collision.transform.CompareTag("Platform") && isDash)
         {
-            DashTime = 0.1f;
+            DashTime = 0.15f;
             KeyBreakTime = 0.1f;
             var speed = LastVelocity.magnitude;
             var dir = Vector2.Reflect(LastVelocity.normalized, collision.contacts[0].normal);
