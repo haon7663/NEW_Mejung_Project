@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,11 +29,14 @@ public class GameManager : MonoBehaviour
     public bool onPause = false;
     public bool onRadio = false;
 
+    private Move m_PlayerMove;
+
     private void Awake()
     {
         GM = this;
         m_KeyManager = GetComponent<KeyManager>();
         m_DialogueParse = GetComponent<DialogueParse>();
+        m_PlayerMove = GameObject.FindGameObjectWithTag("Player").GetComponent<Move>();
 
         if (!isCalled)
         {
@@ -48,7 +52,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !m_PlayerMove.isDeath)
         {
             Pause();
         }
@@ -70,6 +74,7 @@ public class GameManager : MonoBehaviour
     public void CheckPoint()
     {
         Debug.Log("CheckPoint");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void Main()
     {
