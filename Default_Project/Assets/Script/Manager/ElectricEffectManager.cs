@@ -16,6 +16,7 @@ public class ElectricEffectManager : MonoBehaviour
         public Vector2 ERange;
         public float ETime;
         public float ETimer;
+        public bool EReflect;
     }
     List<GameObject>[] Electric_pools;
 
@@ -61,14 +62,15 @@ public class ElectricEffectManager : MonoBehaviour
         if (!select)
         {
             select = Instantiate(Random.Range(0, 2) == 0 ? E_Effect1 : E_Effect2);
-            select.transform.localScale = new Vector3(Random.Range(0, 2) == 0 ? 1 : -1, 1);
             Electric_pools[index].Add(select);
         }
 
         StartCoroutine(InvokeDisable(select));
         select.transform.SetParent(transform);
-        elec.EPos += new Vector2(0, 0.6875f);
-        select.transform.SetPositionAndRotation(elec.EPos + new Vector2(Random.Range(elec.ERange.x / 2, elec.ERange.x / -2), Random.Range(elec.ERange.y / 2, elec.ERange.y / -2)), Quaternion.Euler(0, 0, elec.ERange.x > elec.ERange.y ? 0 : 90));
+        var CompareX = elec.ERange.x > elec.ERange.y;
+        select.transform.localScale = new Vector3(Random.Range(0, 2) == 0 ? 1 : -1, 1);
+        elec.EPos += new Vector2(elec.EReflect ? -0.6875f : 0.6875f, elec.EReflect ? -0.6875f : 0.6875f);
+        select.transform.SetPositionAndRotation(elec.EPos + new Vector2(Random.Range(elec.ERange.x / 2, elec.ERange.x / -2), Random.Range(elec.ERange.y / 2, elec.ERange.y / -2)), Quaternion.Euler(0, 0, CompareX ? elec.EReflect ? 180 : 0 : elec.EReflect ? 90 : 270));
 
         return select;
     }
