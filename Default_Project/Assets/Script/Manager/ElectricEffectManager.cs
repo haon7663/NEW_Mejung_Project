@@ -77,7 +77,7 @@ public class ElectricEffectManager : MonoBehaviour
 
     private IEnumerator InvokeDisable(GameObject select)
     {
-        yield return YieldInstructionCache.WaitForSeconds(0.5f);
+        yield return YieldInstructionCache.WaitForSeconds(0.325f);
         select.SetActive(false);
     }
 

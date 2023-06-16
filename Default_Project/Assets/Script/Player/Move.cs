@@ -533,23 +533,23 @@ public class Move : MonoBehaviour
         CPCOL.size = new Vector2(1.875f, 1.875f);
         mHitBox.size = new Vector2(1.875f * mHitSize.x, 1.875f * mHitSize.y);
 
-        RB.velocity = new Vector2(xRaw != 0 ? x : 0f, y != 0 ? y : 0.1f).normalized * 65;
+        RB.velocity = new Vector2(x != 0 ? x : 0f, y != 0 ? y : 0.1f).normalized * 65;
         StartCoroutine(GroundDash());
         DOVirtual.Float(6, 0, 2f, RigidbodyDrag);
 
         GetComponent<BetterJump>().enabled = false;
         isWallJump = true;
-        if (xRaw != 0)
+        if (x != 0)
         {
-            while ((RB.velocity.x < 0 ? RB.velocity.x * -1 : RB.velocity.x) > maxSpeed || (thisCount < DashCount && isANDash))
+            while ((RB.velocity.x < 0 ? RB.velocity.x * -1 : RB.velocity.x) > maxSpeed || (thisCount < DashCount))
             {
                 if (isPipe || isSteamDash || springTime > 0) break;
                 yield return YieldInstructionCache.WaitForFixedUpdate;
             }
         }
-        else if (xRaw == 0)
+        else if (x == 0)
         {
-            while ((RB.velocity.y < 0 ? RB.velocity.y * -0.4f : RB.velocity.y) > maxSpeed || (thisCount < DashCount && isANDash))
+            while ((RB.velocity.y < 0 ? RB.velocity.y * -0.4f : RB.velocity.y) > maxSpeed || (thisCount < DashCount))
             {
                 if (isPipe || isSteamDash || springTime > 0) break;
                 yield return YieldInstructionCache.WaitForFixedUpdate;
