@@ -28,6 +28,7 @@ public class Move : MonoBehaviour
 
     private Collison COL;
     private Death DIE;
+    private SetConfiner m_SetConfiner;
     private AnimationScript Player_Animation;
 
     //__________________________//
@@ -152,6 +153,8 @@ public class Move : MonoBehaviour
         COL = GetComponent<Collison>();
         DIE = GetComponent<Death>();
         AN = GetComponent<Animator>();
+        m_SetConfiner = GetComponent<SetConfiner>();
+        Invoke(nameof(InvokeAble), 0.02f);
 
         Player_Animation = GetComponent<AnimationScript>();
 
@@ -159,6 +162,10 @@ public class Move : MonoBehaviour
 
         MainCamera = Camera.main.transform;
         mCinemachineTransposer = cinevirtual.GetCinemachineComponent<CinemachineTransposer>();
+    }
+    private void InvokeAble()
+    {
+        m_SetConfiner.enabled = true;
     }
 
     internal static class YieldInstructionCache

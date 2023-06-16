@@ -15,12 +15,15 @@ public class SetConfiner : MonoBehaviour
 
     private Move mPlayerMove;
     private float mLastSize;
-    private bool isOneTime;
 
     private void Start()
     {
         mPlayerMove = GetComponent<Move>();
-        isOneTime = !Physics2D.OverlapBox(transform.position, new Vector2(1f, 1f), 0, sizeConfiner_Layer);
+        enabled = false;
+    }
+    private void OnEnable()
+    {
+        
     }
     private void Update()
     {
@@ -29,15 +32,13 @@ public class SetConfiner : MonoBehaviour
 
         var size_Confiner = Physics2D.OverlapBox(transform.position, new Vector2(1f, 1f), 0, sizeConfiner_Layer);
         if (mPlayerMove.isDeath) return;
-        if (size_Confiner && !isOneTime)
+        if (size_Confiner)
         {
-            isOneTime = true;
             mPlayerMove.CinemacineSize = size_Confiner.transform.position.z;
             mPlayerMove.mCameraSize = size_Confiner.transform.position.z;
         }
-        else if (!size_Confiner && isOneTime)
+        else if (!size_Confiner)
         {
-            isOneTime = false;
             mPlayerMove.CinemacineSize = 10;
             mPlayerMove.mCameraSize = 10;
         }
