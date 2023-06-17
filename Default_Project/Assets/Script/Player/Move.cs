@@ -64,6 +64,13 @@ public class Move : MonoBehaviour
     public float m_CutX = 0;
 
     [Space]
+    [Header("Time")]
+    public float m_CoyoteTime;
+    public float m_CoyoteCount;
+    public float BufferingTime;
+    public float BufferingCount;
+
+    [Space]
     [Header("Dash")]
     public int DashCount;
 
@@ -213,7 +220,7 @@ public class Move : MonoBehaviour
 
         //_____________________________//
 
-        if (Input.GetKeyDown(KeySetting.keys[KeyAction.JUMP]) && !isCutScene) Jump();
+        if ((Input.GetKeyDown(KeySetting.keys[KeyAction.JUMP])) && !isCutScene) Jump();
         if (Input.GetKeyDown(KeySetting.keys[KeyAction.STEAM]) && steamTime > 0 && haveSteamDash && GetSteamDash) StartCoroutine(SteamDash(xRaw, yRaw));
         mAimObject.SetActive(COL.onSlope);
 
@@ -286,6 +293,7 @@ public class Move : MonoBehaviour
         mANDahsTime -= Time.deltaTime;
         steamTime -= Time.deltaTime;
         PushTime -= Time.deltaTime;
+        m_CoyoteCount -= Time.deltaTime;
 
         //_____________________________//
 
@@ -389,7 +397,7 @@ public class Move : MonoBehaviour
 
             isWallJump = true;
         }
-        else if (COL.onGround)
+        else if (COL.onGround || m_CoyoteCount > 0)
         {
             Instantiate(JumpDustEffect, transform.position, Quaternion.identity);
             RB.velocity = new Vector2(RB.velocity.x, 0);
@@ -408,10 +416,12 @@ public class Move : MonoBehaviour
 
             isWallJump = true;
         }
+        m_CoyoteCount = 0;
     }
 
     private IEnumerator SteamDash(float x, float y)
     {
+        m_CoyoteCount = 0;
         DashTime = 0.1f;
         KeyBreakTime = 0f;
         isKeyBreak = false;
@@ -447,6 +457,7 @@ public class Move : MonoBehaviour
     public Collision2D LastCollision;
     private void ChargeDash()
     {
+        m_CoyoteCount = 0;
         float xraw = setRaw().x;
         float yraw = setRaw().y;
 
@@ -512,6 +523,7 @@ public class Move : MonoBehaviour
     public void SetSlopeCamera() => m_TargetCamera.position = transform.position + (new Vector3(LastCollision.contacts[0].normal.x, LastCollision.contacts[0].normal.y).normalized + new Vector3(LastCollision.contacts[0].normal.x * 1.25f, 0)) * 10;
     private void Dash(float x, float y)
     {
+        m_CoyoteCount = 0;
         DashCount++;
         DashTime = 0.15f;
         haveDash = false;
@@ -528,6 +540,7 @@ public class Move : MonoBehaviour
     }
     IEnumerator DashWait(float x, float y)
     {
+        m_CoyoteCount = 0;
         int thisCount = DashCount;
 
         springTime = 0;
@@ -582,6 +595,7 @@ public class Move : MonoBehaviour
 
     IEnumerator AfterDashWait(bool isShake)
     {
+        m_CoyoteCount = 0;
         springTime = 0;
         RB.gravityScale = 0;
         Invoke("InvDash", .1f);
@@ -751,6 +765,7 @@ public class Move : MonoBehaviour
         isSlide = false;
         if (COL.onGround)
         {
+            m_CoyoteCount = m_CoyoteTime;
             haveDash = true;
             isSteamDash = false;
             isWallJump = false;

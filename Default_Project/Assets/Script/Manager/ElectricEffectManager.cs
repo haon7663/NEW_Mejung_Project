@@ -28,6 +28,8 @@ public class ElectricEffectManager : MonoBehaviour
         for (int i = 0; i < m_ElectricStruct.Length; i++)
         {
             Electric_pools[i] = new List<GameObject>();
+            m_ElectricStruct[i].ETime = (15 / (m_ElectricStruct[i].ERange.x + m_ElectricStruct[i].ERange.y)) + 0.2f;
+            m_ElectricStruct[i].ERange = new Vector2(m_ElectricStruct[i].ERange.x == 0 ? 0 : m_ElectricStruct[i].ERange.x - 1, m_ElectricStruct[i].ERange.y == 0 ? 0 : m_ElectricStruct[i].ERange.y - 1);
         }
     }
 
@@ -83,11 +85,14 @@ public class ElectricEffectManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
         for(int i = 0; i < m_ElectricStruct.Length; i++)
         {
             ElectricStruct elec = m_ElectricStruct[i];
+            var CompareX = elec.ERange.x > elec.ERange.y;
+            Gizmos.color = Color.red;
             Gizmos.DrawWireCube(elec.EPos, new Vector2(elec.ERange.x == 0 ? 1 : elec.ERange.x, elec.ERange.y == 0 ? 1 : elec.ERange.y));
+            Gizmos.color = Color.green;
+            Gizmos.DrawRay(elec.EPos, new Vector2(elec.ERange.x == 0 ? elec.EReflect ? -2 : 2 : 0, elec.ERange.y == 0 ? elec.EReflect ? -2 : 2 : 0));
         }
     }
 }
