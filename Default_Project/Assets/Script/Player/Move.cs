@@ -383,6 +383,7 @@ public class Move : MonoBehaviour
 
     private void Jump()
     {
+        isExitGround = false;
         canWallSlide = false;
         AN.SetTrigger("jump");
         if (COL.onSlope)
@@ -680,6 +681,7 @@ public class Move : MonoBehaviour
     public IEnumerator Spring(Vector2 angle)
     {
         if(angle.x != 0) AN.SetTrigger("steamdash");
+        m_CoyoteCount = 0;
         springTime = 1;
         isDash = false;
         isANDash = false;
@@ -759,16 +761,31 @@ public class Move : MonoBehaviour
             SR.flipX = COL.onRightWall;
         }
     }
+    public bool isExitGround;
+    public bool isCalledGround;
     private void ElseWallSlide()
     {
         RB.gravityScale = 3;
         isSlide = false;
         if (COL.onGround)
         {
-            m_CoyoteCount = m_CoyoteTime;
+            isCalledGround = false;
             haveDash = true;
             isSteamDash = false;
             isWallJump = false;
+        }
+        if (!COL.onGround)
+        {
+            if (!isCalledGround)
+            {
+                isExitGround = true;
+                isCalledGround = true;
+            }
+        }
+        if (isExitGround)
+        {
+            m_CoyoteCount = m_CoyoteTime;
+            isExitGround = false;
         }
     }
     private void WallSlope()

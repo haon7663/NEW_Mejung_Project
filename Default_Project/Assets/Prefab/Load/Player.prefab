@@ -589,6 +589,11 @@ MonoBehaviour:
   yRaw: 0
   AddMaxSpeed: 12
   m_CutX: 0
+  m_CoyoteTime: 0.2
+  m_CoyoteCount: 0
+  BufferingTime: 0
+  BufferingCount: 0
+  DashCount: 0
   mCheckPoint: {fileID: 0}
   mHitSize: {x: 0.6, y: 0.9}
   isCutScene: 0
