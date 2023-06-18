@@ -383,7 +383,6 @@ public class Move : MonoBehaviour
 
     private void Jump()
     {
-        isExitGround = false;
         canWallSlide = false;
         AN.SetTrigger("jump");
         if (COL.onSlope)
@@ -761,31 +760,16 @@ public class Move : MonoBehaviour
             SR.flipX = COL.onRightWall;
         }
     }
-    public bool isExitGround;
-    public bool isCalledGround;
     private void ElseWallSlide()
     {
         RB.gravityScale = 3;
         isSlide = false;
         if (COL.onGround)
         {
-            isCalledGround = false;
+            m_CoyoteCount = m_CoyoteTime;
             haveDash = true;
             isSteamDash = false;
             isWallJump = false;
-        }
-        if (!COL.onGround)
-        {
-            if (!isCalledGround)
-            {
-                isExitGround = true;
-                isCalledGround = true;
-            }
-        }
-        if (isExitGround)
-        {
-            m_CoyoteCount = m_CoyoteTime;
-            isExitGround = false;
         }
     }
     private void WallSlope()
