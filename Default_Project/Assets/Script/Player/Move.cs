@@ -299,6 +299,8 @@ public class Move : MonoBehaviour
 
         if (RB.velocity.x > 0.02f) SR.flipX = false;
         else if (RB.velocity.x < -0.02f) SR.flipX = true;
+       /* if (COL.onSlopeRightWall) SR.flipX = true;
+        else if (COL.onSlopeLeftWall) SR.flipX = false;*/
 
         if (isDash) mANDahsTime = 0.2f;
         if (mANDahsTime > 0) isANDash = true;
@@ -688,7 +690,9 @@ public class Move : MonoBehaviour
         steamTime = 0;
         yield return YieldInstructionCache.WaitForFixedUpdate;
         GetComponent<BetterJump>().enabled = true;
-        RB.velocity = new Vector2(angle.x == 0 ? RB.velocity.x : angle.x, angle.y == 0 ? RB.velocity.y : angle.y);
+        var vel = 5;
+        Vector2 MaxVelocity = new Vector2(RB.velocity.x > vel ? vel : RB.velocity.x, RB.velocity.y > vel ? vel : RB.velocity.y);
+        RB.velocity = new Vector2(angle.x == 0 ? MaxVelocity.x : angle.x, angle.y == 0 ? MaxVelocity.y : angle.y);
         haveDash = true;
     }
     public void Death(bool isInv)
@@ -766,11 +770,12 @@ public class Move : MonoBehaviour
         isSlide = false;
         if (COL.onGround)
         {
-            m_CoyoteCount = m_CoyoteTime;
+            if (!AN.GetCurrentAnimatorStateInfo(0).IsName("Player_Jump") && !isDash) m_CoyoteCount = m_CoyoteTime;
             haveDash = true;
             isSteamDash = false;
             isWallJump = false;
         }
+        else if(AN.GetCurrentAnimatorStateInfo(0).IsName("Player_Jump")) m_CoyoteCount = 0;
     }
     private void WallSlope()
     {
