@@ -23,6 +23,7 @@ public class Move : MonoBehaviour
     private SpriteRenderer SR;
     private CapsuleCollider2D CPCOL;
     private Animator AN;
+    private BoxCollider2D BXCOL;
 
     //__________________________//
 
@@ -56,8 +57,6 @@ public class Move : MonoBehaviour
 
     [Space]
     [Header("XY")]
-    public float x;
-    public float y;
     public float xRaw;
     public float yRaw;
     public float AddMaxSpeed;
@@ -160,6 +159,7 @@ public class Move : MonoBehaviour
         COL = GetComponent<Collison>();
         DIE = GetComponent<Death>();
         AN = GetComponent<Animator>();
+        BXCOL = GetComponent<BoxCollider2D>();
         m_SetConfiner = GetComponent<SetConfiner>();
         Invoke(nameof(InvokeAble), 0.02f);
 
@@ -207,14 +207,12 @@ public class Move : MonoBehaviour
         {
             isDash = false;
             AN.SetBool("run", false);
-            x = 0; xRaw = 0; y = 0; yRaw = 0;
+            xRaw = 0; yRaw = 0;
             return;
         }
 
         //_____________________________//
 
-        x = Input.GetAxis("Horizontal");
-        y = Input.GetAxis("Vertical");
         xRaw = Input.GetAxisRaw("Horizontal");
         yRaw = Input.GetAxisRaw("Vertical");
 
@@ -313,7 +311,7 @@ public class Move : MonoBehaviour
 
         LastVelocity = RB.velocity;
 
-        if (COL.onWall) WallSlide();
+        if (COL.onWall && !COL.onGround) WallSlide();
         else if (!COL.onWall || COL.onGround) ElseWallSlide();
         if (COL.onSlope && !isANDash) WallSlope();
     }
@@ -325,7 +323,7 @@ public class Move : MonoBehaviour
         if (isInteraction) RB.velocity = new Vector2(0, RB.velocity.y);
         if (isPipe || isInteraction || COL.onSlope) return;
 
-        Player_Animation.SetHorizontalMovement(x, y, RB.velocity.y, xRaw); Walk();
+        Player_Animation.SetHorizontalMovement(xRaw, yRaw, RB.velocity.y, xRaw); Walk();
     }
 
     private void Walk()
@@ -364,7 +362,7 @@ public class Move : MonoBehaviour
             }
             else if ((xRaw == 0 && PushTime < 0) || COL.onWall)
             {
-                RB.velocity = new Vector2(x * maxSpeed, RB.velocity.y);
+                RB.velocity = new Vector2(xRaw * maxSpeed, RB.velocity.y);
             }
             else if ((MathF.Abs(RB.velocity.x) < maxSpeed || PlayerFlip()) || (PushTime >= 0 && MathF.Abs(RB.velocity.x) < maxSpeed))
             {
@@ -378,7 +376,7 @@ public class Move : MonoBehaviour
             {
                 CPCOL.size = new Vector2(1, 1.875f);
                 mHitBox.size = new Vector2(1 * mHitSize.x, 1.875f * mHitSize.y);
-                RB.velocity = new Vector2(x * maxSpeed, RB.velocity.y);
+                RB.velocity = new Vector2(xRaw * maxSpeed, RB.velocity.y);
             }
         }
     }
@@ -766,6 +764,8 @@ public class Move : MonoBehaviour
     }
     private void ElseWallSlide()
     {
+        BXCOL.enabled = COL.onGround && xRaw == 0 && !Input.GetKey(KeySetting.keys[KeyAction.JUMP]) && !isANDash && !COL.onSlope && RB.velocity.y > -1;
+        
         RB.gravityScale = 3;
         isSlide = false;
         if (COL.onGround)
@@ -801,7 +801,7 @@ public class Move : MonoBehaviour
 
     bool PlayerFlip()
     {
-        bool flipSprite = (SR.flipX ? x > 0f : x < 0f);
+        bool flipSprite = (SR.flipX ? xRaw > 0f : xRaw < 0f);
         if(flipSprite)
         {
             if(!isSteamDash) SR.flipX = !SR.flipX;
