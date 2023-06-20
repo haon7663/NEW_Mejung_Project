@@ -9,15 +9,11 @@ public class TutorialBox : SceneEvent
     [Header("LEFT, RIGHT, DOWN, UP, JUMP")]
     [Header("DASH, STEAM, INTERACTION, KEYCOUNT")]
     [Space]
-    public string m_KeyAction;
     public string[] m_FrontKeyActions;
-
-    private ButtonTutorial m_KeyScript;
-    private ButtonTutorial[] m_FrontKeyScripts;
+    public ButtonTutorial[] m_FrontKeyScripts;
 
     private void Start()
     {
-        m_KeyScript = TutorialManager.instance.m_Key;
         if (!isSingle)
         {
             for (int i = 0; i < m_FrontKeyScripts.Length; i++)
@@ -28,21 +24,18 @@ public class TutorialBox : SceneEvent
     }
     public override void Event()
     {
-        if (!m_KeyScript.isWorking)
+        if (!m_FrontKeyScripts[0].isWorking)
         {
-            KeyAction key = (KeyAction)Enum.Parse(typeof(KeyAction), m_KeyAction);
-            m_KeyScript.m_KeyAction = m_KeyAction;
-            m_KeyScript.m_KeyCount = 0;
-            m_KeyScript.SetKey(KeySetting.keys[key].ToString());
-            if (!isSingle)
+            for (int i = 0; i < m_FrontKeyScripts.Length; i++)
             {
-                for (int i = 0; i < m_FrontKeyScripts.Length; i++)
+                KeyAction keys = (KeyAction)Enum.Parse(typeof(KeyAction), m_FrontKeyActions[i]);
+                for (int j = 0; j < m_FrontKeyScripts.Length; j++)
                 {
-                    KeyAction keys = (KeyAction)Enum.Parse(typeof(KeyAction), m_FrontKeyActions[i]);
-                    m_FrontKeyScripts[i].m_KeyAction = m_FrontKeyActions[i];
-                    m_FrontKeyScripts[i].m_KeyCount = i + 1;
-                    m_FrontKeyScripts[i].SetKey(KeySetting.keys[keys].ToString());
+                    m_FrontKeyScripts[i].m_KeyAction[j] = m_FrontKeyActions[j];
                 }
+                m_FrontKeyScripts[i].m_KeyCount = i;
+                m_FrontKeyScripts[i].m_Lenth = m_FrontKeyScripts.Length;
+                m_FrontKeyScripts[i].SetKey(KeySetting.keys[keys].ToString());
             }
         }
     }

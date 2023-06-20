@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class ButtonTutorial : MonoBehaviour
 {
     public static ButtonTutorial instance;
-    public String m_KeyAction;
+    public String[] m_KeyAction;
 
     private bool isPush;
     private Image m_Image;
@@ -31,6 +31,8 @@ public class ButtonTutorial : MonoBehaviour
 
     public string SettedKey;
     public int m_KeyCount;
+    public int m_Lenth;
+    public float m_KeyPos;
 
     private void Awake()
     {
@@ -50,6 +52,15 @@ public class ButtonTutorial : MonoBehaviour
     public void SetKey(string key)
     {
         SettedKey = key;
+        if (m_Lenth == 1) m_KeyPos = 0;
+        else if (m_Lenth == 2)
+        {
+            m_KeyPos = m_KeyCount == 0 ? 1f : -1;
+        }
+        else if (m_Lenth == 3)
+        {
+            m_KeyPos = m_KeyCount == 0 ? 1f : m_KeyCount == 1 ? -1 : -0.25f;
+        }
         StartCoroutine(ShowedKey(true));
     }
 
@@ -74,27 +85,36 @@ public class ButtonTutorial : MonoBehaviour
                 m_TextDouble.enabled = true;
             }
         }
-        KeyAction key = (KeyAction)Enum.Parse(typeof(KeyAction), m_KeyAction);
+        KeyAction key = (KeyAction)Enum.Parse(typeof(KeyAction), m_KeyAction[0]);
+        KeyAction key1 = (KeyAction)Enum.Parse(typeof(KeyAction), m_KeyAction[m_Lenth > 1 ? 1 : 0]);
+        KeyAction key2 = (KeyAction)Enum.Parse(typeof(KeyAction), m_KeyAction[m_Lenth > 2 ? 2 : 0]);
+
         isPush = false;
         PushSet();
         for (float i = 0; i < 8; i ++)
         {
             for (float j = 0; j < 0.4f; j += Time.deltaTime)
             {
-                transform.position = m_Camera.WorldToScreenPoint(m_Player.transform.position + new Vector3(0, 1.75f));
-                if (Input.GetKey(KeySetting.keys[key])) break;
+                transform.position = m_Camera.WorldToScreenPoint(m_Player.transform.position + new Vector3(m_KeyPos, 1.75f));
+                if (m_Lenth == 1 && Input.GetKey(KeySetting.keys[key])) break;
+                else if(m_Lenth == 2 && Input.GetKey(KeySetting.keys[key]) && Input.GetKey(KeySetting.keys[key1])) break;
+                else if (m_Lenth == 3 && Input.GetKey(KeySetting.keys[key]) && Input.GetKey(KeySetting.keys[key1]) && Input.GetKey(KeySetting.keys[key2])) break;
                 yield return YieldInstructionCache.WaitForFixedUpdate;
             }
             isPush = !isPush;
             PushSet();
 
-            if (Input.GetKey(KeySetting.keys[key])) break;
+            if (m_Lenth == 1 && Input.GetKey(KeySetting.keys[key])) break;
+            else if (m_Lenth == 2 && Input.GetKey(KeySetting.keys[key]) && Input.GetKey(KeySetting.keys[key1])) break;
+            else if (m_Lenth == 3 && Input.GetKey(KeySetting.keys[key]) && Input.GetKey(KeySetting.keys[key1]) && Input.GetKey(KeySetting.keys[key2])) break;
         }
         m_Image.enabled = false;
         m_Space.enabled = false;
         m_Text.enabled = false;
         m_TextDouble.enabled = false;
         isWorking = false;
+
+        yield return null;
     }
 
     private void PushSet()
