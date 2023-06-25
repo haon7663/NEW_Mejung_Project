@@ -140,6 +140,7 @@ public class Move : MonoBehaviour
     public GameObject JumpDustEffect;
     public GameObject SteamDustEffect;
     public GameObject SteamDustVerticalEffect;
+    public GameObject BoosterDustEffect;
 
     [Space]
     [Header("Death")]
