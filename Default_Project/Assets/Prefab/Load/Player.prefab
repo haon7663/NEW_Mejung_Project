@@ -319,7 +319,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 2
   m_FalloffIntensity: 0
   m_Color: {r: 0.9339623, g: 0.7354648, b: 0.45523316, a: 1}
-  m_Intensity: 3
+  m_Intensity: 4
   m_LightVolumeIntensity: 0.01
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 5918799d01dace220f876cb55df2bba6694e22d7
@@ -370,7 +370,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 30
+  m_PointLightOuterRadius: 35
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -624,6 +624,7 @@ MonoBehaviour:
   JumpDustEffect: {fileID: 1728600524273050926, guid: b6de003ed93fa5f41bc066232a15123a, type: 3}
   SteamDustEffect: {fileID: 3189348437936354607, guid: 251e97e3c9fe7ca4db02955833ce0f5f, type: 3}
   SteamDustVerticalEffect: {fileID: 935814171341680304, guid: f2f6e2c50aa29ef49ad7cd7eb253aef8, type: 3}
+  BoosterDustEffect: {fileID: 0}
   MapConfiner: {fileID: 0}
   DeathConfiner: {fileID: 0}
   LightParents: {fileID: 4871430336050193381}

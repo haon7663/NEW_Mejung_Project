@@ -14,12 +14,9 @@ public class TutorialBox : SceneEvent
 
     private void Start()
     {
-        if (!isSingle)
+        for (int i = 0; i < m_FrontKeyScripts.Length; i++)
         {
-            for (int i = 0; i < m_FrontKeyScripts.Length; i++)
-            {
-                m_FrontKeyScripts[i] = TutorialManager.instance.m_FrontKeys[i];
-            }
+            m_FrontKeyScripts[i] = TutorialManager.instance.m_FrontKeys[i];
         }
     }
     public override void Event()
