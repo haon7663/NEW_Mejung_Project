@@ -49,6 +49,9 @@ TagManager:
   - name: BackGround
     uniqueID: 2043696395
     locked: 0
+  - name: UnlitDecorate
+    uniqueID: 3115246297
+    locked: 0
   - name: Decorate
     uniqueID: 3043788559
     locked: 0

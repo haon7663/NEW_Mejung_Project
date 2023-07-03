@@ -214,8 +214,22 @@ public class Move : MonoBehaviour
 
         //_____________________________//
 
-        xRaw = Input.GetAxisRaw("Horizontal");
-        yRaw = Input.GetAxisRaw("Vertical");
+        bool xLeft = Input.GetKey(KeySetting.keys[KeyAction.LEFT]);
+        bool xRight = Input.GetKey(KeySetting.keys[KeyAction.RIGHT]);
+
+        if(xRaw == 0)
+        {
+            xRaw = xRight ? 1 : xLeft ? -1 : 0;
+        }
+        else if(xRaw == -1)
+        {
+            xRaw = xLeft ? -1 : 0;
+        }
+        else if(xRaw == 1)
+        {
+            xRaw = xRight ? 1 : 0;
+        }
+        yRaw = Input.GetKey(KeySetting.keys[KeyAction.DOWN]) && Input.GetKey(KeySetting.keys[KeyAction.UP]) ? 0 : Input.GetKey(KeySetting.keys[KeyAction.DOWN]) ? -1 : Input.GetKey(KeySetting.keys[KeyAction.UP]) ? 1 : 0;
 
         //_____________________________//
 
@@ -503,23 +517,20 @@ public class Move : MonoBehaviour
     }
     private Vector2 setRaw()
     {
-        float xraw = Input.GetAxisRaw("Horizontal");
-        float yraw = Input.GetAxisRaw("Vertical");
-
-        if (LastCollision.contacts[0].normal.x < 0 && xraw > 0)
+        if (LastCollision.contacts[0].normal.x < 0 && xRaw > 0)
         {
-            xraw = 0;
-            yraw = 1;
+            xRaw = 0;
+            yRaw = 1;
         }
-        else if (LastCollision.contacts[0].normal.x > 0 && xraw < 0)
+        else if (LastCollision.contacts[0].normal.x > 0 && xRaw < 0)
         { 
-            xraw = 0;
-            yraw = 1;
+            xRaw = 0;
+            yRaw = 1;
         }
-        if (LastCollision.contacts[0].normal.y < 0 && yraw > 0) yraw = 0;
-        else if (LastCollision.contacts[0].normal.y > 0 && yraw < 0) yraw = 0;
+        if (LastCollision.contacts[0].normal.y < 0 && yRaw > 0) yRaw = 0;
+        else if (LastCollision.contacts[0].normal.y > 0 && yRaw < 0) yRaw = 0;
 
-        return new Vector2(xraw, yraw);
+        return new Vector2(xRaw, yRaw);
     }
     public void SetSlopeCamera() => m_TargetCamera.position = transform.position + (new Vector3(LastCollision.contacts[0].normal.x, LastCollision.contacts[0].normal.y).normalized + new Vector3(LastCollision.contacts[0].normal.x * 1.25f, 0)) * 10;
     private void Dash(float x, float y)
