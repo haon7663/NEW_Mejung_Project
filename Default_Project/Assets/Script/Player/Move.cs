@@ -359,7 +359,7 @@ public class Move : MonoBehaviour
             return;
         }
 
-        AN.SetBool("run", Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D));
+        AN.SetBool("run", xRaw != 0);
          
         if (isWallJump)
         {

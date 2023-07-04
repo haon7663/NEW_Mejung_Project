@@ -11,6 +11,7 @@ public class TutorialBox : SceneEvent
     [Space]
     public string[] m_FrontKeyActions;
     public ButtonTutorial[] m_FrontKeyScripts;
+    public PlusTutorial m_PlusTutorial; 
 
     private void Start()
     {
@@ -18,6 +19,7 @@ public class TutorialBox : SceneEvent
         {
             m_FrontKeyScripts[i] = TutorialManager.instance.m_FrontKeys[i];
         }
+        m_PlusTutorial = TutorialManager.instance.m_PlusKey;
     }
     public override void Event()
     {
@@ -34,6 +36,8 @@ public class TutorialBox : SceneEvent
                 m_FrontKeyScripts[i].m_Lenth = m_FrontKeyScripts.Length;
                 m_FrontKeyScripts[i].SetKey(KeySetting.keys[keys].ToString());
             }
+            m_PlusTutorial.m_Lenth = m_FrontKeyScripts.Length;
+            m_PlusTutorial.SetPlus();
         }
     }
 }

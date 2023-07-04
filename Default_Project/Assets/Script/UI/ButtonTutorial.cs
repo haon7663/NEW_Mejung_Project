@@ -10,7 +10,7 @@ public class ButtonTutorial : MonoBehaviour
     public String[] m_KeyAction;
 
     private bool isPush;
-    private Image m_Image;
+    public Image m_Image;
     public Text m_Text;
     public Text m_TextDouble;
     private RectTransform m_Rect;
@@ -55,7 +55,7 @@ public class ButtonTutorial : MonoBehaviour
         if (m_Lenth == 1) m_KeyPos = 0;
         else if (m_Lenth == 2)
         {
-            m_KeyPos = m_KeyCount == 0 ? 1f : -1;
+            m_KeyPos = m_KeyCount == 0 ? 0.75f : -0.75f;
         }
         else if (m_Lenth == 3)
         {
