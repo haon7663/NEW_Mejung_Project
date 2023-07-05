@@ -34,7 +34,7 @@ public class SetConfiner : MonoBehaviour
             mPlayerMove.CinemacineSize = size_Confiner.transform.position.z;
             mPlayerMove.mCameraSize = size_Confiner.transform.position.z;
         }
-        else if (!size_Confiner)
+        else if (!size_Confiner && !mPlayerMove.isCutScene)
         {
             mPlayerMove.CinemacineSize = m_DefaultSize;
             mPlayerMove.mCameraSize = m_DefaultSize;
