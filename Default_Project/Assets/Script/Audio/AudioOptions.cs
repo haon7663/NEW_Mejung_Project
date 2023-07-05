@@ -12,12 +12,24 @@ public class AudioOptions : MonoBehaviour
     public Slider BgmSlider;
     public Slider SfxSlider;
 
+    private void Start()
+    {
+        MasterSlider.value = PlayerPrefs.GetFloat("Master");
+        BgmSlider.value = PlayerPrefs.GetFloat("BGM");
+        SfxSlider.value = PlayerPrefs.GetFloat("SFX");
+        SetMasterVolme();
+        SetBgmVolme();
+        SetSFXVolme();
+    }
+
     public void SetMasterVolme()
     {
         float sound = MasterSlider.value;
 
         if (sound <= -40f) audioMixer.SetFloat("Master", -80);
         else audioMixer.SetFloat("Master", sound);
+
+        PlayerPrefs.SetFloat("Master", sound);
     }
 
     public void SetBgmVolme()
@@ -26,6 +38,8 @@ public class AudioOptions : MonoBehaviour
 
         if (sound <= -40f) audioMixer.SetFloat("BGM", -80);
         else audioMixer.SetFloat("BGM", sound);
+
+        PlayerPrefs.SetFloat("BGM", sound);
     }
 
     public void SetSFXVolme()
@@ -34,5 +48,7 @@ public class AudioOptions : MonoBehaviour
 
         if (sound <= -40f) audioMixer.SetFloat("SFX", -80);
         else audioMixer.SetFloat("SFX", sound);
+
+        PlayerPrefs.SetFloat("SFX", sound);
     }
 }

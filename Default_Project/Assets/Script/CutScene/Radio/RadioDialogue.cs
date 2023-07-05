@@ -12,7 +12,9 @@ public class RadioDialogue : MonoBehaviour
     private DialogueParse mDialogueParse;
 
     public GameObject mTextBar;
+    public Sprite[] m_Portrait;
     private Animator mTextBarAnimator;
+    private Image m_RadioPortrait;
     private Text mText;
     private string saveEventName;
 
@@ -20,6 +22,7 @@ public class RadioDialogue : MonoBehaviour
     {
         mTextBarAnimator = mTextBar.GetComponent<Animator>();
         mText = mTextBar.GetComponentInChildren<Text>();
+        m_RadioPortrait = mTextBar.GetComponentInChildren<Image>();
 
         //talkDatas = DialogueParse.DialogueDictionary["¾ö"];
     }
@@ -63,6 +66,11 @@ public class RadioDialogue : MonoBehaviour
             foreach (string context in talkdatas[i].contexts)
             {
                 DOTween.Kill(transform);
+                Debug.Log(talkdatas[i].name);
+                m_RadioPortrait.sprite = m_Portrait[0];
+                if (talkdatas[i].name == "³ë¿¤") m_RadioPortrait.sprite = m_Portrait[0];
+                else if (talkdatas[i].name == "Ä«·»") m_RadioPortrait.sprite = m_Portrait[1];
+                else if (talkdatas[i].name == "¼¼ÀÌÁö¾Æ") m_RadioPortrait.sprite = m_Portrait[2];
                 mText.text = "";
                 mText.DOText(context, context.Length * 0.05f).SetEase(Ease.Linear);
 
@@ -81,5 +89,10 @@ public class RadioDialogue : MonoBehaviour
         GameManager.GM.onRadio = false;
         mTextBar.SetActive(false);
         yield return null;
+    }
+
+    public void OffPortrait(bool onOff)
+    {
+        m_RadioPortrait.enabled = onOff;
     }
 }
