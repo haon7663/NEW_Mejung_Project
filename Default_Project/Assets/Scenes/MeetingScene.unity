@@ -2600,6 +2600,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c852f31a2a648044f9e4df5b1ab2701c, type: 3}
+--- !u!1 &346920837
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 346920838}
+  m_Layer: 0
+  m_Name: CameraFollow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &346920838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346920837}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 93.26, y: -6.76, z: -0.1654836}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &381732674
 GameObject:
   m_ObjectHideFlags: 0
@@ -23281,7 +23312,11 @@ MonoBehaviour:
   mCinemachineConfiner: {fileID: 144219094}
   m_Sageia: {fileID: 1636294666}
   m_SageiaSpeed: 5
-  m_EventFollow: {fileID: 0}
+  m_Ian: {fileID: 1966438226}
+  m_IanSpeed: 3.75
+  m_Derrick: {fileID: 2021691814}
+  m_DerrickSpeed: 4.15
+  m_EventFollow: {fileID: 346920838}
   m_FollowChange: {fileID: 1289340134}
   m_FollowPlayer: {fileID: 504202026}
 --- !u!61 &1770102995
@@ -23580,7 +23615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a119f01182f05142b8632e750debd9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  csvFile: {fileID: 4900000, guid: 87ff14d6cebc2f642a3bfaaaacf763a8, type: 3}
+  csvFile: {fileID: 4900000, guid: 6ce2432225d3d394eb068ae33af78a56, type: 3}
 --- !u!114 &1846340432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24686,7 +24721,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1018677479
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: -779261976, guid: 56700401a94bf0c4481e2af39353b233, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1

@@ -38,6 +38,10 @@ public class MeetCowork_Event : SceneEvent
         m_PlayerSpriteRenderer = m_PlayerMove.GetComponent<SpriteRenderer>();
         m_SageiaAnimator = m_Sageia.GetComponent<Animator>();
         m_SageiaSpriteRenderer = m_Sageia.GetComponent<SpriteRenderer>();
+        m_IanAnimator = m_Ian.GetComponent<Animator>();
+        m_IanSpriteRenderer = m_Ian.GetComponent<SpriteRenderer>();
+        m_DerrickAnimator = m_Derrick.GetComponent<Animator>();
+        m_DerrickSpriteRenderer = m_Derrick.GetComponent<SpriteRenderer>();
 
         m_LetterBox = GameManager.GM.GetComponent<LetterBoxManager>();
 
@@ -56,6 +60,7 @@ public class MeetCowork_Event : SceneEvent
 
     public IEnumerator PlayEvent()
     {
+        cinevirtual.Follow = m_EventFollow;
         mCinemachineConfiner.m_Damping = 4;
         mCinemachineTransposer.m_XDamping = 3;
         mCinemachineTransposer.m_YDamping = 3;
@@ -90,20 +95,53 @@ public class MeetCowork_Event : SceneEvent
 
         yield return YieldInstructionCache.WaitForSeconds(1.25f);
 
-        while (m_Derrick.position.x < 90f)
+        m_EventFollow.transform.position += new Vector3(-3, 0);
+        while (m_Derrick.position.x < 88)
         {
-            m_Derrick.Translate(new Vector3(m_SageiaSpeed, 0) * Time.deltaTime);
+            m_Derrick.Translate(new Vector3(m_DerrickSpeed, 0) * Time.deltaTime);
             m_DerrickAnimator.SetBool("isWalk", true);
             m_DerrickSpriteRenderer.flipX = false;
+            m_Ian.Translate(new Vector3(m_IanSpeed, 0) * Time.deltaTime);
+            m_IanAnimator.SetBool("isWalk", true);
+            m_IanSpriteRenderer.flipX = false;
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
-        while (m_Sageia.position.x < 90f)
+        m_DerrickAnimator.SetBool("isWalk", false);
+        while (m_Ian.position.x < 86)
+        {
+            m_Ian.Translate(new Vector3(m_IanSpeed, 0) * Time.deltaTime);
+            m_IanAnimator.SetBool("isWalk", true);
+            m_IanSpriteRenderer.flipX = false;
+            yield return YieldInstructionCache.WaitForFixedUpdate;
+        }
+        m_IanAnimator.SetBool("isWalk", false);
+
+        yield return YieldInstructionCache.WaitForSeconds(0.5f);
+        m_SageiaAnimator.SetBool("isLookAround", false);
+
+        yield return YieldInstructionCache.WaitForSeconds(3);
+        m_IanAnimator.SetBool("isTakeout", true);
+
+        yield return YieldInstructionCache.WaitForSeconds(5);
+        m_DerrickAnimator.SetTrigger("takebreath");
+        //중간에 대화나오면넣으셈
+        yield return YieldInstructionCache.WaitForSeconds(5);
+
+        for(float i = 0; i < 1.75f; i += Time.deltaTime)
+        {
+            m_PlayerMove.isWalk = true;
+            m_PlayerMove.m_CutX = 1;
+            yield return YieldInstructionCache.WaitForFixedUpdate;
+        }
+        m_DerrickSpriteRenderer.flipX = true;
+        while (true)
         {
             m_Sageia.Translate(new Vector3(m_SageiaSpeed, 0) * Time.deltaTime);
             m_SageiaAnimator.SetBool("isWalk", true);
             m_SageiaSpriteRenderer.flipX = false;
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
+
 
         /*m_PlayerMove.CinemacineSize = 6;
         cinevirtual.Follow = m_FollowPlayer.transform;

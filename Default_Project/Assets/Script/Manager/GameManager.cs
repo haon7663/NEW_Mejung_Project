@@ -22,10 +22,12 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     public Image mPause;
     public GameObject mDefaultPause;
+    public GameObject mSoundSetting;
     public GameObject mKeySetting;
 
     [Space]
     [Header("Bool")]
+    public bool canPause = true;
     public bool onPause = false;
     public bool onRadio = false;
 
@@ -34,15 +36,18 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         GM = this;
-        m_KeyManager = GetComponent<KeyManager>();
-        m_DialogueParse = GetComponent<DialogueParse>();
-        m_PlayerMove = GameObject.FindGameObjectWithTag("Player").GetComponent<Move>();
-
-        if (!isCalled)
+        if(canPause)
         {
-            m_DialogueParse.SetTalkDictionary();
-            m_KeyManager.SetKey();
-            isCalled = true;
+            m_KeyManager = GetComponent<KeyManager>();
+            m_DialogueParse = GetComponent<DialogueParse>();
+            m_PlayerMove = GameObject.FindGameObjectWithTag("Player").GetComponent<Move>();
+
+            if (!isCalled)
+            {
+                m_DialogueParse.SetTalkDictionary();
+                m_KeyManager.SetKey();
+                isCalled = true;
+            }
         }
     }
     private void Start()
@@ -52,24 +57,42 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !m_PlayerMove.isDeath)
+        if (Input.GetKeyDown(KeyCode.Escape) && !m_PlayerMove.isDeath && canPause)
         {
             Pause();
         }
     }
     public void Pause()
     {
-        Time.timeScale = Time.timeScale == 0 ? 1 : 0;
-        onPause = Time.timeScale == 0;
-        mPause.gameObject.SetActive(onPause);
-        mDefaultPause.SetActive(true);
-        mKeySetting.SetActive(false);
+        if(mDefaultPause.activeSelf)
+        {
+            Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+            onPause = Time.timeScale == 0;
+            mPause.gameObject.SetActive(onPause);
+            mDefaultPause.SetActive(true);
+            mSoundSetting.SetActive(false);
+            mKeySetting.SetActive(false);
+        }
+        else
+        {
+            mDefaultPause.SetActive(true);
+            mSoundSetting.SetActive(false);
+            mKeySetting.SetActive(false);
+        }
     }
     public void Setting()
     {
         Debug.Log("Setting");
         mDefaultPause.SetActive(false);
+        mSoundSetting.SetActive(false);
         mKeySetting.SetActive(true);
+    }
+    public void SoundSetting()
+    {
+        Debug.Log("SoundSetting");
+        mDefaultPause.SetActive(false);
+        mSoundSetting.SetActive(true);
+        mKeySetting.SetActive(false);
     }
     public void CheckPoint()
     {

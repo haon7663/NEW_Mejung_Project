@@ -366,7 +366,7 @@ public class Move : MonoBehaviour
          
         if (isWallJump)
         {
-            RB.velocity = Vector2.Lerp(RB.velocity, (new Vector2(xRaw * mMoveSpeed * 0.15f * Time.fixedDeltaTime, RB.velocity.y)), mWallJumpLerp * Time.deltaTime);
+            RB.velocity = Vector2.Lerp(RB.velocity, (new Vector2(xRaw * mMoveSpeed * 0.2f * Time.fixedDeltaTime, RB.velocity.y)), mWallJumpLerp * Time.deltaTime);
         }
         else
         {
@@ -376,7 +376,7 @@ public class Move : MonoBehaviour
                 isSpring = true;
                 springTime -= Time.deltaTime;
                 if (springTime <= 0) isSpring = false;
-                RB.velocity = Vector2.Lerp(RB.velocity, new Vector2(xRaw * mMoveSpeed * 0.15f * Time.fixedDeltaTime, RB.velocity.y), Time.deltaTime * 3);
+                RB.velocity = Vector2.Lerp(RB.velocity, new Vector2(xRaw * mMoveSpeed * 0.2f * Time.fixedDeltaTime, RB.velocity.y), Time.deltaTime * 3);
             }
             else if ((xRaw == 0 && PushTime < 0) || COL.onWall)
             {
@@ -852,7 +852,7 @@ public class Move : MonoBehaviour
         var collision = Physics2D.OverlapCircle(transform.position + setPos, 0.2f, COL.pipeLayer);
         while (true)
         {
-            CinemacineSize = 4.5f;
+            CinemacineSize = 7.5f;
             transform.position += setPos * mPipelineSpeed * Time.deltaTime;
             collision = Physics2D.OverlapCircle(transform.position + setPos, 0.2f, COL.pipeLayer);
             if(!collision)

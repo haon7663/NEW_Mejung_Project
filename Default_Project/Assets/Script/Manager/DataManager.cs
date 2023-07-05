@@ -12,11 +12,23 @@ public class SaveData
 public class DataManager : MonoBehaviour
 {
     string path;
+    public bool isAwake = true;
 
     void Awake()
     {
-        path = Path.Combine(Application.dataPath + "/Data/", "database.json");
-        JsonLoad();
+        if(isAwake)
+        {
+            path = Path.Combine(Application.dataPath + "/Data/", "database.json");
+            JsonLoad();
+        }
+    }
+    void Start()
+    {
+        if (!isAwake)
+        {
+            path = Path.Combine(Application.dataPath + "/Data/", "database.json");
+            JsonLoad();
+        }
     }
     public void JsonLoad()
     {
@@ -24,7 +36,7 @@ public class DataManager : MonoBehaviour
 
         if (!File.Exists(path))
         {
-            GameManager.GM.savePoint = 0;
+            GameManager.GM.savePoint = -1;
             JsonSave();
         }
         else
