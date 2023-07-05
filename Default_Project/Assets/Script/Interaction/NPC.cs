@@ -7,6 +7,7 @@ public class NPC : Interaction_Object
     private Interaction mInteraction;
     private Dialogue mDialogue;
     public string EventName;
+    public float ExplainRange = 1.7f;
 
     private void Start()
     {
@@ -24,7 +25,7 @@ public class NPC : Interaction_Object
     }
     public override void Explain()
     {
-        mInteraction.ExplainRange = 1.7f;
-        mInteraction.InteractionExplain = "Check";
+        mInteraction.ExplainRange = ExplainRange;
+        mInteraction.InteractionExplain = KeySetting.keys[KeyAction.INTERACTION].ToString();
     }
 }

@@ -15,15 +15,12 @@ public class SetConfiner : MonoBehaviour
 
     private Move mPlayerMove;
     private float mLastSize;
+    public float m_DefaultSize;
 
     private void Start()
     {
         mPlayerMove = GetComponent<Move>();
         enabled = false;
-    }
-    private void OnEnable()
-    {
-        
     }
     private void Update()
     {
@@ -39,8 +36,8 @@ public class SetConfiner : MonoBehaviour
         }
         else if (!size_Confiner)
         {
-            mPlayerMove.CinemacineSize = 10;
-            mPlayerMove.mCameraSize = 10;
+            mPlayerMove.CinemacineSize = m_DefaultSize;
+            mPlayerMove.mCameraSize = m_DefaultSize;
         }
 
         var pos_Confiner = Physics2D.OverlapBox(transform.position, new Vector2(1f, 1f), 0, posConfiner_Layer);

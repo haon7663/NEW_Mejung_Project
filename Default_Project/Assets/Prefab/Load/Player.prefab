@@ -612,6 +612,7 @@ MonoBehaviour:
   haveSteamDash: 0
   isSetCameraSize: 0
   isDeath: 0
+  isStopY: 0
   GetDash: 1
   GetSteamDash: 1
   LastVelocity: {x: 0, y: 0, z: 0}
@@ -773,6 +774,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 131072
   mCinemachineConfiner: {fileID: 0}
+  m_DefaultSize: 10
 --- !u!114 &4871430336572265139
 MonoBehaviour:
   m_ObjectHideFlags: 0

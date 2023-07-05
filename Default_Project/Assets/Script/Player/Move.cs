@@ -14,9 +14,9 @@ public class Move : MonoBehaviour
     public CinemachineVirtualCamera cinevirtual;
     public CinemachineConfiner2D mCinemachineConfiner;
     private CinemachineTransposer mCinemachineTransposer;
-    public float mCameraSize = 10;
-    public float CinemacineSize = 10;
-    public float real_CineSize = 10;
+    public float mCameraSize;
+    public float CinemacineSize;
+    public float real_CineSize;
     private float plus_CineSize = 1;
 
     private Rigidbody2D RB;
@@ -100,6 +100,7 @@ public class Move : MonoBehaviour
     public bool haveSteamDash = false;
     public bool isSetCameraSize;
     public bool isDeath = false;
+    public bool isStopY = false;
 
     [Space]
     [Header("GetBool")]
@@ -272,7 +273,8 @@ public class Move : MonoBehaviour
             {
                 m_TargetCamera.position = Vector3.Lerp(m_TargetCamera.position, transform.position + m_TargetPlus, 0.75f);
                 mCinemachineTransposer.m_XDamping = 1;
-                mCinemachineTransposer.m_YDamping = 0.6f;
+                if (!isStopY) mCinemachineTransposer.m_YDamping = 0.6f;
+                else mCinemachineTransposer.m_YDamping = 20;
             }
         }
 
@@ -359,11 +361,12 @@ public class Move : MonoBehaviour
             return;
         }
 
-        AN.SetBool("run", xRaw != 0);
+        if (isWalk) AN.SetBool("isWalk", xRaw != 0);
+        else AN.SetBool("run", xRaw != 0);
          
         if (isWallJump)
         {
-            RB.velocity = Vector2.Lerp(RB.velocity, (new Vector2(xRaw * mMoveSpeed * 0.2f * Time.fixedDeltaTime, RB.velocity.y)), mWallJumpLerp * Time.deltaTime);
+            RB.velocity = Vector2.Lerp(RB.velocity, (new Vector2(xRaw * mMoveSpeed * 0.15f * Time.fixedDeltaTime, RB.velocity.y)), mWallJumpLerp * Time.deltaTime);
         }
         else
         {
@@ -373,11 +376,11 @@ public class Move : MonoBehaviour
                 isSpring = true;
                 springTime -= Time.deltaTime;
                 if (springTime <= 0) isSpring = false;
-                RB.velocity = Vector2.Lerp(RB.velocity, new Vector2(xRaw * mMoveSpeed * 0.2f * Time.fixedDeltaTime, RB.velocity.y), Time.deltaTime * 3);
+                RB.velocity = Vector2.Lerp(RB.velocity, new Vector2(xRaw * mMoveSpeed * 0.15f * Time.fixedDeltaTime, RB.velocity.y), Time.deltaTime * 3);
             }
             else if ((xRaw == 0 && PushTime < 0) || COL.onWall)
             {
-                RB.velocity = new Vector2(xRaw * maxSpeed, RB.velocity.y);
+                RB.velocity = new Vector2(xRaw * mMoveSpeed * 0.15f * Time.fixedDeltaTime, RB.velocity.y);
             }
             else if ((MathF.Abs(RB.velocity.x) < maxSpeed || PlayerFlip()) || (PushTime >= 0 && MathF.Abs(RB.velocity.x) < maxSpeed))
             {
@@ -389,9 +392,12 @@ public class Move : MonoBehaviour
             }
             else if (!isDash && !isSteamDash)
             {
+                Debug.Log("walk");
                 CPCOL.size = new Vector2(1, 1.875f);
                 mHitBox.size = new Vector2(1 * mHitSize.x, 1.875f * mHitSize.y);
-                RB.velocity = new Vector2(xRaw * maxSpeed, RB.velocity.y);
+
+                if (isWalk) RB.velocity = new Vector2(xRaw * mMoveSpeed * 0.15f * 0.2f * Time.fixedDeltaTime, RB.velocity.y);
+                else RB.velocity = new Vector2(xRaw * mMoveSpeed * 0.15f * Time.fixedDeltaTime, RB.velocity.y);
             }
         }
     }
@@ -716,7 +722,7 @@ public class Move : MonoBehaviour
         {
             DOVirtual.Float(7, 15, 1.25f, LightRadius).SetEase(Ease.OutCirc);
 
-            CinemacineSize = 6;
+            CinemacineSize = 5.5f;
             CinemachineShake.Instance.ShakeCamera(5, 0.6f);
             MapConfiner.SetActive(false);
             DeathConfiner.SetActive(true);
@@ -725,7 +731,7 @@ public class Move : MonoBehaviour
         {
             DOVirtual.Float(7, 0, 0.25f, LightRadius).SetEase(Ease.InCirc);
 
-            CinemacineSize = 10;
+            CinemacineSize = 10f;
             CinemachineShake.Instance.ShakeCamera(5, 0.6f);
         }
         RB.bodyType = RigidbodyType2D.Static;
@@ -846,7 +852,7 @@ public class Move : MonoBehaviour
         var collision = Physics2D.OverlapCircle(transform.position + setPos, 0.2f, COL.pipeLayer);
         while (true)
         {
-            CinemacineSize = 7.5f;
+            CinemacineSize = 4.5f;
             transform.position += setPos * mPipelineSpeed * Time.deltaTime;
             collision = Physics2D.OverlapCircle(transform.position + setPos, 0.2f, COL.pipeLayer);
             if(!collision)
