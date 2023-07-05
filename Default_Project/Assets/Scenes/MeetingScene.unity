@@ -2452,7 +2452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4871430336572265127, guid: c852f31a2a648044f9e4df5b1ab2701c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 92.84
+      value: 94.38
       objectReference: {fileID: 0}
     - target: {fileID: 4871430336572265127, guid: c852f31a2a648044f9e4df5b1ab2701c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3214,6 +3214,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &504202026 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8896643154856279087, guid: c852f31a2a648044f9e4df5b1ab2701c, type: 3}
+  m_PrefabInstance: {fileID: 307517176}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &508533366
 GameObject:
   m_ObjectHideFlags: 0
@@ -20327,6 +20332,10 @@ PrefabInstance:
       value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 1738467613090157145, guid: 3520813b77138954581dfdf70454ba02, type: 3}
+      propertyPath: m_Damping
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1738467613090157145, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -20336,7 +20345,7 @@ PrefabInstance:
       objectReference: {fileID: 408970204}
     - target: {fileID: 1738467613090157220, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.000015258789
+      value: 0.000022888184
       objectReference: {fileID: 0}
     - target: {fileID: 1738467613090157220, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_LocalPosition.y
@@ -20368,7 +20377,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1738467613449969241, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 92.83998
+      value: 94.379974
       objectReference: {fileID: 0}
     - target: {fileID: 1738467613449969241, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: m_LocalPosition.y
@@ -20417,6 +20426,10 @@ PrefabInstance:
     - target: {fileID: 1738467613449969318, guid: 3520813b77138954581dfdf70454ba02, type: 3}
       propertyPath: orthographic size
       value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1738467613534029011, guid: 3520813b77138954581dfdf70454ba02, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3520813b77138954581dfdf70454ba02, type: 3}
@@ -23264,12 +23277,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1c188115f308384f865993760e71c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cinevirtual: {fileID: 0}
-  mCinemachineConfiner: {fileID: 0}
-  m_Sageia: {fileID: 0}
+  cinevirtual: {fileID: 144219095}
+  mCinemachineConfiner: {fileID: 144219094}
+  m_Sageia: {fileID: 1636294666}
+  m_SageiaSpeed: 5
   m_EventFollow: {fileID: 0}
-  m_FollowChange: {fileID: 0}
-  m_FollowPlayer: {fileID: 0}
+  m_FollowChange: {fileID: 1289340134}
+  m_FollowPlayer: {fileID: 504202026}
 --- !u!61 &1770102995
 BoxCollider2D:
   m_ObjectHideFlags: 0

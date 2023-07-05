@@ -14,8 +14,17 @@ public class MeetCowork_Event : SceneEvent
     private Animator m_PlayerAnimator;
     private SpriteRenderer m_PlayerSpriteRenderer;
     public Transform m_Sageia;
+    public float m_SageiaSpeed;
     private Animator m_SageiaAnimator;
     private SpriteRenderer m_SageiaSpriteRenderer;
+    public Transform m_Ian;
+    public float m_IanSpeed;
+    private Animator m_IanAnimator;
+    private SpriteRenderer m_IanSpriteRenderer;
+    public Transform m_Derrick;
+    public float m_DerrickSpeed;
+    private Animator m_DerrickAnimator;
+    private SpriteRenderer m_DerrickSpriteRenderer;
     public Transform m_EventFollow;
     public GameObject m_FollowChange;
     public GameObject m_FollowPlayer;
@@ -53,13 +62,51 @@ public class MeetCowork_Event : SceneEvent
         m_LetterBox.LetterIn();
         m_FollowChange.SetActive(true);
         m_PlayerMove.isCutScene = true;
-        yield return YieldInstructionCache.WaitForSeconds(2f);
-        while(m_Sageia.position.x > 88.5f)
+        mCinemachineConfiner.enabled = false;
+        yield return YieldInstructionCache.WaitForSeconds(1.2f);
+        while(m_Sageia.position.x < 90f)
         {
+            m_Sageia.Translate(new Vector3(m_SageiaSpeed, 0) * Time.deltaTime);
+            m_SageiaAnimator.SetBool("isWalk", true);
+            m_SageiaSpriteRenderer.flipX = false;
+            yield return YieldInstructionCache.WaitForFixedUpdate;
         }
-        m_PlayerMove.CinemacineSize = 6;
-        cinevirtual.Follow = m_FollowPlayer.transform;
+        m_SageiaAnimator.SetBool("isLookAround", true);
+        m_SageiaAnimator.SetBool("isWalk", false);
+        yield return YieldInstructionCache.WaitForSeconds(1.25f);
+        m_PlayerSpriteRenderer.flipX = true;
+        yield return YieldInstructionCache.WaitForSeconds(1.7f);
+        m_SageiaAnimator.SetBool("isLookAround", false);
+
+        yield return YieldInstructionCache.WaitForSeconds(2f);
+
+        m_SageiaAnimator.SetTrigger("surprise");
+        m_SageiaAnimator.SetBool("isRadio", true);
+
+        yield return YieldInstructionCache.WaitForSeconds(7f);
+        m_SageiaAnimator.SetBool("isRadio", false);
         yield return YieldInstructionCache.WaitForSeconds(1.5f);
+        m_SageiaAnimator.SetBool("isLookAround", true);
+
+        yield return YieldInstructionCache.WaitForSeconds(1.25f);
+
+        while (m_Derrick.position.x < 90f)
+        {
+            m_Derrick.Translate(new Vector3(m_SageiaSpeed, 0) * Time.deltaTime);
+            m_DerrickAnimator.SetBool("isWalk", true);
+            m_DerrickSpriteRenderer.flipX = false;
+            yield return YieldInstructionCache.WaitForFixedUpdate;
+        }
+        while (m_Sageia.position.x < 90f)
+        {
+            m_Sageia.Translate(new Vector3(m_SageiaSpeed, 0) * Time.deltaTime);
+            m_SageiaAnimator.SetBool("isWalk", true);
+            m_SageiaSpriteRenderer.flipX = false;
+            yield return YieldInstructionCache.WaitForFixedUpdate;
+        }
+
+        /*m_PlayerMove.CinemacineSize = 6;
+        cinevirtual.Follow = m_FollowPlayer.transform;
 
         StartRadio("½ºÆÀ´ë½¬");
 
@@ -97,7 +144,7 @@ public class MeetCowork_Event : SceneEvent
         while (GameManager.GM.onRadio)
         {
             yield return YieldInstructionCache.WaitForFixedUpdate;
-        }
+        }*/
         m_PlayerMove.isCutScene = false;
         m_PlayerMove.CinemacineSize = 10;
         m_LetterBox.LetterOut();
