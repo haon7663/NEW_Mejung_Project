@@ -6,19 +6,30 @@ public class RadioBox : SceneEvent
 {
     private RadioDialogue m_RadioDialogue;
     public string eventName;
+    private Move m_Player;
 
     private void Start()
     {
+        m_Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Move>();
         m_RadioDialogue = GameObject.FindGameObjectWithTag("Dialogue").GetComponent<RadioDialogue>();
     }
 
     public override void Event()
     {
-        StartRadio();
+        StartCoroutine(StartRadio());
     }
-    public void StartRadio()
+    public IEnumerator StartRadio()
     {
+        m_Player.isCutScene = true;
+        m_Player.isCalledScene = true;
         m_RadioDialogue.StartDialogue(eventName);
+        GameManager.GM.onRadio = true;
+        while (GameManager.GM.onRadio)
+        {
+            yield return YieldInstructionCache.WaitForFixedUpdate;
+        }
+        m_Player.isCutScene = false;
+        m_Player.isCalledScene = false;
         Destroy(gameObject);
     }
 }

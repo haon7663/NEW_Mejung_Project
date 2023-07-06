@@ -13,5 +13,6 @@ public class CutSceneManager : MonoBehaviour
     public void CutScene()
     {
         m_PlayerMove.isCutScene = true;
+        m_PlayerMove.isCalledScene = true;
     }
 }

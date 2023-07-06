@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     private KeyManager m_KeyManager;
     private DialogueParse m_DialogueParse;
 
+    public AudioOptions m_Asdu;
+
     [Space]
     [Header("Save")]
     public int savePoint;
@@ -54,6 +56,16 @@ public class GameManager : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         Fade.instance.FadeOut(0.5f);
+
+        if (canPause)
+        {
+            m_Asdu.MasterSlider.value = PlayerPrefs.GetFloat("Master");
+            m_Asdu.BgmSlider.value = PlayerPrefs.GetFloat("BGM");
+            m_Asdu.SfxSlider.value = PlayerPrefs.GetFloat("SFX");
+            m_Asdu.SetMasterVolme();
+            m_Asdu.SetBgmVolme();
+            m_Asdu.SetSFXVolme();
+        }
     }
     private void Update()
     {

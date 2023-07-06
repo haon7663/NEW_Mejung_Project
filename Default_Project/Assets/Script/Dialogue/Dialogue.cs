@@ -26,12 +26,16 @@ public class Dialogue : MonoBehaviour
 
     private Image mBackGround;
     private Image mPlayerStand;
+    private Image mNPCStand;
+    public Sprite[] m_NPCStand;
 
     private float setColor;
     private void Start()
     {
+        mPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Move>();
         mBackGround = transform.GetChild(0).gameObject.GetComponent<Image>();
         mPlayerStand = transform.GetChild(1).gameObject.GetComponent<Image>();
+        mNPCStand = transform.GetChild(2).gameObject.GetComponent<Image>();
     }
 
     public void CallDialogue(string eventName)
@@ -55,6 +59,23 @@ public class Dialogue : MonoBehaviour
     }
     IEnumerator DebugDialogue(TalkData[] talkdatas)
     {
+        var saveNpc = -1;
+        for (int i = 0; i < talkdatas.Length; i++)
+        {
+            foreach (string context in talkdatas[i].contexts)
+            {
+                if (talkdatas[i].name != "노엘" && talkdatas[i].name != "")
+                {
+                    if (talkdatas[i].name == "세이지아") saveNpc = 0;
+                    else if (talkdatas[i].name == "이안") saveNpc = 1;
+                    else if (talkdatas[i].name == "데릭") saveNpc = 2;
+                    else if (talkdatas[i].name == "카렌") saveNpc = 3;
+                    else saveNpc = 4;
+                }
+                if (saveNpc != -1) break;
+            }
+        }
+        mNPCStand.sprite = m_NPCStand[saveNpc];
         SetImage(true);
         mCount = 0;
         mPlayer.isInteraction = true;
@@ -77,18 +98,16 @@ public class Dialogue : MonoBehaviour
                 }
                 GameObject textbar = Instantiate(mTextBar);
                 textbar.transform.SetParent(transform);
-                if(talkdatas[i].name == "주인공")
+                if(talkdatas[i].name == "노엘")
                 {
                     mPlayerStand.DOColor(new Color(1, 1, 1, 1), 0.2f);
+                    mNPCStand.DOColor(new Color(0.4f, 0.4f, 0.4f, 1), 0.2f);
                     textbar.GetComponent<RectTransform>().anchoredPosition = new Vector2(-90, 0);
-                    textbar.transform.localScale = new Vector3(-1, 1, 1);
-                    textbar.transform.GetChild(0).transform.localScale = new Vector3(-1, 1, 1);
-                    textbar.transform.GetChild(0).GetComponent<RectTransform>().anchoredPosition = new Vector2(184, 74);
-                    textbar.transform.GetChild(1).transform.localScale = new Vector3(-1, 1, 1);
                 }
                 else
                 {
                     mPlayerStand.DOColor(new Color(0.4f, 0.4f, 0.4f, 1), 0.2f);
+                    mNPCStand.DOColor(new Color(1, 1, 1, 1), 0.2f);
                     setColor = 0.4f;
                     textbar.GetComponent<RectTransform>().anchoredPosition = new Vector2(70, 0);
                 }
@@ -114,15 +133,19 @@ public class Dialogue : MonoBehaviour
         {
             mBackGround.enabled = true;
             mPlayerStand.enabled = true;
+            mNPCStand.enabled = true; 
             mBackGround.color = new Color(0, 0, 0, 0);
             mPlayerStand.color = new Color(1, 1, 1, 0);
+            mNPCStand.color = new Color(1, 1, 1, 0);
             mBackGround.DOColor(new Color(0, 0, 0, 0.35f), 0.25f);
             mPlayerStand.DOColor(new Color(1, 1, 1, 1), 0.25f);
+            mNPCStand.DOColor(new Color(1, 1, 1, 1), 0.25f);
         }
         else if(!Bool)
         {
             mBackGround.DOColor(new Color(0, 0, 0, 0), 0.25f);
             mPlayerStand.DOColor(new Color(1, 1, 1, 0), 0.25f);
+            mNPCStand.DOColor(new Color(1, 1, 1, 0), 0.25f);
             Invoke(nameof(InvokeImage), 0.25f);
         }
     }

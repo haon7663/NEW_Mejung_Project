@@ -31,6 +31,7 @@ public class Move : MonoBehaviour
     private Death DIE;
     private SetConfiner m_SetConfiner;
     private AnimationScript Player_Animation;
+    private AudioSource m_AuidoSource;
 
     //__________________________//
 
@@ -84,6 +85,7 @@ public class Move : MonoBehaviour
     [Space]
     [Header("Bool")]
     public bool isCutScene;
+    public bool isCalledScene;
     public bool isSlide;
     public bool isWallJump;
     public bool isCanMove = true;
@@ -163,6 +165,7 @@ public class Move : MonoBehaviour
         AN = GetComponent<Animator>();
         BXCOL = GetComponent<BoxCollider2D>();
         m_SetConfiner = GetComponent<SetConfiner>();
+        m_AuidoSource = GetComponent<AudioSource>();
         Invoke(nameof(InvokeAble), 0.02f);
 
         Player_Animation = GetComponent<AnimationScript>();
@@ -262,20 +265,10 @@ public class Move : MonoBehaviour
         {
             plus_CineSize = 1;
 
-            isObserve = Input.GetKey(KeyCode.LeftShift) && COL.onGround;
-            if (isObserve)
-            {
-                m_TargetCamera.position = Vector3.Lerp(m_TargetCamera.position, transform.position + new Vector3(xRaw * 1.35f, yRaw).normalized * 11, 0.75f);
-                mCinemachineTransposer.m_XDamping = 2f;
-                mCinemachineTransposer.m_YDamping = 2f;
-            }
-            else
-            {
-                m_TargetCamera.position = Vector3.Lerp(m_TargetCamera.position, transform.position + m_TargetPlus, 0.75f);
-                mCinemachineTransposer.m_XDamping = 1;
-                if (!isStopY) mCinemachineTransposer.m_YDamping = 0.6f;
-                else mCinemachineTransposer.m_YDamping = 20;
-            }
+            m_TargetCamera.position = Vector3.Lerp(m_TargetCamera.position, transform.position + m_TargetPlus, 0.75f);
+            mCinemachineTransposer.m_XDamping = 1;
+            if (!isStopY) mCinemachineTransposer.m_YDamping = 0.6f;
+            else mCinemachineTransposer.m_YDamping = 20;
         }
 
         if (KeyBreakTime > 0 && Input.GetKeyDown(KeySetting.keys[KeyAction.DASH]))
@@ -400,9 +393,18 @@ public class Move : MonoBehaviour
                 else RB.velocity = new Vector2(xRaw * mMoveSpeed * 0.15f * Time.fixedDeltaTime, RB.velocity.y);
             }
         }
+
+        bool isMove = AN.GetBool("run");
+        if (isMove)
+        {
+            if (m_AuidoSource.isPlaying)
+                m_AuidoSource.Play();
+        }
+        else
+            m_AuidoSource.Stop();
     }
 
-    private void Jump()
+    public void Jump()
     {
         canWallSlide = false;
         AN.SetTrigger("jump");
@@ -948,7 +950,7 @@ public class Move : MonoBehaviour
             isSteamDash = false;
             collision.GetComponent<Dash_Item>().TakeDash();
         }
-        if(collision.transform.CompareTag("RadioBox") && !isCutScene && !GameManager.GM.onRadio)
+        if(collision.transform.CompareTag("RadioBox") && !isCalledScene && !GameManager.GM.onRadio)
         {
             collision.GetComponent<SceneEvent>().Event();
         }

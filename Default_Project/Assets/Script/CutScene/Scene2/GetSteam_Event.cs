@@ -47,6 +47,7 @@ public class GetSteam_Event : SceneEvent
         mCinemachineConfiner.enabled = false;
         m_PlayerMove.CinemacineSize = 6;
         m_PlayerMove.isCutScene = true;
+        m_PlayerMove.isCalledScene = true;
         yield return YieldInstructionCache.WaitForSeconds(1.75f);
         m_PlayerMove.CinemacineSize = 9;
         cinevirtual.Follow = m_EventFollow;
@@ -93,6 +94,7 @@ public class GetSteam_Event : SceneEvent
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
         m_PlayerMove.isCutScene = false;
+        m_PlayerMove.isCalledScene = false;
         m_PlayerMove.CinemacineSize = 10;
         m_LetterBox.LetterOut();
 

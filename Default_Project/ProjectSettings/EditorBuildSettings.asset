@@ -5,15 +5,21 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Title.unity
     guid: 19b2d81e9be2c504caaaf93cb32fd27f
+  - enabled: 1
+    path: Assets/Scenes/MeetingScene.unity
+    guid: 67b6643107d5e10418aa43f032638126
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: 7890dcd5244fb1b4291a53cc439035d5
   - enabled: 1
     path: Assets/Scenes/Map_1.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/BreakBridgeScene.unity
+    guid: 6d3319c50923327409f2828ed16a69ad
   - enabled: 1
     path: Assets/Scenes/Map_2.unity
     guid: 0a315da2b4c38aa4fa11cce0aaba3753

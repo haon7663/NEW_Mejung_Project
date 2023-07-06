@@ -8,14 +8,15 @@ public class MoveScene : MonoBehaviour
     private Transform m_Player;
     private Move m_PlayerMove;
 
-    public int SceneCount;
+    public string SceneCount;
     public Vector2 SetPostion;
 
     public bool isRight;
-    private bool isCalled;
+    private bool isCalled = false;
 
     private void Start()
     {
+        isCalled = false;
         m_Player = GameObject.FindGameObjectWithTag("Player").transform;
         m_PlayerMove = m_Player.GetComponent<Move>();
     }
@@ -24,6 +25,13 @@ public class MoveScene : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && !isCalled)
         {
+            GameManager.GM.savePoint++;
+            GameManager.GM.gameObject.GetComponent<DataManager>().JsonSave();
+            m_PlayerMove.isCutScene = true;
+            m_PlayerMove.isCalledScene = true;
+            m_PlayerMove.isWalk = true;
+            m_PlayerMove.m_CutX = isRight ? 1 : -1;
+            SceneManager.LoadScene(SceneCount);
             StartCoroutine(InvokeLoad(1f));
             isCalled = true;
         }
@@ -34,6 +42,7 @@ public class MoveScene : MonoBehaviour
         GameManager.GM.savePoint++;
         GameManager.GM.gameObject.GetComponent<DataManager>().JsonSave();
         m_PlayerMove.isCutScene = true;
+        m_PlayerMove.isCalledScene = true;
         m_PlayerMove.isWalk = true;
         m_PlayerMove.m_CutX = isRight ? 1 : -1;
         for (float i = 0; i < time; i += Time.deltaTime)

@@ -26,6 +26,7 @@ public class StartProtect : MonoBehaviour
         while (isHit)
         {
             m_PlayerMove.isCutScene = true;
+            m_PlayerMove.isCalledScene = true;
             isHit = Physics2D.OverlapBox(transform.position + offset, size, 0, m_PlayerLayer);
             m_PlayerMove.isRun = true;
             m_PlayerMove.m_CutX = isRight ? 1 : -1;
@@ -33,9 +34,10 @@ public class StartProtect : MonoBehaviour
         }
         if(onHit)
         {
-            for (float i = 0; i < 0.5f; i += Time.deltaTime)
+            for (float i = 0; i < 0.25f; i += Time.deltaTime)
             {
                 m_PlayerMove.isCutScene = true;
+                m_PlayerMove.isCalledScene = true;
                 m_PlayerMove.isRun = true;
                 m_PlayerMove.m_CutX = isRight ? 1 : -1;
                 yield return YieldInstructionCache.WaitForFixedUpdate;
@@ -43,6 +45,7 @@ public class StartProtect : MonoBehaviour
         }
         m_BoxCollider2D.enabled = true;
         m_PlayerMove.isCutScene = false;
+        m_PlayerMove.isCalledScene = false;
         m_PlayerMove.isRun = false;
     }
 

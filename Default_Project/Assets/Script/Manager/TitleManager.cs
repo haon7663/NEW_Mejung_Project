@@ -21,7 +21,7 @@ public class TitleManager : MonoBehaviour
         {
             SceneManager.LoadScene("MeetingScene");
         }
-        if (GameManager.GM.savePoint <= 1)
+        else if (GameManager.GM.savePoint <= 1)
         {
             SceneManager.LoadScene("Tutorial");
         }

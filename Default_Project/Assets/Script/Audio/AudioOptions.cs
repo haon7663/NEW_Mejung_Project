@@ -21,6 +21,15 @@ public class AudioOptions : MonoBehaviour
         SetBgmVolme();
         SetSFXVolme();
     }
+    private void OnDisable()
+    {
+        MasterSlider.value = PlayerPrefs.GetFloat("Master");
+        BgmSlider.value = PlayerPrefs.GetFloat("BGM");
+        SfxSlider.value = PlayerPrefs.GetFloat("SFX");
+        SetMasterVolme();
+        SetBgmVolme();
+        SetSFXVolme();
+    }
 
     public void SetMasterVolme()
     {

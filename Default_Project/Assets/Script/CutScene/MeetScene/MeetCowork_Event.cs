@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Cinemachine;
 
 public class MeetCowork_Event : SceneEvent
@@ -10,6 +11,7 @@ public class MeetCowork_Event : SceneEvent
     private CinemachineTransposer mCinemachineTransposer;
 
     private RadioDialogue m_RadioDialogue;
+    private TextboxDialog m_TextboxDialogue;
     private Move m_PlayerMove;
     private Animator m_PlayerAnimator;
     private SpriteRenderer m_PlayerSpriteRenderer;
@@ -33,6 +35,7 @@ public class MeetCowork_Event : SceneEvent
     private void Start()
     {
         m_RadioDialogue = GameObject.FindGameObjectWithTag("Dialogue").GetComponent<RadioDialogue>();
+        m_TextboxDialogue= GameObject.FindGameObjectWithTag("Dialogue").GetComponent<TextboxDialog>();
         m_PlayerMove = GameObject.FindGameObjectWithTag("Player").GetComponent<Move>();
         m_PlayerAnimator = m_PlayerMove.GetComponent<Animator>();
         m_PlayerSpriteRenderer = m_PlayerMove.GetComponent<SpriteRenderer>();
@@ -57,6 +60,10 @@ public class MeetCowork_Event : SceneEvent
     {
         m_RadioDialogue.StartDialogue(eventName);
     }
+    public void StartTextBox(string eventName)
+    {
+        m_TextboxDialogue.StartDialogue(eventName);
+    }
 
     public IEnumerator PlayEvent()
     {
@@ -67,33 +74,57 @@ public class MeetCowork_Event : SceneEvent
         m_LetterBox.LetterIn();
         m_FollowChange.SetActive(true);
         m_PlayerMove.isCutScene = true;
+        m_PlayerMove.isCalledScene = true;
         mCinemachineConfiner.enabled = false;
         yield return YieldInstructionCache.WaitForSeconds(1.2f);
-        while(m_Sageia.position.x < 90f)
+        while(m_Sageia.position.x < 90.75f)
         {
             m_Sageia.Translate(new Vector3(m_SageiaSpeed, 0) * Time.deltaTime);
             m_SageiaAnimator.SetBool("isWalk", true);
             m_SageiaSpriteRenderer.flipX = false;
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
+        StartTextBox("ÄÆ½Å1");
+        m_TextboxDialogue.onText = true;
         m_SageiaAnimator.SetBool("isLookAround", true);
         m_SageiaAnimator.SetBool("isWalk", false);
         yield return YieldInstructionCache.WaitForSeconds(1.25f);
         m_PlayerSpriteRenderer.flipX = true;
-        yield return YieldInstructionCache.WaitForSeconds(1.7f);
+
+        yield return YieldInstructionCache.WaitForSeconds(1.75f);
+        m_TextboxDialogue.onText = false;
+        yield return YieldInstructionCache.WaitForSeconds(0.6f);
+        m_TextboxDialogue.onText = true;
+        yield return YieldInstructionCache.WaitForSeconds(0.15f);
         m_SageiaAnimator.SetBool("isLookAround", false);
-
-        yield return YieldInstructionCache.WaitForSeconds(2f);
-
         m_SageiaAnimator.SetTrigger("surprise");
         m_SageiaAnimator.SetBool("isRadio", true);
 
-        yield return YieldInstructionCache.WaitForSeconds(7f);
+        yield return YieldInstructionCache.WaitForSeconds(2.5f);
+        m_TextboxDialogue.onText = false;
+        yield return YieldInstructionCache.WaitForSeconds(0.1f);
+        m_TextboxDialogue.onText = true;
+        yield return YieldInstructionCache.WaitForSeconds(3f);
+        m_TextboxDialogue.onText = false;
+        yield return YieldInstructionCache.WaitForSeconds(0.1f);
+        m_TextboxDialogue.onText = true;
+        yield return YieldInstructionCache.WaitForSeconds(4f);
+        m_TextboxDialogue.onText = false;
+        yield return YieldInstructionCache.WaitForSeconds(0.1f);
+        m_TextboxDialogue.onText = true;
+
+        yield return YieldInstructionCache.WaitForSeconds(2f);
+        m_TextboxDialogue.onText = false;
+        yield return YieldInstructionCache.WaitForSeconds(0.1f);
+        m_TextboxDialogue.onText = true;
+        yield return YieldInstructionCache.WaitForSeconds(0.6f);
+
         m_SageiaAnimator.SetBool("isRadio", false);
-        yield return YieldInstructionCache.WaitForSeconds(1.5f);
+        yield return YieldInstructionCache.WaitForSeconds(1);
         m_SageiaAnimator.SetBool("isLookAround", true);
 
-        yield return YieldInstructionCache.WaitForSeconds(1.25f);
+        yield return YieldInstructionCache.WaitForSeconds(1f);
+        m_TextboxDialogue.onText = false;
 
         m_EventFollow.transform.position += new Vector3(-3, 0);
         while (m_Derrick.position.x < 88)
@@ -107,6 +138,10 @@ public class MeetCowork_Event : SceneEvent
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
         m_DerrickAnimator.SetBool("isWalk", false);
+        StartTextBox("ÄÆ½Å2");
+        m_TextboxDialogue.onText = true;
+
+
         while (m_Ian.position.x < 86)
         {
             m_Ian.Translate(new Vector3(m_IanSpeed, 0) * Time.deltaTime);
@@ -116,25 +151,84 @@ public class MeetCowork_Event : SceneEvent
         }
         m_IanAnimator.SetBool("isWalk", false);
 
-        yield return YieldInstructionCache.WaitForSeconds(0.5f);
+        yield return YieldInstructionCache.WaitForSeconds(2f);
+        m_TextboxDialogue.onText = false;
         m_SageiaAnimator.SetBool("isLookAround", false);
+        yield return YieldInstructionCache.WaitForSeconds(0.5f);
+        m_TextboxDialogue.onText = true;
+        yield return YieldInstructionCache.WaitForSeconds(3f);
+        m_TextboxDialogue.onText = false;
+        yield return YieldInstructionCache.WaitForSeconds(0.01f);
+        m_TextboxDialogue.onText = true;
+        yield return YieldInstructionCache.WaitForSeconds(4.7f);
+        m_TextboxDialogue.onText = false;
+        yield return YieldInstructionCache.WaitForSeconds(0.01f);
+        m_TextboxDialogue.onText = true;
+        yield return YieldInstructionCache.WaitForSeconds(3.25f);
+        m_TextboxDialogue.onText = false;
+        yield return YieldInstructionCache.WaitForSeconds(0.01f);
+        m_TextboxDialogue.onText = true;
+        yield return YieldInstructionCache.WaitForSeconds(2.85f);
+        m_TextboxDialogue.onText = false;
 
-        yield return YieldInstructionCache.WaitForSeconds(3);
+
+        yield return YieldInstructionCache.WaitForSeconds(0.5f);
         m_IanAnimator.SetBool("isTakeout", true);
+        yield return YieldInstructionCache.WaitForSeconds(0.2f);
+        m_TextboxDialogue.onText = true;
+        yield return YieldInstructionCache.WaitForSeconds(5f);
+        m_TextboxDialogue.onText = false;
+        yield return YieldInstructionCache.WaitForSeconds(0.01f);
+        m_TextboxDialogue.onText = true;
+        yield return YieldInstructionCache.WaitForSeconds(3f);
+        m_TextboxDialogue.onText = false;
 
-        yield return YieldInstructionCache.WaitForSeconds(5);
+        yield return YieldInstructionCache.WaitForSeconds(2);
         m_DerrickAnimator.SetTrigger("takebreath");
-        //Áß°£¿¡ ´ëÈ­³ª¿À¸é³ÖÀ¸¼À
-        yield return YieldInstructionCache.WaitForSeconds(5);
+        yield return YieldInstructionCache.WaitForSeconds(0.5f);
+        m_TextboxDialogue.onText = true;
+        m_IanAnimator.SetBool("isTakeout", false);
+        yield return YieldInstructionCache.WaitForSeconds(3.5f);
+        m_TextboxDialogue.onText = false;
+        yield return YieldInstructionCache.WaitForSeconds(0.35f);
+        m_TextboxDialogue.onText = true;
+        yield return YieldInstructionCache.WaitForSeconds(1.2f);
+        m_TextboxDialogue.onText = false;
+        yield return YieldInstructionCache.WaitForSeconds(0.2f);
+        m_TextboxDialogue.onText = true;
+        yield return YieldInstructionCache.WaitForSeconds(1.2f);
+        m_TextboxDialogue.onText = false;
+        yield return YieldInstructionCache.WaitForSeconds(0.5f);
 
-        for(float i = 0; i < 1.75f; i += Time.deltaTime)
+        m_TextboxDialogue.onText = true;
+        yield return YieldInstructionCache.WaitForSeconds(3.5f);
+        m_TextboxDialogue.onText = false;
+        yield return YieldInstructionCache.WaitForSeconds(0.01f);
+        m_TextboxDialogue.onText = true;
+        yield return YieldInstructionCache.WaitForSeconds(3.5f);
+        m_TextboxDialogue.onText = false;
+        yield return YieldInstructionCache.WaitForSeconds(0.01f);
+        m_TextboxDialogue.onText = true;
+        yield return YieldInstructionCache.WaitForSeconds(3f);
+        m_TextboxDialogue.onText = false;
+        yield return YieldInstructionCache.WaitForSeconds(0.01f);
+        m_TextboxDialogue.onText = true;
+        yield return YieldInstructionCache.WaitForSeconds(3.5f);
+        m_TextboxDialogue.onText = false;
+        yield return YieldInstructionCache.WaitForSeconds(0.01f);
+        m_TextboxDialogue.onText = true;
+        yield return YieldInstructionCache.WaitForSeconds(3.5f);
+        m_TextboxDialogue.onText = false;
+        yield return YieldInstructionCache.WaitForSeconds(0.01f);
+
+        for (float i = 0; i < 1.75f; i += Time.deltaTime)
         {
             m_PlayerMove.isWalk = true;
             m_PlayerMove.m_CutX = 1;
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
         m_DerrickSpriteRenderer.flipX = true;
-        while (true)
+        while (m_PlayerMove.transform.position.x < 113)
         {
             m_Sageia.Translate(new Vector3(m_SageiaSpeed, 0) * Time.deltaTime);
             m_SageiaAnimator.SetBool("isWalk", true);
@@ -143,55 +237,8 @@ public class MeetCowork_Event : SceneEvent
         }
 
 
-        /*m_PlayerMove.CinemacineSize = 6;
-        cinevirtual.Follow = m_FollowPlayer.transform;
-
-        StartRadio("½ºÆÀ´ë½¬");
-
-        GameManager.GM.onRadio = true;
-        while (GameManager.GM.onRadio)
-        {
-            m_PlayerMove.CinemacineSize = 6;
-            yield return YieldInstructionCache.WaitForFixedUpdate;
-        }
-
-        while (m_PlayerMove.transform.position.x >= 36.5f)
-        {
-            m_PlayerMove.isWalk = true;
-            m_PlayerMove.m_CutX = -1;
-            yield return YieldInstructionCache.WaitForFixedUpdate;
-        }
-        m_PlayerMove.isWalk = false;
-        m_PlayerMove.m_CutX = 0;
-
-        for (float j = 0; j < 0.7f; j += Time.deltaTime)
-        {
-            m_PlayerSpriteRenderer.flipX = false;
-            yield return YieldInstructionCache.WaitForFixedUpdate;
-        }
-        m_PlayerAnimator.SetBool("isTurnBack", true);
-        m_PlayerAnimator.SetTrigger("back");
-        yield return YieldInstructionCache.WaitForSeconds(2f);
-        m_PlayerAnimator.SetTrigger("pluck");
-        yield return YieldInstructionCache.WaitForSeconds(3f);
-        m_PlayerAnimator.SetBool("isTurnBack", false);
-
-        StartRadio("½ºÆÀ´ë½¬È¹µæ");
-
-        GameManager.GM.onRadio = true;
-        while (GameManager.GM.onRadio)
-        {
-            yield return YieldInstructionCache.WaitForFixedUpdate;
-        }*/
-        m_PlayerMove.isCutScene = false;
-        m_PlayerMove.CinemacineSize = 10;
-        m_LetterBox.LetterOut();
-
-        mCinemachineTransposer.m_XDamping = 1;
-        mCinemachineTransposer.m_YDamping = 0.6f;
-        mCinemachineConfiner.enabled = true;
-        m_FollowChange.SetActive(false);
-        mCinemachineConfiner.m_Damping = 0.6f;
-        Destroy(gameObject);
+        Fade.instance.FadeIn(0.5f);
+        yield return YieldInstructionCache.WaitForSeconds(0.5f);
+        SceneManager.LoadScene("Tutorial");
     }
 }

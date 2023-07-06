@@ -31,6 +31,9 @@ public class Text_Bar : MonoBehaviour
         mTextManager = transform.parent.GetComponent<Dialogue>();
         Tweener tweener = mText.DOText(mSpeech, mSpeech.Length * 0.05f).SetEase(Ease.Linear);
         mNameText.text = mName;
+        mImage.transform.localScale = new Vector2(mName == "³ë¿¤" ? -1 : 1, 1);
+        mText.transform.localScale = new Vector2(mName == "³ë¿¤" ? -1 : 1, 1);
+        mNameText.transform.localScale = new Vector2(mName == "³ë¿¤" ? -1 : 1, 1);
     }
     private void Update()
     {
@@ -39,9 +42,7 @@ public class Text_Bar : MonoBehaviour
 
         float setPos = distance * 360 + 555;
         float setColor = distance == 0 ? 1 : 0.4f;
-
         mRectTransform.position = Vector2.Lerp(mRectTransform.position, new Vector2(mRectTransform.position.x, setPos), Time.deltaTime * 4);
         mImage.color = Color.Lerp(mImage.color, new Color(setColor, setColor, setColor, 1), Time.deltaTime * 4);
-        mText.color = Color.Lerp(mText.color, new Color(setColor, setColor, setColor, 1), Time.deltaTime * 4);
     }
 }
