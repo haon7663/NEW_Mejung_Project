@@ -16,7 +16,7 @@ public class DataManager : MonoBehaviour
 
     void Awake()
     {
-        if(isAwake)
+        if (isAwake)
         {
             path = Path.Combine(Application.dataPath + "/Data/", "database.json");
             JsonLoad();
