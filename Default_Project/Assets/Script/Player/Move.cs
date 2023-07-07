@@ -385,7 +385,6 @@ public class Move : MonoBehaviour
             }
             else if (!isDash && !isSteamDash)
             {
-                Debug.Log("walk");
                 CPCOL.size = new Vector2(1, 1.875f);
                 mHitBox.size = new Vector2(1 * mHitSize.x, 1.875f * mHitSize.y);
 

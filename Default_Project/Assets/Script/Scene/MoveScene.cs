@@ -31,7 +31,6 @@ public class MoveScene : MonoBehaviour
             m_PlayerMove.isCalledScene = true;
             m_PlayerMove.isWalk = true;
             m_PlayerMove.m_CutX = isRight ? 1 : -1;
-            SceneManager.LoadScene(SceneCount);
             StartCoroutine(InvokeLoad(1f));
             isCalled = true;
         }

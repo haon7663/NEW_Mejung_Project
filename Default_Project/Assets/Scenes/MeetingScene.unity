@@ -5652,7 +5652,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2537d64088390ef408a51601b580b361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSingle: 1
+  m_PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isThis: 0
+  saveTutorial: {fileID: 0}
   m_FrontKeyActions:
   - RIGHT
   m_FrontKeyScripts:
@@ -5792,6 +5796,8 @@ MonoBehaviour:
   - 
   - 
   - 
+  isPush: 0
+  onSetDown: 0
   m_Image: {fileID: 0}
   m_Text: {fileID: 1246324434}
   m_TextDouble: {fileID: 1656958439}
@@ -5799,6 +5805,7 @@ MonoBehaviour:
   NonPushSpace: {fileID: -2056966377, guid: 6f92ed7ce43f09241a9e73fbd6d51313, type: 3}
   PushSpace: {fileID: 1608337481, guid: 6f92ed7ce43f09241a9e73fbd6d51313, type: 3}
   isWorking: 0
+  isWorkPro: 0
   m_NonPush: {fileID: -1549276651, guid: 09d4c2aed45af3f4887470800562b28a, type: 3}
   m_Push: {fileID: -180525062, guid: 09d4c2aed45af3f4887470800562b28a, type: 3}
   SettedKey: Space
@@ -6866,7 +6873,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2537d64088390ef408a51601b580b361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSingle: 1
+  m_PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isThis: 0
+  saveTutorial: {fileID: 0}
   m_FrontKeyActions:
   - INTERACTION
   m_FrontKeyScripts:
@@ -25840,6 +25851,8 @@ MonoBehaviour:
   - 
   - 
   - 
+  isPush: 0
+  onSetDown: 0
   m_Image: {fileID: 0}
   m_Text: {fileID: 660098901}
   m_TextDouble: {fileID: 55239405}
@@ -25847,6 +25860,7 @@ MonoBehaviour:
   NonPushSpace: {fileID: -2056966377, guid: 6f92ed7ce43f09241a9e73fbd6d51313, type: 3}
   PushSpace: {fileID: 1608337481, guid: 6f92ed7ce43f09241a9e73fbd6d51313, type: 3}
   isWorking: 0
+  isWorkPro: 0
   m_NonPush: {fileID: -1549276651, guid: 09d4c2aed45af3f4887470800562b28a, type: 3}
   m_Push: {fileID: -180525062, guid: 09d4c2aed45af3f4887470800562b28a, type: 3}
   SettedKey: SPACE
@@ -26164,9 +26178,9 @@ RectTransform:
   m_Father: {fileID: 112294408}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 23, y: 20}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 23, y: -20}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1875439690
@@ -27501,6 +27515,8 @@ MonoBehaviour:
   - 
   - 
   - 
+  isPush: 0
+  onSetDown: 0
   m_Image: {fileID: 0}
   m_Text: {fileID: 739385886}
   m_TextDouble: {fileID: 770485913}
@@ -27508,6 +27524,7 @@ MonoBehaviour:
   NonPushSpace: {fileID: -2056966377, guid: 6f92ed7ce43f09241a9e73fbd6d51313, type: 3}
   PushSpace: {fileID: 1608337481, guid: 6f92ed7ce43f09241a9e73fbd6d51313, type: 3}
   isWorking: 0
+  isWorkPro: 0
   m_NonPush: {fileID: -1549276651, guid: 09d4c2aed45af3f4887470800562b28a, type: 3}
   m_Push: {fileID: -180525062, guid: 09d4c2aed45af3f4887470800562b28a, type: 3}
   SettedKey: Space

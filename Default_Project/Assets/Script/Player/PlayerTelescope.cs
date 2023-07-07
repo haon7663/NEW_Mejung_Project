@@ -21,6 +21,7 @@ public class PlayerTelescope : MonoBehaviour
     public Vector3 m_SetSpeed;
 
     public float lastPosition;
+    public bool isFlip;
     private bool isX;
 
     private void Start()
@@ -39,7 +40,7 @@ public class PlayerTelescope : MonoBehaviour
         m_Rigidbody2D.velocity = Vector2.zero;
         yield return YieldInstructionCache.WaitForSeconds(0.31f);
         m_TargetCamera.position = m_SetStartPosition;
-        Vector3 distancePos = m_SetLastPosition - m_SetStartPosition;
+        Vector3 distancePos = isFlip ? (m_SetStartPosition - m_SetLastPosition) : (m_SetLastPosition - m_SetStartPosition);
         isX = distancePos.x > distancePos.y;
         lastPosition = isX ? m_SetLastPosition.x : m_SetLastPosition.y;
         cinevirtual.m_Lens.OrthographicSize = m_SetCameraSize;
@@ -47,9 +48,10 @@ public class PlayerTelescope : MonoBehaviour
         yield return YieldInstructionCache.WaitForSeconds(0.4f);
         Fade.instance.FadeOut(0.3f);
         yield return YieldInstructionCache.WaitForSeconds(0.5f);
+
         while (true)
         {
-            m_TargetCamera.position += m_SetSpeed * Time.deltaTime;
+            m_TargetCamera.position += (isFlip ? -m_SetSpeed : m_SetSpeed) * Time.deltaTime;
             cinevirtual.m_Lens.OrthographicSize = m_SetCameraSize;
             m_Rigidbody2D.velocity = Vector2.zero;
 
@@ -57,9 +59,26 @@ public class PlayerTelescope : MonoBehaviour
             {
                 break;
             }
-            if((isX ? m_MainCamera.transform.position.x : m_MainCamera.transform.position.y) > lastPosition)
+
+
+            float savePos = isX ? m_MainCamera.transform.position.x : m_MainCamera.transform.position.y;
+                        Debug.Log("save" + savePos);
+            Debug.Log("last" + lastPosition);
+            if (!isFlip && savePos > lastPosition)
             {
                 for(float i = 0; i < 0.5f; i+=Time.deltaTime)
+                {
+                    if (Input.GetKeyDown(KeySetting.keys[KeyAction.INTERACTION]))
+                    {
+                        break;
+                    }
+                    yield return YieldInstructionCache.WaitForFixedUpdate;
+                }
+                break;
+            }
+            else if (isFlip && savePos < lastPosition)
+            {
+                for (float i = 0; i < 0.5f; i += Time.deltaTime)
                 {
                     if (Input.GetKeyDown(KeySetting.keys[KeyAction.INTERACTION]))
                     {

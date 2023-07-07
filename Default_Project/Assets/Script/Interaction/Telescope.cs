@@ -15,6 +15,7 @@ public class Telescope : Interaction_Object
     public Vector3 m_SetStartPosition;
     public Vector3 m_SetLastPosition;
     public Vector3 m_SetSpeed;
+    public bool isFlip;
 
     private void Start()
     {
@@ -37,6 +38,7 @@ public class Telescope : Interaction_Object
             m_Telescope.m_SetStartPosition = m_SetStartPosition;
             m_Telescope.m_SetLastPosition = m_SetLastPosition;
             m_Telescope.m_SetSpeed = m_SetSpeed;
+            m_Telescope.isFlip = isFlip;
             StartCoroutine(m_Telescope.StartTelescope());
         }
         m_Telescope.enabled = isTelescope;

@@ -7,9 +7,15 @@ public class Interaction : MonoBehaviour
     public LayerMask InteractionLayer;
     public LayerMask SavePointLayer;
     public LayerMask ItemPointLayer;
+    public LayerMask TutorialPointLayer;
     public Collider2D hit;
     public Collider2D savepoint;
     public Collider2D item;
+    public Collider2D tutorial;
+
+    public bool tutorialWait;
+
+    public TutorialBox saveTutorial;
 
     private bool isDialogue;
 
@@ -30,6 +36,7 @@ public class Interaction : MonoBehaviour
         savepoint = Physics2D.OverlapBox(transform.position, new Vector2(3f, 3f), 0, SavePointLayer);
         hit = Physics2D.OverlapBox(transform.position, new Vector2(2f, 2f), 0, InteractionLayer);
         item = Physics2D.OverlapCircle(transform.position, 1.3f, ItemPointLayer);
+        tutorial = Physics2D.OverlapBox(transform.position, new Vector2(2f, 2f), 0, TutorialPointLayer);
 
         if (savepoint && GameManager.GM.savePoint != savepoint.transform.GetComponent<SavePoint>().PointCount)
         {
@@ -57,6 +64,19 @@ public class Interaction : MonoBehaviour
         {
             item.GetComponent<Item>().TakeItem();
         }
+        if (tutorial)
+        {
+            if(!tutorialWait)
+            {
+                saveTutorial = tutorial.GetComponent<TutorialBox>();
+                saveTutorial.Event();
+            }
+            else if(tutorialWait && saveTutorial != tutorial.GetComponent<TutorialBox>())
+            {
+                tutorialWait = false;
+            }
+        }
+        else saveTutorial = null;
     }
     private void OnDrawGizmos()
     {
