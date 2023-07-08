@@ -498,7 +498,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2043696395
-  m_SortingLayer: -2
+  m_SortingLayer: -3
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -1242,6 +1242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   talkDatas: []
   mTextBar: {fileID: 543444923}
+  m_Portrait: []
 --- !u!114 &449220078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1258,6 +1259,7 @@ MonoBehaviour:
   mTextBar: {fileID: 1531545937665035817, guid: d4c12df38b32c3e48a8d5584fc87011b, type: 3}
   mCount: 0
   mPlayer: {fileID: 0}
+  m_NPCStand: []
 --- !u!114 &449220079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2096,10 +2098,10 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.2
+  m_Intensity: 0.4
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 5918799d0000000039a0ada5193748c35df2bba60b55d07901dace22b781daf10f876cb5
+  m_ApplyToSortingLayers: 0b55d079d9e2aeb90f876cb50000000039a0ada5193748c35918799d01dace225df2bba6694e22d7
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -20625,6 +20627,7 @@ MonoBehaviour:
   - {fileID: 1342795632}
   - {fileID: 759615585}
   - {fileID: 2000346787}
+  key: -1
 --- !u!114 &1467588188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20637,10 +20640,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0001b142a0cd6e4fbbbe3f48c04420f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Asdu: {fileID: 0}
   savePoint: 1
   mPause: {fileID: 276131752}
   mDefaultPause: {fileID: 1216801945}
+  mSoundSetting: {fileID: 0}
   mKeySetting: {fileID: 767615276}
+  canPause: 1
   onPause: 0
   onRadio: 0
 --- !u!114 &1467588189
@@ -20669,6 +20675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b24bd4534b569ce43b3d9121d0d0e336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAwake: 1
 --- !u!114 &1467588191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20695,7 +20702,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d94416f9b19034aa85dd31af3c595a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxKey: 3
   key: 0
+  m_KeyBarImage: {fileID: 0}
+  m_KeyImage: {fileID: 0}
+  m_KeyText: {fileID: 0}
 --- !u!4 &1467588193
 Transform:
   m_ObjectHideFlags: 0
@@ -20885,6 +20896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 348a55ae89795ab449b6a8baa5b9b5d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInv: 0
 --- !u!66 &1487391739
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -22809,6 +22821,7 @@ MonoBehaviour:
   mCinemachineConfiner: {fileID: 2040506112}
   m_EventFollow: {fileID: 1872591938}
   m_FollowChange: {fileID: 2040506111}
+  m_FollowPlayer: {fileID: 0}
 --- !u!4 &1859011340
 Transform:
   m_ObjectHideFlags: 0

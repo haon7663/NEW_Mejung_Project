@@ -62,7 +62,7 @@ public class PlayerTelescope : MonoBehaviour
 
 
             float savePos = isX ? m_MainCamera.transform.position.x : m_MainCamera.transform.position.y;
-                        Debug.Log("save" + savePos);
+            Debug.Log("save" + savePos);
             Debug.Log("last" + lastPosition);
             if (!isFlip && savePos > lastPosition)
             {

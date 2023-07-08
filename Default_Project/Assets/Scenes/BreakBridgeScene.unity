@@ -33526,6 +33526,8 @@ MonoBehaviour:
   - 
   - 
   - 
+  isPush: 0
+  onSetDown: 0
   m_Image: {fileID: 0}
   m_Text: {fileID: 355420009}
   m_TextDouble: {fileID: 708347234}
@@ -33533,6 +33535,7 @@ MonoBehaviour:
   NonPushSpace: {fileID: -2056966377, guid: 6f92ed7ce43f09241a9e73fbd6d51313, type: 3}
   PushSpace: {fileID: 1608337481, guid: 6f92ed7ce43f09241a9e73fbd6d51313, type: 3}
   isWorking: 0
+  isWorkPro: 0
   m_NonPush: {fileID: -1549276651, guid: 09d4c2aed45af3f4887470800562b28a, type: 3}
   m_Push: {fileID: -180525062, guid: 09d4c2aed45af3f4887470800562b28a, type: 3}
   SettedKey: SPACE
@@ -35881,7 +35884,7 @@ MonoBehaviour:
   m_Intensity: 0.4
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 5918799d0000000039a0ada5193748c35df2bba60b55d07901dace220f876cb5d9e2aeb9
+  m_ApplyToSortingLayers: 0b55d079d9e2aeb90f876cb50000000039a0ada5193748c35918799d01dace225df2bba6694e22d7
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -37103,6 +37106,8 @@ MonoBehaviour:
   - 
   - 
   - 
+  isPush: 0
+  onSetDown: 0
   m_Image: {fileID: 0}
   m_Text: {fileID: 740839779}
   m_TextDouble: {fileID: 178062219}
@@ -37110,6 +37115,7 @@ MonoBehaviour:
   NonPushSpace: {fileID: -2056966377, guid: 6f92ed7ce43f09241a9e73fbd6d51313, type: 3}
   PushSpace: {fileID: 1608337481, guid: 6f92ed7ce43f09241a9e73fbd6d51313, type: 3}
   isWorking: 0
+  isWorkPro: 0
   m_NonPush: {fileID: -1549276651, guid: 09d4c2aed45af3f4887470800562b28a, type: 3}
   m_Push: {fileID: -180525062, guid: 09d4c2aed45af3f4887470800562b28a, type: 3}
   SettedKey: Space
@@ -64369,6 +64375,8 @@ MonoBehaviour:
   - 
   - 
   - 
+  isPush: 0
+  onSetDown: 0
   m_Image: {fileID: 0}
   m_Text: {fileID: 584091757}
   m_TextDouble: {fileID: 1794742450}
@@ -64376,6 +64384,7 @@ MonoBehaviour:
   NonPushSpace: {fileID: -2056966377, guid: 6f92ed7ce43f09241a9e73fbd6d51313, type: 3}
   PushSpace: {fileID: 1608337481, guid: 6f92ed7ce43f09241a9e73fbd6d51313, type: 3}
   isWorking: 0
+  isWorkPro: 0
   m_NonPush: {fileID: -1549276651, guid: 09d4c2aed45af3f4887470800562b28a, type: 3}
   m_Push: {fileID: -180525062, guid: 09d4c2aed45af3f4887470800562b28a, type: 3}
   SettedKey: Space

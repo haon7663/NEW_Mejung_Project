@@ -949,7 +949,10 @@ public class Move : MonoBehaviour
             isSteamDash = false;
             collision.GetComponent<Dash_Item>().TakeDash();
         }
-        if(collision.transform.CompareTag("RadioBox") && !isCalledScene && !GameManager.GM.onRadio)
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.transform.CompareTag("RadioBox") && !isCalledScene && !GameManager.GM.onRadio)
         {
             collision.GetComponent<SceneEvent>().Event();
         }

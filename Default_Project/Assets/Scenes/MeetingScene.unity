@@ -2711,6 +2711,10 @@ PrefabInstance:
       propertyPath: mExplainObject
       value: 
       objectReference: {fileID: 664514}
+    - target: {fileID: 4871430336572265137, guid: c852f31a2a648044f9e4df5b1ab2701c, type: 3}
+      propertyPath: TutorialPointLayer.m_Bits
+      value: 524288
+      objectReference: {fileID: 0}
     - target: {fileID: 4871430336572265138, guid: c852f31a2a648044f9e4df5b1ab2701c, type: 3}
       propertyPath: m_DefaultSize
       value: 5.5
@@ -5592,9 +5596,9 @@ GameObject:
   - component: {fileID: 864641728}
   - component: {fileID: 864641730}
   - component: {fileID: 864641729}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: KeyTutorial
-  m_TagString: RadioBox
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5654,7 +5658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlayerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   isThis: 0
   saveTutorial: {fileID: 0}
   m_FrontKeyActions:
@@ -6813,9 +6817,9 @@ GameObject:
   - component: {fileID: 965822970}
   - component: {fileID: 965822972}
   - component: {fileID: 965822971}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: KeyTutorial (1)
-  m_TagString: RadioBox
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6875,7 +6879,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlayerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   isThis: 0
   saveTutorial: {fileID: 0}
   m_FrontKeyActions:
@@ -25225,7 +25229,7 @@ MonoBehaviour:
   m_Intensity: 0.4
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 5918799d0000000039a0ada5193748c35df2bba60b55d07901dace22b781daf10f876cb5
+  m_ApplyToSortingLayers: 0b55d079d9e2aeb90f876cb50000000039a0ada5193748c35918799d01dace225df2bba6694e22d7
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -27221,7 +27225,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2021691811}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 81.8125, y: -8.5, z: 0}
+  m_LocalPosition: {x: 82.3125, y: -8.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
