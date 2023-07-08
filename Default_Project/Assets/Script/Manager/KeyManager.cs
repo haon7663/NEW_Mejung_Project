@@ -14,6 +14,14 @@ public class KeyManager : MonoBehaviour
 
     public Text[] mSetText = new Text[8];
     public int key = -1;
+    public bool isKeySetting;
+
+    public static KeyManager instance;
+
+    private void Start()
+    {
+        instance = this;
+    }
 
     public void SetKey()
     {
@@ -34,7 +42,7 @@ public class KeyManager : MonoBehaviour
     private void OnGUI()
     {
         Event keyEvent = Event.current;
-        if(keyEvent.isKey)
+        if(keyEvent.isKey && keyEvent.keyCode.ToString() != "Return")
         {
             KeySetting.keys[(KeyAction)key] = keyEvent.keyCode;
             for (int i = 0; i < mSetText.Length; i++)
@@ -43,12 +51,14 @@ public class KeyManager : MonoBehaviour
             }
             key = -1;
             SetKeys();
+            isKeySetting = false;
         }
     }
     public void ChangeKey(int num)
     {
         Debug.Log(num);
         key = num;
+        isKeySetting = true;
     }
 
     private void SetKeys()
