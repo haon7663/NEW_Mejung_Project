@@ -25,7 +25,6 @@ public class MoveScene : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && !isCalled)
         {
-            GameManager.GM.savePoint++;
             GameManager.GM.gameObject.GetComponent<DataManager>().JsonSave();
             m_PlayerMove.isCutScene = true;
             m_PlayerMove.isCalledScene = true;

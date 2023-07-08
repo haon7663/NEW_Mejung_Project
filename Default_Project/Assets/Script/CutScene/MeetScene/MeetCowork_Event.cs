@@ -237,10 +237,11 @@ public class MeetCowork_Event : SceneEvent
             m_SageiaSpriteRenderer.flipX = false;
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
-
-
+        GameManager.GM.savePoint++;
+        GameManager.GM.gameObject.GetComponent<DataManager>().JsonSave();
         Fade.instance.FadeIn(0.5f);
         yield return YieldInstructionCache.WaitForSeconds(0.5f);
+
         SceneManager.LoadScene("Tutorial");
     }
 }
