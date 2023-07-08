@@ -94,15 +94,17 @@ public class BreakBridgeEvent : SceneEvent
         m_PlayerMove.m_CutX = 1;
         m_PlayerAnimator.SetTrigger("break");
 
+        m_FollowPlayer.transform.localPosition = new Vector3(7.5f, 0, 0);
         StartRadio("³«ÇÏ");
+        CinemachineShake.Instance.shakeTimer = -1;
         GameManager.GM.onRadio = true;
+        yield return YieldInstructionCache.WaitForFixedUpdate;
         while (GameManager.GM.onRadio)
         {
-            m_FollowPlayer.transform.localPosition = new Vector3(9, 0, 0);
-            CinemachineShake.Instance.ShakeCamera(3, Time.deltaTime*2);
+            m_FollowPlayer.transform.localPosition = new Vector3(7.5f, 0, 0);
+            CinemachineShake.Instance.ShakeCamera(3, Time.deltaTime);
             m_PlayerMove.CinemacineSize = 5;
             yield return YieldInstructionCache.WaitForFixedUpdate;
-            m_FollowPlayer.transform.localPosition = new Vector3(9, 0, 0);
         }
         m_PlayerMove.Jump();
         m_PlayerMove.m_CutX = 1;
@@ -111,14 +113,14 @@ public class BreakBridgeEvent : SceneEvent
         for (float j = 0; j < 1.2f; j += Time.deltaTime)
         {
             m_FollowPlayer.transform.localPosition = new Vector3(3, 0, 0);
-            CinemachineShake.Instance.ShakeCamera(3, Time.deltaTime * 2);
+            CinemachineShake.Instance.ShakeCamera(3, Time.deltaTime);
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
         Fade.instance.FadeIn(0.5f);
         for (float j = 0; j < 0.5f; j += Time.deltaTime)
         {
             m_FollowPlayer.transform.localPosition = new Vector3(3, 0, 0);
-            CinemachineShake.Instance.ShakeCamera(3, Time.deltaTime * 2);
+            CinemachineShake.Instance.ShakeCamera(3, Time.deltaTime);
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
         SceneManager.LoadScene("Map_2");

@@ -94,6 +94,7 @@ public class MeetCowork_Event : SceneEvent
         yield return YieldInstructionCache.WaitForSeconds(1.75f);
         m_TextboxDialogue.onText = false;
         yield return YieldInstructionCache.WaitForSeconds(0.6f);
+        m_TextboxDialogue.m_ImageKinds = 1;
         m_TextboxDialogue.onText = true;
         yield return YieldInstructionCache.WaitForSeconds(0.15f);
         m_SageiaAnimator.SetBool("isLookAround", false);
@@ -103,10 +104,12 @@ public class MeetCowork_Event : SceneEvent
         yield return YieldInstructionCache.WaitForSeconds(2.5f);
         m_TextboxDialogue.onText = false;
         yield return YieldInstructionCache.WaitForSeconds(0.1f);
+        m_TextboxDialogue.m_ImageKinds = 0;
         m_TextboxDialogue.onText = true;
         yield return YieldInstructionCache.WaitForSeconds(3f);
         m_TextboxDialogue.onText = false;
         yield return YieldInstructionCache.WaitForSeconds(0.1f);
+        m_TextboxDialogue.m_ImageKinds = 1;
         m_TextboxDialogue.onText = true;
         yield return YieldInstructionCache.WaitForSeconds(4f);
         m_TextboxDialogue.onText = false;
@@ -115,15 +118,14 @@ public class MeetCowork_Event : SceneEvent
 
         yield return YieldInstructionCache.WaitForSeconds(2f);
         m_TextboxDialogue.onText = false;
-        yield return YieldInstructionCache.WaitForSeconds(0.1f);
-        m_TextboxDialogue.onText = true;
-        yield return YieldInstructionCache.WaitForSeconds(0.6f);
-
+        yield return YieldInstructionCache.WaitForSeconds(0.9f);
         m_SageiaAnimator.SetBool("isRadio", false);
-        yield return YieldInstructionCache.WaitForSeconds(1);
+        yield return YieldInstructionCache.WaitForSeconds(1.4f);
+        m_TextboxDialogue.m_ImageKinds = 0;
+        m_TextboxDialogue.onText = true;
         m_SageiaAnimator.SetBool("isLookAround", true);
 
-        yield return YieldInstructionCache.WaitForSeconds(1f);
+        yield return YieldInstructionCache.WaitForSeconds(2f);
         m_TextboxDialogue.onText = false;
 
         m_EventFollow.transform.position += new Vector3(-3, 0);

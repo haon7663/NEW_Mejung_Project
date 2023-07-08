@@ -8,7 +8,8 @@ public class CinemachineShake : MonoBehaviour
     public static CinemachineShake Instance { get; private set; }
 
     private CinemachineVirtualCamera cinemachineVirtualCamera;
-    private float shakeTimer;
+    CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin;
+    public float shakeTimer;
 
     private Camera MainCamera;
 
@@ -16,14 +17,12 @@ public class CinemachineShake : MonoBehaviour
     {
         Instance = this;
         cinemachineVirtualCamera = GetComponent<CinemachineVirtualCamera>();
+        cinemachineBasicMultiChannelPerlin = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         MainCamera = Camera.main;
     }
 
     public void ShakeCamera(float intensity, float time)
     {
-        CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin =
-            cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-
         cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = intensity;
         shakeTimer = time;
     }
@@ -33,14 +32,11 @@ public class CinemachineShake : MonoBehaviour
         if(shakeTimer > 0)
         {
             shakeTimer -= Time.deltaTime;
-            if(shakeTimer <= 0f)
-            {
-                CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin =
-                cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-
-                cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = 0f;
-                MainCamera.transform.rotation = Quaternion.Euler(0, 0, 0);
-            }
+        }
+        if (shakeTimer <= 0f)
+        {
+            cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = 0f;
+            MainCamera.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 }

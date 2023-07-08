@@ -10,13 +10,21 @@ public class TextboxDialog : MonoBehaviour
 
     private Camera m_Camera;
     public GameObject mTextBar;
+    private Image mImage;
     private Text mText;
+    private Image mTailImage;
     private string saveEventName;
     public bool onText = false;
 
+    public int m_ImageKinds;
+    public Sprite[] m_BarImage;
+    public Sprite[] m_TailImage;
+
     private void Start()
     {
+        mImage = mTextBar.transform.GetChild(0).GetComponent<Image>();
         mText = mTextBar.GetComponentInChildren<Text>();
+        mTailImage = mText.transform.GetChild(0).GetComponent<Image>();
         m_Camera = Camera.main;
     }
 
@@ -59,6 +67,8 @@ public class TextboxDialog : MonoBehaviour
                 {
                     yield return YieldInstructionCache.WaitForFixedUpdate;
                 }
+                mImage.sprite = m_BarImage[m_ImageKinds];
+                mTailImage.sprite = m_TailImage[m_ImageKinds];
                 mTextBar.SetActive(true);
                 DOTween.Kill(transform);
                 mText.text = "";

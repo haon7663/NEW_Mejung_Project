@@ -932,7 +932,7 @@ public class Move : MonoBehaviour
             var dir = Vector2.Reflect(LastVelocity.normalized, collision.contacts[0].normal);
 
             RB.velocity = dir * Mathf.Max(speed, 0f);
-            Debug.Log("speed" + speed + " Velocity" + RB.velocity);
+            //Debug.Log("speed" + speed + " Velocity" + RB.velocity);
 
             haveDash = true;
             isDash = true;

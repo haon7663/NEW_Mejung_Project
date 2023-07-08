@@ -27,15 +27,19 @@ public class Dialogue : MonoBehaviour
     private Image mBackGround;
     private Image mPlayerStand;
     private Image mNPCStand;
+    private Text mInteractionText;
     public Sprite[] m_NPCStand;
 
     private float setColor;
+    private int setDot;
+    private float dotTimer;
     private void Start()
     {
         mPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<Move>();
         mBackGround = transform.GetChild(0).gameObject.GetComponent<Image>();
         mPlayerStand = transform.GetChild(1).gameObject.GetComponent<Image>();
         mNPCStand = transform.GetChild(2).gameObject.GetComponent<Image>();
+        mInteractionText = transform.GetChild(3).gameObject.GetComponent<Text>();
     }
 
     public void CallDialogue(string eventName)
@@ -76,6 +80,8 @@ public class Dialogue : MonoBehaviour
             }
         }
         mNPCStand.sprite = m_NPCStand[saveNpc];
+        setDot = 0;
+        mInteractionText.text = KeySetting.keys[KeyAction.INTERACTION].ToString() + "키를 눌러 넘어가기";
         SetImage(true);
         mCount = 0;
         mPlayer.isInteraction = true;
@@ -86,13 +92,37 @@ public class Dialogue : MonoBehaviour
             {
                 while (true)
                 {
-                    if (Input.GetKeyDown(KeyCode.E))
+                    dotTimer += Time.deltaTime;
+                    if(dotTimer > 0.3f)
+                    {
+                        dotTimer = 0;
+                        mInteractionText.text += ".";
+                        setDot++;
+                        if (setDot >= 4)
+                        {
+                            setDot = 0;
+                            mInteractionText.text = KeySetting.keys[KeyAction.INTERACTION].ToString() + "키를 눌러 넘어가기";
+                        }
+                    }
+                    if (Input.GetKeyDown(KeySetting.keys[KeyAction.INTERACTION]))
                         break;
                     yield return YieldInstructionCache.WaitForFixedUpdate;
                 }
                 while (true)
                 {
-                    if (!Input.GetKeyDown(KeyCode.E))
+                    dotTimer += Time.deltaTime;
+                    if (dotTimer > 0.3f)
+                    {
+                        dotTimer = 0;
+                        mInteractionText.text += ".";
+                        setDot++;
+                        if (setDot >= 4)
+                        {
+                            setDot = 0;
+                            mInteractionText.text = KeySetting.keys[KeyAction.INTERACTION].ToString() + "키를 눌러 넘어가기";
+                        }
+                    }
+                    if (!Input.GetKeyDown(KeySetting.keys[KeyAction.INTERACTION]))
                         break;
                     yield return YieldInstructionCache.WaitForFixedUpdate;
                 }
@@ -118,7 +148,7 @@ public class Dialogue : MonoBehaviour
         }
         while (true)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeySetting.keys[KeyAction.INTERACTION]))
                 break;
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
@@ -133,19 +163,22 @@ public class Dialogue : MonoBehaviour
         {
             mBackGround.enabled = true;
             mPlayerStand.enabled = true;
-            mNPCStand.enabled = true; 
+            mNPCStand.enabled = true;
+            mInteractionText.enabled = true;
             mBackGround.color = new Color(0, 0, 0, 0);
             mPlayerStand.color = new Color(1, 1, 1, 0);
             mNPCStand.color = new Color(1, 1, 1, 0);
             mBackGround.DOColor(new Color(0, 0, 0, 0.35f), 0.25f);
             mPlayerStand.DOColor(new Color(1, 1, 1, 1), 0.25f);
             mNPCStand.DOColor(new Color(1, 1, 1, 1), 0.25f);
+            mInteractionText.DOColor(new Color(1, 1, 1, 1), 0.25f);
         }
         else if(!Bool)
         {
             mBackGround.DOColor(new Color(0, 0, 0, 0), 0.25f);
             mPlayerStand.DOColor(new Color(1, 1, 1, 0), 0.25f);
             mNPCStand.DOColor(new Color(1, 1, 1, 0), 0.25f);
+            mInteractionText.DOColor(new Color(1, 1, 1, 0), 0.25f);
             Invoke(nameof(InvokeImage), 0.25f);
         }
     }
@@ -154,5 +187,7 @@ public class Dialogue : MonoBehaviour
         setColor = 0.4f;
         mBackGround.enabled = false;
         mPlayerStand.enabled = false;
+        mNPCStand.enabled = false;
+        mInteractionText.enabled = false;
     }
 }

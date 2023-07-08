@@ -8,6 +8,9 @@ public class RadioBox : SceneEvent
     public string eventName;
     private Move m_Player;
 
+    public bool canSetSize;
+    public float camSize;
+
     private void Start()
     {
         m_Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Move>();
@@ -20,6 +23,7 @@ public class RadioBox : SceneEvent
     }
     public IEnumerator StartRadio()
     {
+        if (canSetSize) m_Player.CinemacineSize = camSize;
         m_Player.isCutScene = true;
         m_Player.isCalledScene = true;
         m_RadioDialogue.StartDialogue(eventName);

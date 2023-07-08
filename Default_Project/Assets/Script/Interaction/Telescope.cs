@@ -51,6 +51,6 @@ public class Telescope : Interaction_Object
     public override void Explain()
     {
         mInteraction.ExplainRange = 1.7f;
-        mInteraction.InteractionExplain = "Check";
+        mInteraction.InteractionExplain = KeySetting.keys[KeyAction.INTERACTION].ToString();
     }
 }

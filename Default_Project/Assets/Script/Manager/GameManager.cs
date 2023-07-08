@@ -114,6 +114,8 @@ public class GameManager : MonoBehaviour
     public void Main()
     {
         Debug.Log("Main");
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Title");
     }
     public void Exit()
     {

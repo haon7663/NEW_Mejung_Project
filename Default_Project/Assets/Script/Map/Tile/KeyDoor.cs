@@ -31,7 +31,7 @@ public class KeyDoor : Interaction_Object
         if(InventoryManager.IM.key >= mNeedKey)
         {
             mInteraction.ExplainRange = 3f;
-            mInteraction.InteractionExplain = "Check";
+            mInteraction.InteractionExplain = KeySetting.keys[KeyAction.INTERACTION].ToString();
         }
         else
         {
