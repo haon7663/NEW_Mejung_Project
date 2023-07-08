@@ -32,7 +32,7 @@ public class DataManager : MonoBehaviour
     }
     public void JsonLoad()
     {
-        /*if(PlayerPrefs.HasKey("savePoint"))
+        if(PlayerPrefs.HasKey("savePoint"))
         {
             GameManager.GM.savePoint = PlayerPrefs.GetInt("savePoint");
         }
@@ -40,8 +40,8 @@ public class DataManager : MonoBehaviour
         {
             GameManager.GM.savePoint = -1;
             JsonSave();
-        }*/
-        SaveData saveData = new SaveData();
+        }
+        /*SaveData saveData = new SaveData();
 
         if (!File.Exists(path))
         {
@@ -58,19 +58,19 @@ public class DataManager : MonoBehaviour
             {
                 GameManager.GM.savePoint = saveData.savePoint;
             }
-        }
+        }*/
     }
 
     public void JsonSave()
     {
-        //PlayerPrefs.SetInt("savePoint", GameManager.GM.savePoint);
-        SaveData saveData = new SaveData();
+        PlayerPrefs.SetInt("savePoint", GameManager.GM.savePoint);
+        /*SaveData saveData = new SaveData();
 
         saveData.savePoint = GameManager.GM.savePoint;
 
         string json = JsonUtility.ToJson(saveData, true);
 
         File.WriteAllText(path, CryptoDebug.Encrypt(json, "we"));
-        Debug.Log("encrypt: " + json);
+        Debug.Log("encrypt: " + json);*/
     }
 }
