@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class TitleManager : MonoBehaviour
 {
     private bool isCalled = false;
+    
     public void StartGame()
     {
         if (!isCalled)

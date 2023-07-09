@@ -42,7 +42,7 @@ public class KeyManager : MonoBehaviour
     private void OnGUI()
     {
         Event keyEvent = Event.current;
-        if(keyEvent.isKey && keyEvent.keyCode.ToString() != "Return")
+        if(keyEvent.isKey && keyEvent.keyCode.ToString() != "Return" && keyEvent.keyCode.ToString() != "Escape")
         {
             KeySetting.keys[(KeyAction)key] = keyEvent.keyCode;
             for (int i = 0; i < mSetText.Length; i++)

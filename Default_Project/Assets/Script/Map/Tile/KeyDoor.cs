@@ -36,7 +36,7 @@ public class KeyDoor : Interaction_Object
         else
         {
             mInteraction.ExplainRange = 3f;
-            mInteraction.InteractionExplain = "열쇠가 부족하다.";
+            mInteraction.InteractionExplain = "열쇠 부족";
         }
     }
 

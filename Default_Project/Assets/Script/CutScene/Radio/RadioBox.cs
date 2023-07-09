@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RadioBox : SceneEvent
 {
+    private static bool isCalled = false;
+
     private RadioDialogue m_RadioDialogue;
     public string eventName;
     private Move m_Player;
@@ -19,7 +21,11 @@ public class RadioBox : SceneEvent
 
     public override void Event()
     {
-        StartCoroutine(StartRadio());
+        if(!isCalled)
+        {
+            isCalled = true;
+            StartCoroutine(StartRadio());
+        }
     }
     public IEnumerator StartRadio()
     {

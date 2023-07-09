@@ -11,17 +11,21 @@ public class RadioDialogue : MonoBehaviour
 
     private DialogueParse mDialogueParse;
 
+    private AudioSource m_RadioAudioSource;
     public GameObject mTextBar;
     public Sprite[] m_Portrait;
     private Animator mTextBarAnimator;
     private Image m_RadioPortrait;
     private Text mText;
+    private Text mInteractionText;
     private string saveEventName;
 
     private void Start()
     {
+        m_RadioAudioSource = mTextBar.GetComponent<AudioSource>();
         mTextBarAnimator = mTextBar.GetComponent<Animator>();
-        mText = mTextBar.GetComponentInChildren<Text>();
+        mText = mTextBar.transform.GetChild(1).GetComponent<Text>();
+        mInteractionText = mTextBar.transform.GetChild(2).GetComponent<Text>();
         m_RadioPortrait = mTextBar.transform.GetChild(0).GetComponent<Image>();
 
         //talkDatas = DialogueParse.DialogueDictionary["엄"];
@@ -53,8 +57,10 @@ public class RadioDialogue : MonoBehaviour
     }
     IEnumerator DebugRadioDialogue(TalkData[] talkdatas)
     {
+        mInteractionText.text = KeySetting.keys[KeyAction.INTERACTION].ToString() + "키를 눌러 넘어가기";
         mText.text = "";
         mTextBar.SetActive(true);
+        m_RadioAudioSource.Play();
         mTextBarAnimator.SetBool("isRadio", true);
         GameManager.GM.onRadio = true;
         if (talkdatas[0].name == "노엘") m_RadioPortrait.sprite = m_Portrait[0];

@@ -114,6 +114,8 @@ public class Move : MonoBehaviour
     private bool isObserve = false;
     private bool isInvDeath = false;
 
+    private bool isLanding = false;
+
     private float KeyBreakTime;
     private bool isKeyBreak = false;
     private Vector2 KeyBreakXY;
@@ -150,9 +152,19 @@ public class Move : MonoBehaviour
     public GameObject MapConfiner;
     public GameObject DeathConfiner;
     public GameObject LightParents;
+
+    [Space]
+    [Header("AudioClip")]
+    public AudioClip m_WalkClip;
+    public AudioClip m_RunClip;
+    public GameObject m_LandClipPref;
+
+    [Space]
+    [Header("Light")]
     public UnityEngine.Rendering.Universal.Light2D mBackGroundLight;
     public UnityEngine.Rendering.Universal.Light2D mPlatformLight;
     public UnityEngine.Rendering.Universal.Light2D mPlatformLight2;
+
 
     private void Start()
     {
@@ -291,6 +303,16 @@ public class Move : MonoBehaviour
             else if (!COL.onGround && (xRaw != 0 || yRaw != 0) && DashTime <= 0 && (((COL.onRightWall && xRaw == -1) || (COL.onLeftWall && xRaw == 1)) || !COL.onWall)) Dash(xRaw, yRaw);
         }
 
+        if(COL.onGround && !isLanding)
+        {
+            isLanding = true;
+            Instantiate(FallDustEffect, transform.position + new Vector3(0, -0.125f), Quaternion.identity);
+        }
+        else if(!COL.onGround)
+        {
+            isLanding = false;
+        }
+
 
         //_____________________________//
 
@@ -345,6 +367,23 @@ public class Move : MonoBehaviour
             if (isWalk) RB.velocity = new Vector2(m_CutX * maxSpeed * 0.3f, RB.velocity.y);
             else if(isRun) RB.velocity = new Vector2(m_CutX * maxSpeed, RB.velocity.y);
             else RB.velocity = new Vector2(0, RB.velocity.y);
+            bool isRSound = AN.GetCurrentAnimatorStateInfo(0).IsName("Player_Run");
+            bool isWSound = AN.GetCurrentAnimatorStateInfo(0).IsName("Player_Walk");
+            m_AuidoSource.Stop();
+            if (isRSound)
+            {
+                m_AuidoSource.clip = m_RunClip;
+                if (!m_AuidoSource.isPlaying)
+                    m_AuidoSource.Play();
+            }
+            else if (isWSound)
+            {
+                m_AuidoSource.clip = m_WalkClip;
+                if (!m_AuidoSource.isPlaying)
+                    m_AuidoSource.Play();
+            }
+            else
+                m_AuidoSource.Stop();
             return;
         }
         if (!isCanMove || isDash || CollisonTime > 0 || isObserve)
@@ -393,10 +432,18 @@ public class Move : MonoBehaviour
             }
         }
 
-        bool isMove = AN.GetBool("run");
-        if (isMove)
+        bool isRunSound = AN.GetCurrentAnimatorStateInfo(0).IsName("Player_Run");
+        bool isWalkSound = AN.GetCurrentAnimatorStateInfo(0).IsName("Player_Walk");
+        if (isRunSound)
         {
-            if (m_AuidoSource.isPlaying)
+            m_AuidoSource.clip = m_RunClip;
+            if (!m_AuidoSource.isPlaying)
+                m_AuidoSource.Play();
+        }
+        else if(isWalkSound)
+        {
+            m_AuidoSource.clip = m_WalkClip;
+            if (!m_AuidoSource.isPlaying)
                 m_AuidoSource.Play();
         }
         else
@@ -902,10 +949,6 @@ public class Move : MonoBehaviour
 
             haveDash = true;
             isSteamDash = false;
-        }
-        else if(collision.transform.CompareTag("Platform") && COL.onGround)
-        {
-            Instantiate(FallDustEffect, transform.position, Quaternion.identity);
         }
         if (collision.transform.CompareTag("Boost") && isDash)
         {

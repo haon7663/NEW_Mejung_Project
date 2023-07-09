@@ -29,15 +29,18 @@ public class SetConfiner : MonoBehaviour
 
         var size_Confiner = Physics2D.OverlapBox(transform.position, new Vector2(1f, 1f), 0, sizeConfiner_Layer);
         if (mPlayerMove.isDeath) return;
-        if (size_Confiner)
+        if(!mPlayerMove.isCutScene)
         {
-            mPlayerMove.CinemacineSize = size_Confiner.transform.position.z;
-            mPlayerMove.mCameraSize = size_Confiner.transform.position.z;
-        }
-        else if (!size_Confiner && !mPlayerMove.isCutScene)
-        {
-            mPlayerMove.CinemacineSize = m_DefaultSize;
-            mPlayerMove.mCameraSize = m_DefaultSize;
+            if (size_Confiner)
+            {
+                mPlayerMove.CinemacineSize = size_Confiner.transform.position.z;
+                mPlayerMove.mCameraSize = size_Confiner.transform.position.z;
+            }
+            else if (!size_Confiner && !mPlayerMove.isCutScene)
+            {
+                mPlayerMove.CinemacineSize = m_DefaultSize;
+                mPlayerMove.mCameraSize = m_DefaultSize;
+            }
         }
 
         var pos_Confiner = Physics2D.OverlapBox(transform.position, new Vector2(1f, 1f), 0, posConfiner_Layer);

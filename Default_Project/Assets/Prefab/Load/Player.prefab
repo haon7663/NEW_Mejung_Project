@@ -632,6 +632,8 @@ MonoBehaviour:
   MapConfiner: {fileID: 0}
   DeathConfiner: {fileID: 0}
   LightParents: {fileID: 4871430336050193381}
+  m_WalkClip: {fileID: 8300000, guid: 1567960c773909149bc8f69627ba6ef9, type: 3}
+  m_RunClip: {fileID: 8300000, guid: 0adbeb8c61ac0de4996996b079333ad2, type: 3}
   mBackGroundLight: {fileID: 4871430335754406475}
   mPlatformLight: {fileID: 4871430336707629233}
   mPlatformLight2: {fileID: 4871430336024202458}
@@ -654,6 +656,7 @@ MonoBehaviour:
   m_SetLastPosition: {x: 0, y: 0, z: 0}
   m_SetSpeed: {x: 0, y: 0, z: 0}
   lastPosition: 0
+  isFlip: 0
 --- !u!114 &4871430336572265148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -745,9 +748,15 @@ MonoBehaviour:
   ItemPointLayer:
     serializedVersion: 2
     m_Bits: 16384
+  TutorialPointLayer:
+    serializedVersion: 2
+    m_Bits: 0
   hit: {fileID: 0}
   savepoint: {fileID: 0}
   item: {fileID: 0}
+  tutorial: {fileID: 0}
+  tutorialWait: 0
+  saveTutorial: {fileID: 0}
   mExplainObject: {fileID: 0}
   InteractionExplain: 
   isExplain: 0

@@ -2,6 +2,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 [System.Serializable]
 public class SaveData
@@ -13,6 +14,8 @@ public class DataManager : MonoBehaviour
 {
     string path;
     public bool isAwake = true;
+
+    public AudioMixer audioMixer;
 
     void Awake()
     {
@@ -40,6 +43,12 @@ public class DataManager : MonoBehaviour
         {
             GameManager.GM.savePoint = -1;
             JsonSave();
+            audioMixer.SetFloat("BGM", -20);
+            audioMixer.SetFloat("Master", -20);
+            audioMixer.SetFloat("SFX", -20);
+            PlayerPrefs.SetFloat("BGM", -20);
+            PlayerPrefs.SetFloat("Master", -20);
+            PlayerPrefs.SetFloat("SFX", -20);
         }
         /*SaveData saveData = new SaveData();
 
