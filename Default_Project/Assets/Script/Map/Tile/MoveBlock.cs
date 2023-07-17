@@ -6,6 +6,7 @@ using DG.Tweening;
 public class MoveBlock : MonoBehaviour
 {
     private Animator mAnimator;
+    private AudioSource m_AudioSource;
 
     public Vector3 mStartPosition;
     public Vector3 mLastPosition;
@@ -40,6 +41,7 @@ public class MoveBlock : MonoBehaviour
         transform.position = mStartPosition;
 
         mAnimator = GetComponentInChildren<Animator>();
+        m_AudioSource = GetComponent<AudioSource>();
     }
 
     internal static class YieldInstructionCache
@@ -163,6 +165,8 @@ public class MoveBlock : MonoBehaviour
             lastPush = Push;
         }
 
+        if (mAnimator.GetBool("Move") && !m_AudioSource.isPlaying) m_AudioSource.Play();
+        else if(!mAnimator.GetBool("Move")) m_AudioSource.Stop();
         //if (Push) mPlayerMove.Resistance_MovetileSpeed = mPlusPosition.x * Time.deltaTime * mSpeed * xRaw;
         transform.position = Vector3.Lerp(transform.position, mStartPosition + mPlusPosition * PosPersent, Time.deltaTime * 10);
     }

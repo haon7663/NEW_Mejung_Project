@@ -12,6 +12,7 @@ public class SaveData
 
 public class DataManager : MonoBehaviour
 {
+    public static DataManager instance;
     string path;
     public bool isAwake = true;
 
@@ -19,6 +20,7 @@ public class DataManager : MonoBehaviour
 
     void Awake()
     {
+        instance = this;
         if (isAwake)
         {
             path = Path.Combine(Application.dataPath + "/Data/", "database.json");
@@ -44,11 +46,11 @@ public class DataManager : MonoBehaviour
             GameManager.GM.savePoint = -1;
             JsonSave();
             audioMixer.SetFloat("BGM", -20);
-            audioMixer.SetFloat("Master", -20);
-            audioMixer.SetFloat("SFX", -20);
+            audioMixer.SetFloat("Master", -15);
+            audioMixer.SetFloat("SFX", -15);
             PlayerPrefs.SetFloat("BGM", -20);
-            PlayerPrefs.SetFloat("Master", -20);
-            PlayerPrefs.SetFloat("SFX", -20);
+            PlayerPrefs.SetFloat("Master", -15);
+            PlayerPrefs.SetFloat("SFX", -15);
         }
         /*SaveData saveData = new SaveData();
 

@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class RadioBox : SceneEvent
 {
-    private static bool isCalled = false;
+    public static bool isCalled = false;
 
     private RadioDialogue m_RadioDialogue;
     public string eventName;
     private Move m_Player;
+    private Animator m_PlayerAnimator;
 
     public bool canSetSize;
+    public bool isPlayAnimation;
+    public string m_AnimationString;
+    public int m_Animatortime;
     public float camSize;
 
     private void Start()
     {
         m_Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Move>();
+        m_PlayerAnimator = m_Player.GetComponent<Animator>();
         m_RadioDialogue = GameObject.FindGameObjectWithTag("Dialogue").GetComponent<RadioDialogue>();
     }
 
@@ -32,6 +37,12 @@ public class RadioBox : SceneEvent
         if (canSetSize) m_Player.CinemacineSize = camSize;
         m_Player.isCutScene = true;
         m_Player.isCalledScene = true;
+        if (isPlayAnimation)
+        {
+            m_PlayerAnimator.SetBool(m_AnimationString, true);
+            yield return YieldInstructionCache.WaitForSeconds(m_Animatortime);
+            m_PlayerAnimator.SetBool(m_AnimationString, false);
+        }
         m_RadioDialogue.StartDialogue(eventName);
         GameManager.GM.onRadio = true;
         while (GameManager.GM.onRadio)

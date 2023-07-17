@@ -34,6 +34,7 @@ public class Collison : MonoBehaviour
     private Move mPlayerMove;
     private CapsuleCollider2D mCapsuleCollider2D;
     private Rigidbody2D mRigidbody2D;
+    private AudioSource m_AudioSource;
 
     public float slopeAngle;
     public float collisionAngle;
@@ -41,11 +42,14 @@ public class Collison : MonoBehaviour
     public GameObject DashDustVerticalEffect;
     public GameObject DashDustSideEffect;
 
+    public GameObject m_BoundClipPref;
+
     private void Start()
     {
         mCapsuleCollider2D = GetComponent<CapsuleCollider2D>();
         mRigidbody2D = GetComponent<Rigidbody2D>();
         mPlayerMove = GetComponent<Move>();
+        m_AudioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -78,7 +82,8 @@ public class Collison : MonoBehaviour
             float AbsX = Mathf.Abs(mPlayerMove.LastVelocity.x);
             float AbsY = Mathf.Abs(mPlayerMove.LastVelocity.y);
             velocityDistance = AbsX > AbsY ? AbsX - AbsY : AbsY - AbsX;
-            if(velocityDistance > 10)
+            Instantiate(m_BoundClipPref, transform.position, Quaternion.identity);
+            if (velocityDistance > 10)
             {
                 Instantiate(DashDustVerticalEffect, transform.position, Quaternion.Euler(0, 0, collisionAngle > 45 && collisionAngle < 135 ? (mPlayerMove.LastVelocity.x < 0 ? 270 : 90) : (mPlayerMove.LastVelocity.y < 0 ? 0 : 180)));
             }

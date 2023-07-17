@@ -27,5 +27,23 @@ public class Fade : MonoBehaviour
         m_Image.DOFade(0, time);
         Invoke(nameof(DelayEnable), time);
     }
+    public IEnumerator FlashDown(float time)
+    {
+        yield return YieldInstructionCache.WaitForSeconds(0.05f);
+        m_Image.enabled = true;
+        m_Image.color = new Color(0, 0, 0, 1);
+        yield return YieldInstructionCache.WaitForSeconds(time);
+        m_Image.color = new Color(0, 0, 0, 0);
+        yield return YieldInstructionCache.WaitForSeconds(time);
+        m_Image.color = new Color(0, 0, 0, 1);
+        yield return YieldInstructionCache.WaitForSeconds(time);
+        m_Image.color = new Color(0, 0, 0, 0);
+        yield return YieldInstructionCache.WaitForSeconds(time);
+        m_Image.color = new Color(0, 0, 0, 1);
+        yield return YieldInstructionCache.WaitForSeconds(time);
+        m_Image.color = new Color(0, 0, 0, 0);
+        yield return YieldInstructionCache.WaitForSeconds(time);
+        m_Image.color = new Color(0, 0, 0, 1);
+    }
     private void DelayEnable() => m_Image.enabled = false;
 }

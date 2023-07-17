@@ -20,8 +20,12 @@ public class SavePoint : MonoBehaviour
 
         if (GameManager.GM.savePoint == PointCount)
         {
+            m_AudioSource.Play();
             mPlayerMove.mCheckPoint = transform;
             mPlayerMove.gameObject.transform.position = transform.position;
+            DOVirtual.Float(0, 11, 1.25f, LightRadius).SetEase(Ease.OutCirc);
+            DOVirtual.Float(1, 3f, 1.25f, LightIntensity).SetEase(Ease.OutCirc);
+            Invoke(nameof(IntensityDown), 1.25f);
         }
 
         if (GameManager.GM.savePoint >= PointCount)
@@ -39,14 +43,14 @@ public class SavePoint : MonoBehaviour
             GameManager.GM.savePoint = PointCount;
             GameManager.GM.gameObject.GetComponent<DataManager>().JsonSave();
             DOVirtual.Float(0, 11, 1.25f, LightRadius).SetEase(Ease.OutCirc);
-            DOVirtual.Float(1, 2.2f, 1.25f, LightIntensity).SetEase(Ease.OutCirc);
+            DOVirtual.Float(1, 3f, 1.25f, LightIntensity).SetEase(Ease.OutCirc);
             Invoke(nameof(IntensityDown), 1.25f);
         }
     }
 
     private void IntensityDown()
     {
-        DOVirtual.Float(2.2f, 1, 0.8f, LightIntensity).SetEase(Ease.InCirc);
+        DOVirtual.Float(3f, 1, 0.8f, LightIntensity).SetEase(Ease.InCirc);
     }
     private void LightRadius(float x)
     {

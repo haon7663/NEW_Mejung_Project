@@ -230,7 +230,7 @@ public class MeetCowork_Event : SceneEvent
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
         m_DerrickSpriteRenderer.flipX = true;
-        while (m_PlayerMove.transform.position.x < 113)
+        while (m_PlayerMove.transform.position.x < 108)
         {
             m_Sageia.Translate(new Vector3(m_SageiaSpeed, 0) * Time.deltaTime);
             m_SageiaAnimator.SetBool("isWalk", true);
@@ -240,6 +240,7 @@ public class MeetCowork_Event : SceneEvent
         GameManager.GM.savePoint++;
         GameManager.GM.gameObject.GetComponent<DataManager>().JsonSave();
         Fade.instance.FadeIn(0.5f);
+        RadioBox.isCalled = false;
         yield return YieldInstructionCache.WaitForSeconds(0.5f);
 
         SceneManager.LoadScene("Tutorial");

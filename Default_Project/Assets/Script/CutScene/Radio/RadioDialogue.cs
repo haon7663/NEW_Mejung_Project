@@ -11,6 +11,7 @@ public class RadioDialogue : MonoBehaviour
 
     private DialogueParse mDialogueParse;
 
+    private AudioSource m_AudioSource;
     private AudioSource m_RadioAudioSource;
     public GameObject mTextBar;
     public Sprite[] m_Portrait;
@@ -22,6 +23,7 @@ public class RadioDialogue : MonoBehaviour
 
     private void Start()
     {
+        m_AudioSource = GetComponent<AudioSource>();
         m_RadioAudioSource = mTextBar.GetComponent<AudioSource>();
         mTextBarAnimator = mTextBar.GetComponent<Animator>();
         mText = mTextBar.transform.GetChild(1).GetComponent<Text>();
@@ -81,7 +83,12 @@ public class RadioDialogue : MonoBehaviour
                 mText.text = "";
                 mText.DOText(context, context.Length * 0.05f).SetEase(Ease.Linear);
 
-                yield return YieldInstructionCache.WaitForSeconds(context.Length * 0.05f);
+                for (float j = 0; j < context.Length; j++)
+                {
+                    m_AudioSource.Play();
+                    yield return YieldInstructionCache.WaitForSeconds(0.05f - Time.deltaTime);
+                }
+                yield return YieldInstructionCache.WaitForSeconds(context.Length * 0.02f);
                 while (!Input.GetKeyDown(KeySetting.keys[KeyAction.INTERACTION]))
                 {
                     yield return YieldInstructionCache.WaitForFixedUpdate;

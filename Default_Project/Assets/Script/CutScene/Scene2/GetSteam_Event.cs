@@ -17,6 +17,7 @@ public class GetSteam_Event : SceneEvent
     public GameObject m_FollowChange;
     public GameObject m_FollowPlayer;
     private LetterBoxManager m_LetterBox;
+
     private void Start()
     {
         m_RadioDialogue = GameObject.FindGameObjectWithTag("Dialogue").GetComponent<RadioDialogue>();
@@ -83,7 +84,7 @@ public class GetSteam_Event : SceneEvent
         m_PlayerAnimator.SetTrigger("back");
         yield return YieldInstructionCache.WaitForSeconds(2f);
         m_PlayerAnimator.SetTrigger("pluck");
-        yield return YieldInstructionCache.WaitForSeconds(3f);
+        yield return YieldInstructionCache.WaitForSeconds(2.25f);
         m_PlayerAnimator.SetBool("isTurnBack", false);
 
         StartRadio("½ºÆÀ´ë½¬È¹µæ");

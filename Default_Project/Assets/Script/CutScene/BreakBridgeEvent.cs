@@ -10,6 +10,10 @@ public class BreakBridgeEvent : SceneEvent
     public CinemachineConfiner2D mCinemachineConfiner;
     private CinemachineTransposer mCinemachineTransposer;
 
+    private AudioSource m_AudioSource;
+    public AudioClip m_ShakeClip;
+    public AudioClip m_BreakClip;
+
     private RadioDialogue m_RadioDialogue;
     private Move m_PlayerMove;
     private Animator m_PlayerAnimator;
@@ -24,6 +28,7 @@ public class BreakBridgeEvent : SceneEvent
     private bool isCalled = false;
     private void Start()
     {
+        m_AudioSource = GetComponent<AudioSource>();
         m_RadioDialogue = GameObject.FindGameObjectWithTag("Dialogue").GetComponent<RadioDialogue>();
         m_PlayerMove = GameObject.FindGameObjectWithTag("Player").GetComponent<Move>();
         m_PlayerAnimator = m_PlayerMove.GetComponent<Animator>();
@@ -64,6 +69,8 @@ public class BreakBridgeEvent : SceneEvent
 
         m_PlayerMove.isCalledScene = true;
         StartRadio("Áøµ¿");
+        m_AudioSource.clip = m_ShakeClip;
+        m_AudioSource.Play();
         GameManager.GM.onRadio = true;
         while (GameManager.GM.onRadio)
         {
@@ -71,53 +78,22 @@ public class BreakBridgeEvent : SceneEvent
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
 
+        CinemachineShake.Instance.ShakeCamera(7, 1.4f);
+        m_AudioSource.clip = m_BreakClip;
+        m_AudioSource.Play();
         m_PlayerMove.isRun = true;
         m_PlayerMove.m_CutX = 1;
-        float t = 0;
-        for (float j = 0; j < 6.5f; j += Time.deltaTime)
+        for (float j = 0; j < 0.7f; j += Time.deltaTime)
         {
-            m_FollowPlayer.transform.localPosition = new Vector3(-2, 0, 0);
-            t += Time.deltaTime;
-            if (t > 0.6f)
-            {
-                t = 0;
-                Instantiate(Wreck[Random.Range(0, 6)], m_PlayerMove.transform.position + new Vector3(0, 40), Quaternion.identity);
-            }
-            yield return YieldInstructionCache.WaitForFixedUpdate;
-        }
-        for (float j = 0; j < 1.5f; j += Time.deltaTime)
-        {
-            m_FollowPlayer.transform.localPosition = new Vector3(4, 0, 0);
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
         m_PlayerMove.isRun = false;
         m_PlayerMove.m_CutX = 1;
         m_PlayerAnimator.SetTrigger("break");
 
-        m_FollowPlayer.transform.localPosition = new Vector3(7.5f, 0, 0);
-        StartRadio("³«ÇÏ");
-        CinemachineShake.Instance.shakeTimer = -1;
-        GameManager.GM.onRadio = true;
-        yield return YieldInstructionCache.WaitForFixedUpdate;
-        while (GameManager.GM.onRadio)
-        {
-            m_FollowPlayer.transform.localPosition = new Vector3(7.5f, 0, 0);
-            CinemachineShake.Instance.ShakeCamera(3, Time.deltaTime);
-            m_PlayerMove.CinemacineSize = 5;
-            yield return YieldInstructionCache.WaitForFixedUpdate;
-        }
-        m_PlayerMove.Jump();
-        m_PlayerMove.m_CutX = 1;
-        m_PlayerMove.isRun = true;
-
-        for (float j = 0; j < 1.2f; j += Time.deltaTime)
-        {
-            m_FollowPlayer.transform.localPosition = new Vector3(3, 0, 0);
-            CinemachineShake.Instance.ShakeCamera(3, Time.deltaTime);
-            yield return YieldInstructionCache.WaitForFixedUpdate;
-        }
-        Fade.instance.FadeIn(0.5f);
-        for (float j = 0; j < 0.5f; j += Time.deltaTime)
+        RadioBox.isCalled = false;
+        StartCoroutine(Fade.instance.FlashDown(0.03f));
+        for (float j = 0; j < 5f; j += Time.deltaTime)
         {
             m_FollowPlayer.transform.localPosition = new Vector3(3, 0, 0);
             CinemachineShake.Instance.ShakeCamera(3, Time.deltaTime);

@@ -632,8 +632,14 @@ MonoBehaviour:
   MapConfiner: {fileID: 0}
   DeathConfiner: {fileID: 0}
   LightParents: {fileID: 4871430336050193381}
-  m_WalkClip: {fileID: 8300000, guid: 1567960c773909149bc8f69627ba6ef9, type: 3}
-  m_RunClip: {fileID: 8300000, guid: 0adbeb8c61ac0de4996996b079333ad2, type: 3}
+  m_WalkClip: {fileID: 8300000, guid: a5e86542a439afc4f8c1476558c7d4ab, type: 3}
+  m_RunClip: {fileID: 8300000, guid: 7944866bbdb784d4c9aa574ce0d30615, type: 3}
+  m_DashClip: {fileID: 8300000, guid: 0c9c83114020c474db5aa6cd7ea42fb1, type: 3}
+  m_DeathClip: {fileID: 8300000, guid: 9ed4cd3c2a6411b468173fc395b81377, type: 3}
+  m_SteamPlunkClip: {fileID: 8300000, guid: d62e06eebc835324689cd35780412252, type: 3}
+  m_LandClipPref: {fileID: 2660074692622495516, guid: c32f054989477364cb73a4c540ad2656, type: 3}
+  m_SteamClipPref: {fileID: 4336323320684803107, guid: 39f731b30600cea42b50001f5d941178, type: 3}
+  m_BoosterClipPref: {fileID: 4069637522095833766, guid: 7658516e9e3cc5845bd3bf7db4062761, type: 3}
   mBackGroundLight: {fileID: 4871430335754406475}
   mPlatformLight: {fileID: 4871430336707629233}
   mPlatformLight2: {fileID: 4871430336024202458}
@@ -700,6 +706,7 @@ MonoBehaviour:
   velocityDistance: 0
   DashDustVerticalEffect: {fileID: 2854805862600884180, guid: 9446803868a78574cb1edcf7123cdbbf, type: 3}
   DashDustSideEffect: {fileID: 7586050834982162977, guid: 2349a4732407d7c4ea3d926f1831410e, type: 3}
+  m_BoundClipPref: {fileID: 3913318788345751695, guid: 153e60a4db5803d429305dcff8af18aa, type: 3}
 --- !u!114 &4871430336572265149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -750,7 +757,7 @@ MonoBehaviour:
     m_Bits: 16384
   TutorialPointLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 524288
   hit: {fileID: 0}
   savepoint: {fileID: 0}
   item: {fileID: 0}

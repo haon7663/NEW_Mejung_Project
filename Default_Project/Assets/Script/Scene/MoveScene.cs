@@ -48,6 +48,7 @@ public class MoveScene : MonoBehaviour
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
         Fade.instance.FadeIn(time);
+        RadioBox.isCalled = false;
         for (float i = 0; i < time; i += Time.deltaTime)
         {
             yield return YieldInstructionCache.WaitForFixedUpdate;

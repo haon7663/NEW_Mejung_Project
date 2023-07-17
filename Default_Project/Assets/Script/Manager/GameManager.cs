@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public GameObject mDefaultPause;
     public GameObject mSoundSetting;
     public GameObject mKeySetting;
+    public float m_FadeTime = 0.5f;
 
     [Space]
     [Header("Bool")]
@@ -55,7 +56,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Application.targetFrameRate = 60;
-        Fade.instance.FadeOut(0.5f);
+        Fade.instance.FadeOut(m_FadeTime);
 
         if (canPause)
         {
@@ -121,5 +122,10 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Exit");
         Application.Quit();
+    }
+    public void ResetGame()
+    {
+        GameManager.GM.savePoint = -1;
+        DataManager.instance.JsonSave();
     }
 }

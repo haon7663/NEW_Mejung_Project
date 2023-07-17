@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2660074692622495518}
   - component: {fileID: 2660074692622495519}
+  - component: {fileID: -3684251256088541623}
   m_Layer: 0
   m_Name: Sound_land
   m_TagString: Untagged
@@ -128,3 +129,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-3684251256088541623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2660074692622495516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6788282133f803748a98765742d491db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

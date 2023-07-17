@@ -11,16 +11,19 @@ public class Dash_Item : MonoBehaviour
 
     public GameObject m_BackGroundLight;
     public GameObject m_PlatformLight;
+    private AudioSource m_AudioSource;
 
     private void Start()
     {
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         m_CircleCollider2D = GetComponent<CircleCollider2D>();
+        m_AudioSource = GetComponent<AudioSource>();
     }
 
     public void TakeDash()
     {
-        if(m_SpriteRenderer.color.a != 0) StartCoroutine(Respawn());
+        m_AudioSource.Play();
+        if (m_SpriteRenderer.color.a != 0) StartCoroutine(Respawn());
     }
 
     private IEnumerator Respawn()

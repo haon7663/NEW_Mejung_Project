@@ -8,6 +8,7 @@ public class Telescope : Interaction_Object
     private Move m_PlayerMove;
     private PlayerTelescope m_Telescope;
     private Interaction mInteraction;
+    private AudioSource m_AudioSource;
 
     private GameObject m_CameraConfiner;
 
@@ -23,6 +24,7 @@ public class Telescope : Interaction_Object
         m_PlayerMove = m_Player.GetComponent<Move>();
         m_Telescope = m_Player.GetComponent<PlayerTelescope>();
         mInteraction = m_Player.GetComponent<Interaction>();
+        m_AudioSource = GetComponent<AudioSource>();
 
         m_CameraConfiner = GameObject.Find("Camera_Confiner");
     }
@@ -31,6 +33,7 @@ public class Telescope : Interaction_Object
     {
         m_CameraConfiner.SetActive(!isTelescope);
         m_PlayerMove.enabled = !isTelescope;
+        m_AudioSource.Play();
         if (isTelescope)
         {
             m_Telescope.m_Telescope = this;

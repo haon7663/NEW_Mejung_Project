@@ -157,7 +157,12 @@ public class Move : MonoBehaviour
     [Header("AudioClip")]
     public AudioClip m_WalkClip;
     public AudioClip m_RunClip;
+    public AudioClip m_DashClip;
+    public AudioClip m_DeathClip;
+    public AudioClip m_SteamPlunkClip;
     public GameObject m_LandClipPref;
+    public GameObject m_SteamClipPref;
+    public GameObject m_BoosterClipPref;
 
     [Space]
     [Header("Light")]
@@ -303,7 +308,7 @@ public class Move : MonoBehaviour
             else if (!COL.onGround && (xRaw != 0 || yRaw != 0) && DashTime <= 0 && (((COL.onRightWall && xRaw == -1) || (COL.onLeftWall && xRaw == 1)) || !COL.onWall)) Dash(xRaw, yRaw);
         }
 
-        if(COL.onGround && !isLanding)
+        if(COL.onGround && !isLanding && !isDash)
         {
             isLanding = true;
             Instantiate(FallDustEffect, transform.position + new Vector3(0, -0.125f), Quaternion.identity);
@@ -369,8 +374,8 @@ public class Move : MonoBehaviour
             else RB.velocity = new Vector2(0, RB.velocity.y);
             bool isRSound = AN.GetCurrentAnimatorStateInfo(0).IsName("Player_Run");
             bool isWSound = AN.GetCurrentAnimatorStateInfo(0).IsName("Player_Walk");
-            m_AuidoSource.Stop();
-            if (isRSound)
+            if(!isRSound && !isWSound) m_AuidoSource.Stop();
+            else if (isRSound)
             {
                 m_AuidoSource.clip = m_RunClip;
                 if (!m_AuidoSource.isPlaying)
@@ -434,7 +439,11 @@ public class Move : MonoBehaviour
 
         bool isRunSound = AN.GetCurrentAnimatorStateInfo(0).IsName("Player_Run");
         bool isWalkSound = AN.GetCurrentAnimatorStateInfo(0).IsName("Player_Walk");
-        if (isRunSound)
+        if (isDash || isDeath)
+        {
+            m_AuidoSource.Stop();
+        }
+        else if (isRunSound)
         {
             m_AuidoSource.clip = m_RunClip;
             if (!m_AuidoSource.isPlaying)
@@ -490,6 +499,11 @@ public class Move : MonoBehaviour
 
     private IEnumerator SteamDash(float x, float y)
     {
+        Instantiate(m_SteamClipPref);
+        m_AuidoSource.Stop();
+        m_AuidoSource.clip = m_DashClip;
+        m_AuidoSource.Play();
+
         m_CoyoteCount = 0;
         DashTime = 0.1f;
         KeyBreakTime = 0f;
@@ -623,6 +637,10 @@ public class Move : MonoBehaviour
         StartCoroutine(GroundDash());
         DOVirtual.Float(6, 0, 2f, RigidbodyDrag);
 
+        m_AuidoSource.Stop();
+        m_AuidoSource.clip = m_DashClip;
+        m_AuidoSource.Play();
+
         GetComponent<BetterJump>().enabled = false;
         isWallJump = true;
         if (x != 0)
@@ -661,6 +679,7 @@ public class Move : MonoBehaviour
 
     IEnumerator AfterDashWait(bool isShake)
     {
+        Instantiate(m_BoosterClipPref);
         m_CoyoteCount = 0;
         springTime = 0;
         RB.gravityScale = 0;
@@ -766,6 +785,9 @@ public class Move : MonoBehaviour
         mCinemachineTransposer.m_YDamping = 5;
         isInvDeath = isInv;
         cinevirtual.Follow = transform;
+        m_AuidoSource.Stop();
+        m_AuidoSource.clip = m_DeathClip;
+        m_AuidoSource.Play();
         if (isInv)
         {
             DOVirtual.Float(7, 15, 1.25f, LightRadius).SetEase(Ease.OutCirc);
@@ -857,6 +879,9 @@ public class Move : MonoBehaviour
 
     public void SteamPluck()
     {
+        m_AuidoSource.Stop();
+        m_AuidoSource.clip = m_SteamPlunkClip;
+        m_AuidoSource.Play();
         m_SteamMachine.sprite = m_ChangeSteamMachine;
         OnShake();
     }

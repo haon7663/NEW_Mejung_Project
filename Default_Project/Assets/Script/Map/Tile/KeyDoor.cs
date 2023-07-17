@@ -11,17 +11,20 @@ public class KeyDoor : Interaction_Object
 
     private Interaction mInteraction;
     private BoxCollider2D mBoxCollider2D;
+    private AudioSource m_AudioSource;
 
     private void Start()
     {
         mInteraction = GameObject.FindGameObjectWithTag("Player").GetComponent<Interaction>();
         mBoxCollider2D = GetComponent<BoxCollider2D>();
+        m_AudioSource = GetComponent<AudioSource>();
     }
 
     public override void Interactions()
     {
         if (InventoryManager.IM.key >= mNeedKey)
         {
+            m_AudioSource.Play();
             mBoxCollider2D.enabled = false;
             Open();
         }
