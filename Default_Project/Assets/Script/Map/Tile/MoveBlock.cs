@@ -63,7 +63,9 @@ public class MoveBlock : MonoBehaviour
     {
         Push = Physics2D.OverlapBox(transform.position, new Vector2(4f, 1.45f), 0, 1 << LayerMask.NameToLayer("Player"));
 
-        if(isAuto)
+        mAnimator.SetBool("Move", false);
+
+        if (isAuto)
         {
             if ((isInfinity || (!isInfinity && Push)) && PosPersent <= 0)
                 isStartPush = true;
