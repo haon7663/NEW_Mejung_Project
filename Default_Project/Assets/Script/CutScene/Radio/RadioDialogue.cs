@@ -27,7 +27,8 @@ public class RadioDialogue : MonoBehaviour
         m_RadioAudioSource = mTextBar.GetComponent<AudioSource>();
         mTextBarAnimator = mTextBar.GetComponent<Animator>();
         mText = mTextBar.transform.GetChild(1).GetComponent<Text>();
-        mInteractionText = mTextBar.transform.GetChild(2).GetComponent<Text>();
+        if(mTextBar.transform.GetChild(2).TryGetComponent(out Text text))
+            mInteractionText = text;
         m_RadioPortrait = mTextBar.transform.GetChild(0).GetComponent<Image>();
 
         //talkDatas = DialogueParse.DialogueDictionary["¾ö"];

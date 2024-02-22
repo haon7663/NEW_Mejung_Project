@@ -966,20 +966,18 @@ public class Move : MonoBehaviour
     {
         if (collision.transform.CompareTag("Platform") && isDash)
         {
-            DashTime = 0.15f;
-            KeyBreakTime = 0.1f;
             var speed = LastVelocity.magnitude;
             var dir = Vector2.Reflect(LastVelocity.normalized, collision.contacts[0].normal);
             RB.velocity = dir * Mathf.Max(speed, 0f);
 
+            DashTime = 0.15f;
+            KeyBreakTime = 0.1f;
             haveDash = true;
             isSteamDash = false;
         }
         if (collision.transform.CompareTag("Boost") && isDash)
         {
             DOVirtual.Float(0.1f, 1f, 0.12f, timedrag).SetEase(Ease.InCirc);
-            DashTime = 0.1f;
-            CollisonTime = 0.1f;
 
             float x = LastVelocity.x > 0 ? 200 : -200;
             float y = LastVelocity.y > 0 ? 200 : -200;
@@ -988,20 +986,17 @@ public class Move : MonoBehaviour
             float Revert_Y = LastVelocity.y == 0 ? 0 : LastVelocity.y * (x / LastVelocity.x);
 
             if (Mathf.Abs(LastVelocity.x) > Mathf.Abs(LastVelocity.y))
-            {
                 LastVelocity = new Vector3(x, Revert_Y);
-            }
             else if (Mathf.Abs(LastVelocity.x) <= Mathf.Abs(LastVelocity.y))
-            {
                 LastVelocity = new Vector3(Revert_X, y);
-            }
 
             var speed = 250;
             var dir = Vector2.Reflect(LastVelocity.normalized, collision.contacts[0].normal);
 
             RB.velocity = dir * Mathf.Max(speed, 0f);
-            //Debug.Log("speed" + speed + " Velocity" + RB.velocity);
 
+            DashTime = 0.1f;
+            CollisonTime = 0.1f;
             haveDash = true;
             isDash = true;
             isSteamDash = false;
