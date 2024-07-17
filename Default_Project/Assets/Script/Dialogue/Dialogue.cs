@@ -68,12 +68,12 @@ public class Dialogue : MonoBehaviour
         {
             foreach (string context in talkdatas[i].contexts)
             {
-                if (talkdatas[i].name != "³ë¿¤" && talkdatas[i].name != "")
+                if (talkdatas[i].name != "ë…¸ì—˜" && talkdatas[i].name != "")
                 {
-                    if (talkdatas[i].name == "¼¼ÀÌÁö¾Æ") saveNpc = 0;
-                    else if (talkdatas[i].name == "ÀÌ¾È") saveNpc = 1;
-                    else if (talkdatas[i].name == "µ¥¸¯") saveNpc = 2;
-                    else if (talkdatas[i].name == "Ä«·»") saveNpc = 3;
+                    if (talkdatas[i].name == "ì„¸ì´ì§€ì•„") saveNpc = 0;
+                    else if (talkdatas[i].name == "ì´ì•ˆ") saveNpc = 1;
+                    else if (talkdatas[i].name == "ë°ë¦­") saveNpc = 2;
+                    else if (talkdatas[i].name == "ì¹´ë Œ") saveNpc = 3;
                     else saveNpc = 4;
                 }
                 if (saveNpc != -1) break;
@@ -81,7 +81,7 @@ public class Dialogue : MonoBehaviour
         }
         mNPCStand.sprite = m_NPCStand[saveNpc];
         setDot = 0;
-        mInteractionText.text = KeySetting.keys[KeyAction.INTERACTION].ToString() + "Å°¸¦ ´­·¯ ³Ñ¾î°¡±â";
+        mInteractionText.text = KeySetting.keys[KeyAction.INTERACTION].ToString() + "í‚¤ë¥¼ ëˆŒëŸ¬ ë„˜ì–´ê°€ê¸°";
         SetImage(true);
         mCount = 0;
         mPlayer.isInteraction = true;
@@ -101,7 +101,7 @@ public class Dialogue : MonoBehaviour
                         if (setDot >= 4)
                         {
                             setDot = 0;
-                            mInteractionText.text = KeySetting.keys[KeyAction.INTERACTION].ToString() + "Å°¸¦ ´­·¯ ³Ñ¾î°¡±â";
+                            mInteractionText.text = KeySetting.keys[KeyAction.INTERACTION].ToString() + "í‚¤ë¥¼ ëˆŒëŸ¬ ë„˜ì–´ê°€ê¸°";
                         }
                     }
                     if (Input.GetKeyDown(KeySetting.keys[KeyAction.INTERACTION]))
@@ -119,7 +119,7 @@ public class Dialogue : MonoBehaviour
                         if (setDot >= 4)
                         {
                             setDot = 0;
-                            mInteractionText.text = KeySetting.keys[KeyAction.INTERACTION].ToString() + "Å°¸¦ ´­·¯ ³Ñ¾î°¡±â";
+                            mInteractionText.text = KeySetting.keys[KeyAction.INTERACTION].ToString() + "í‚¤ë¥¼ ëˆŒëŸ¬ ë„˜ì–´ê°€ê¸°";
                         }
                     }
                     if (!Input.GetKeyDown(KeySetting.keys[KeyAction.INTERACTION]))
@@ -128,7 +128,7 @@ public class Dialogue : MonoBehaviour
                 }
                 GameObject textbar = Instantiate(mTextBar);
                 textbar.transform.SetParent(transform);
-                if(talkdatas[i].name == "³ë¿¤")
+                if(talkdatas[i].name == "ë…¸ì—˜")
                 {
                     mPlayerStand.DOColor(new Color(1, 1, 1, 1), 0.2f);
                     mNPCStand.DOColor(new Color(0.4f, 0.4f, 0.4f, 1), 0.2f);

@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
+using UnityEngine.UI;
 
 public class MeetCowork_Event : SceneEvent
 {
@@ -32,6 +34,9 @@ public class MeetCowork_Event : SceneEvent
     public GameObject m_FollowPlayer;
     private LetterBoxManager m_LetterBox;
 
+    private bool skipAble = false;
+    public Text interSkip;
+
     private void Start()
     {
         m_RadioDialogue = GameObject.FindGameObjectWithTag("Dialogue").GetComponent<RadioDialogue>();
@@ -51,9 +56,32 @@ public class MeetCowork_Event : SceneEvent
 
         mCinemachineTransposer = cinevirtual.GetCinemachineComponent<CinemachineTransposer>();
     }
+
+    private void Update()
+    {
+        if (skipAble && Input.GetKeyDown(KeyCode.E))
+        {
+            skipAble = false;
+            GameManager.GM.savePoint++;
+            GameManager.GM.gameObject.GetComponent<DataManager>().JsonSave();
+            Fade.instance.FadeIn(0.5f);
+            RadioBox.isCalled = false;
+            Invoke(nameof(MoveScene), 0.51f);
+        }
+    }
+
+    private void MoveScene()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
+
     public override void Event()
     {
         StartCoroutine(PlayEvent());
+        skipAble = true;
+        interSkip.enabled = true;
+        interSkip.color = Color.white;
+        interSkip.rectTransform.SetAsLastSibling();
     }
 
     public void StartRadio(string eventName)
@@ -84,7 +112,7 @@ public class MeetCowork_Event : SceneEvent
             m_SageiaSpriteRenderer.flipX = false;
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
-        StartTextBox("ÄÆ½Å1");
+        StartTextBox("ì»·ì‹ 1");
         m_TextboxDialogue.onText = true;
         m_SageiaAnimator.SetBool("isLookAround", true);
         m_SageiaAnimator.SetBool("isWalk", false);
@@ -140,7 +168,7 @@ public class MeetCowork_Event : SceneEvent
             yield return YieldInstructionCache.WaitForFixedUpdate;
         }
         m_DerrickAnimator.SetBool("isWalk", false);
-        StartTextBox("ÄÆ½Å2");
+        StartTextBox("ì»·ì‹ 2");
         m_TextboxDialogue.onText = true;
 
 

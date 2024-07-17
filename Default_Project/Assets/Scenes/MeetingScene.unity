@@ -26920,6 +26920,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Radio
       objectReference: {fileID: 0}
+    - target: {fileID: 3364181885630440221, guid: 27691fbae33e0e345a815f22dc7bb4d0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27691fbae33e0e345a815f22dc7bb4d0, type: 3}
 --- !u!224 &1475354179 stripped
@@ -29237,6 +29241,7 @@ MonoBehaviour:
   m_EventFollow: {fileID: 346920838}
   m_FollowChange: {fileID: 1289340134}
   m_FollowPlayer: {fileID: 504202026}
+  interSkip: {fileID: 1356509534}
 --- !u!61 &1770102995
 BoxCollider2D:
   m_ObjectHideFlags: 0
